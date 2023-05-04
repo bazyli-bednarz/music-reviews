@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Album review
+{% endblock %}
+
+{% block body %}
+    {% if album is defined and album|length %}
+        <h1>{{ album.title }} ({{ album.year }}) review</h1>
+        <p>Mark: {{ album.mark }}</p>
+        <p>{{ album.description }}</p>
+    {% else %}
+        <p>Album was not found.</p>
+    {% endif %}
+{% endblock %}
+
+

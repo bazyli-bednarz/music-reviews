@@ -38,4 +38,28 @@ class AlbumController extends AbstractController
             ['albums' => $albums]
         );
     }
+
+    /**
+     * Show action.
+     *
+     * @param AlbumRepository $repository
+     * @param int $id
+     *
+     * @return Response
+     */
+    #[Route(
+        '/{id}',
+        name: 'album_show',
+        requirements: ['id' => '[1-9]\d*'],
+        methods: 'GET',
+    )]
+    public function show(AlbumRepository $repository, int $id): Response
+    {
+        $album = $repository->findOneById($id);
+
+        return $this->render(
+            'album/show.html.twig',
+            ['album' => $album]
+        );
+    }
 }
