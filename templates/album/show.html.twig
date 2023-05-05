@@ -12,6 +12,11 @@
     {% else %}
         <p>{{ 'message.album_not_found'|trans }}</p>
     {% endif %}
+    <p>
+        <a href="{{ url('album_index') }}">
+            {{ 'action.back_to_list'|trans }}
+        </a>
+    </p>
 {% endblock %}
 
 

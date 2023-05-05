@@ -3,20 +3,20 @@
 {% endblock %}
 
 {% block body %}
-    {% if albums is defined and albums|length %}
+    {% if pagination is defined and pagination.items|length %}
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>{{ 'label.id'|trans }}</th>
-                    <th>{{ 'label.title'|trans }}</th>
-                    <th>{{ 'label.description'|trans }}</th>
-                    <th>{{ 'label.year'|trans }}</th>
-                    <th>{{ 'label.mark'|trans }}</th>
+                    <th>{{ knp_pagination_sortable(pagination, 'label.id'|trans, 'album.id') }}</th>
+                    <th>{{ knp_pagination_sortable(pagination, 'label.title'|trans, 'album.title') }}</th>
+                    <th>{{ knp_pagination_sortable(pagination, 'label.description'|trans, 'album.description') }}</th>
+                    <th>{{ knp_pagination_sortable(pagination, 'label.year'|trans, 'album.year') }}</th>
+                    <th>{{ knp_pagination_sortable(pagination, 'label.mark'|trans, 'album.mark') }}</th>
                     <th>{{ 'label.actions'|trans }}</th>
                 </tr>
             </thead>
             <tbody>
-            {% for album in albums %}
+            {% for album in pagination.items %}
                 <tr>
                     <td>{{ album.id }}</td>
                     <td>{{ album.title }}</td>
@@ -28,6 +28,11 @@
             {% endfor %}
             </tbody>
         </table>
+
+        <div class="navigation text-center">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+
     {% else %}
         <p>{{ 'message.empty_list'|trans }}</p>
     {% endif %}
