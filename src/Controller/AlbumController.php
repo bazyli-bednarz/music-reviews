@@ -6,7 +6,8 @@
 namespace App\Controller;
 
 
-use App\Repository\AlbumRepository\AlbumRepository;
+use App\Entity\Album;
+use App\Repository\AlbumRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -42,9 +43,7 @@ class AlbumController extends AbstractController
     /**
      * Show action.
      *
-     * @param AlbumRepository $repository
-     * @param int $id
-     *
+     * @param Album $album
      * @return Response
      */
     #[Route(
@@ -53,10 +52,8 @@ class AlbumController extends AbstractController
         requirements: ['id' => '[1-9]\d*'],
         methods: 'GET',
     )]
-    public function show(AlbumRepository $repository, int $id): Response
+    public function show(Album $album): Response
     {
-        $album = $repository->findOneById($id);
-
         return $this->render(
             'album/show.html.twig',
             ['album' => $album]
