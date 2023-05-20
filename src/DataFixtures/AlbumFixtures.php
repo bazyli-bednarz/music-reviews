@@ -6,12 +6,14 @@
 namespace App\DataFixtures;
 
 use App\Entity\Album;
+use App\Entity\Category;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Faker\Factory;
 
 /**
  * Class AlbumFixtures.
  */
-class AlbumFixtures extends AbstractBaseFixtures
+class AlbumFixtures extends AbstractBaseFixtures implements DependentFixtureInterface
 {
     /**
      * Load album data.
@@ -20,7 +22,11 @@ class AlbumFixtures extends AbstractBaseFixtures
     {
         $this->faker = Factory::create();
 
-        for ($i = 0; $i < 50; ++$i) {
+        if (null === $this->manager || null === $this->faker) {
+            return;
+        }
+
+        $this->createMany(100, 'albums', function (int $i) {
             $album = new Album();
             $album->setTitle(ucfirst($this->faker->words(3, true).' '.$this->faker->emoji));
             $album->setYear(intval($this->faker->year()));
@@ -32,9 +38,18 @@ class AlbumFixtures extends AbstractBaseFixtures
             $album->setUpdatedAt(
                 \DateTimeImmutable::createFromMutable($this->faker->dateTimeBetween('-100 days', '-1 days'))
             );
-            $this->manager->persist($album);
-        }
+            /** @var Category $category */
+            $category = $this->getRandomReference('categories');
+            $album->setCategory($category);
+
+            return $album;
+        });
 
         $this->manager->flush();
+    }
+
+    public function getDependencies(): array
+    {
+        return [CategoryFixtures::class];
     }
 }

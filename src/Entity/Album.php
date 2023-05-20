@@ -58,6 +58,15 @@ class Album
     private ?\DateTimeImmutable $updated_at = null;
 
     /**
+     * Album category.
+     *
+     * @var Category|null
+     */
+    #[ORM\ManyToOne(targetEntity: Category::class)]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Category $category = null;
+
+    /**
      * Getter for id.
      */
     public function getId(): ?int
@@ -159,5 +168,27 @@ class Album
     public function setUpdatedAt(\DateTimeImmutable $updated_at): void
     {
         $this->updated_at = $updated_at;
+    }
+
+    /**
+     * Getter for category.
+     *
+     * @return Category|null
+     */
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+
+    /**
+     * Setter for category.
+     *
+     * @param Category|null $category
+     * @return void
+     */
+    public function setCategory(?Category $category): void
+    {
+        $this->category = $category;
     }
 }

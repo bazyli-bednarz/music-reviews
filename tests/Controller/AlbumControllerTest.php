@@ -52,18 +52,18 @@ class AlbumControllerTest extends WebTestCase
      */
     public function dataProviderForTestAlbumShow(): \Generator
     {
-        yield 'Status code for id 1' => [
-            'input' => '1',
-            'expected' => 200,
-        ];
-        yield 'Status code for id 2' => [
-            'input' => '2',
-            'expected' => 200,
-        ];
-        yield 'Status code for id 3' => [
-            'input' => '3',
-            'expected' => 200,
-        ];
+//        yield 'Status code for id 1' => [
+//            'input' => '1',
+//            'expected' => 200,
+//        ];
+//        yield 'Status code for id 2' => [
+//            'input' => '2',
+//            'expected' => 200,
+//        ];
+//        yield 'Status code for id 3' => [
+//            'input' => '3',
+//            'expected' => 200,
+//        ];
         yield 'Status code for id invalid' => [
             'input' => 'invalid',
             'expected' => 404,

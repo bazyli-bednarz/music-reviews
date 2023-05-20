@@ -1,5 +1,6 @@
 {% extends 'base.html.twig' %}
 {% block title %}
+    {{ 'title.albums'|trans }}
 {% endblock %}
 
 {% block body %}
@@ -12,6 +13,7 @@
                     <th>{{ knp_pagination_sortable(pagination, 'label.description'|trans, 'album.description') }}</th>
                     <th>{{ knp_pagination_sortable(pagination, 'label.year'|trans, 'album.year') }}</th>
                     <th>{{ knp_pagination_sortable(pagination, 'label.mark'|trans, 'album.mark') }}</th>
+                    <th>{{ 'label.category'|trans }}</th>
                     <th>{{ 'label.actions'|trans }}</th>
                 </tr>
             </thead>
@@ -23,6 +25,7 @@
                     <td>{{ album.description }}</td>
                     <td>{{ album.year }}</td>
                     <td>{{ album.mark }}</td>
+                    <td>{{ album.category.title }}</td>
                     <td><a href="{{ url('album_show', {id: album.id}) }}">{{ 'action.view'|trans }}</a></td>
                 </tr>
             {% endfor %}

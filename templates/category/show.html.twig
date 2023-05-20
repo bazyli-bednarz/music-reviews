@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {% if category is defined and category|length %}
+        {{ category.title }} |
+    {% endif %}
+    {{ 'title.category'|trans }}
+{% endblock %}
+
+{% block body %}
+    {% if category is defined and category|length %}
+        <h1>{{ category.title }}</h1>
+        <p>{{ category.description }}</p>
+    {% else %}
+        <p>{{ 'message.category_not_found'|trans }}</p>
+    {% endif %}
+    <p>
+        <a href="{{ url('category_index') }}">
+            {{ 'action.back_to_list'|trans }}
+        </a>
+    </p>
+{% endblock %}
+
+
