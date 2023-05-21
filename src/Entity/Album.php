@@ -55,7 +55,7 @@ class Album
      * Updated at.
      */
     #[ORM\Column]
-    private ?\DateTimeImmutable $updated_at = null;
+    private ?\DateTimeImmutable $updatedAt = null;
 
     /**
      * Album category.
@@ -159,15 +159,15 @@ class Album
      */
     public function getUpdatedAt(): ?\DateTimeImmutable
     {
-        return $this->updated_at;
+        return $this->updatedAt;
     }
 
     /**
      * Setter for updated at.
      */
-    public function setUpdatedAt(\DateTimeImmutable $updated_at): void
+    public function setUpdatedAt(\DateTimeImmutable $updatedAt): void
     {
-        $this->updated_at = $updated_at;
+        $this->updatedAt = $updatedAt;
     }
 
     /**

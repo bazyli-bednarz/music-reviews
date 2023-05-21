@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Album;
+use App\Entity\Category;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
@@ -39,9 +40,27 @@ class AlbumRepository extends ServiceEntityRepository
     public function queryAll(): QueryBuilder
     {
         return $this->getOrCreateQueryBuilder()
+            ->select(
+                'partial album.{id, title, description, mark, createdAt, updatedAt}',
+                'partial category.{id, title}')
+            ->join('album.category', 'category')
             ->orderBy('album.createdAt', 'DESC');
     }
 
+    /**
+     * Query albums by category.
+     *
+     * @param Category $category
+     * @return QueryBuilder
+     */
+    public function queryByCategory(Category $category): QueryBuilder
+    {
+        $queryBuilder = $this->queryAll();
+        $queryBuilder->andWhere('album.category = :category')
+            ->setParameter('category', $category);
+
+        return $queryBuilder;
+    }
 
     /**
      * Get or create new query builder.

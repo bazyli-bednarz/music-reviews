@@ -11,6 +11,9 @@
     {% if category is defined and category|length %}
         <h1>{{ category.title }}</h1>
         <p>{{ category.description }}</p>
+        {% include 'default/_album.html.twig' with {
+            pagination: pagination,
+        } %}
     {% else %}
         <p>{{ 'message.category_not_found'|trans }}</p>
     {% endif %}

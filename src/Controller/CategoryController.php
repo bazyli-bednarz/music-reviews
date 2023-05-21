@@ -6,6 +6,7 @@
 namespace App\Controller;
 
 use App\Entity\Category;
+use App\Repository\AlbumRepository;
 use App\Repository\CategoryRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -19,15 +20,10 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/categories')]
 class CategoryController extends AbstractController
 {
-
     /**
      * Index action.
      *
-     * @param Request $request
-     * @param CategoryRepository $repository
      * @param PaginatorInterface $paginato
-     *
-     * @return Response
      */
     #[Route(
         name: 'category_index',
@@ -35,7 +31,7 @@ class CategoryController extends AbstractController
     )]
     public function index(Request $request, CategoryRepository $repository, PaginatorInterface $paginator): Response
     {
-        $categories = $repository->findAll();
+        //        $categories = $repository->findAll();
         $pagination = $paginator->paginate(
             $repository->queryAll(),
             $request->query->getInt('page', 1),
@@ -50,10 +46,6 @@ class CategoryController extends AbstractController
 
     /**
      * Show action.
-     *
-     * @param Category $category
-     *
-     * @return Response
      */
     #[Route(
         '/{id}',
@@ -61,11 +53,17 @@ class CategoryController extends AbstractController
         requirements: ['id' => '[1-9]\d*'],
         methods: 'GET',
     )]
-    public function show(Category $category): Response
+    public function show(Request $request, Category $category, PaginatorInterface $paginator, AlbumRepository $repository): Response
     {
+        $pagination = $paginator->paginate(
+            $repository->queryByCategory($category),
+            $request->query->getInt('page', 1),
+            CategoryRepository::PAGINATOR_ITEMS_PER_PAGE
+        );
+
         return $this->render(
             'category/show.html.twig',
-            ['category' => $category]
+            ['category' => $category, 'pagination' => $pagination]
         );
     }
 }
