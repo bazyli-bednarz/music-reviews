@@ -12,7 +12,7 @@ use Knp\Component\Pager\PaginatorInterface;
 /**
  * Class AlbumService.
  */
-class AlbumService
+class AlbumService implements AlbumServiceInterface
 {
     /**
      * Album repository.

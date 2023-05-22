@@ -6,9 +6,8 @@
 namespace App\Controller;
 
 use App\Entity\Album;
-use App\Repository\AlbumRepository;
 use App\Service\AlbumService;
-use Knp\Component\Pager\PaginatorInterface;
+use App\Service\AlbumServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,7 +29,7 @@ class AlbumController extends AbstractController
     /**
      * @param AlbumService $albumService
      */
-    public function __construct(AlbumService $albumService)
+    public function __construct(AlbumServiceInterface $albumService)
     {
         $this->albumService = $albumService;
     }
@@ -39,7 +38,7 @@ class AlbumController extends AbstractController
     /**
      * Index action.
      *
-     * @param AlbumRepository $repository
+     * @param Request $request
      *
      * @return Response
      */

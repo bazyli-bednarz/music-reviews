@@ -6,9 +6,8 @@
 namespace App\Controller;
 
 use App\Entity\Category;
-use App\Repository\AlbumRepository;
 use App\Service\CategoryService;
-use Knp\Component\Pager\PaginatorInterface;
+use App\Service\CategoryServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,7 +24,7 @@ class CategoryController extends AbstractController
      */
     private CategoryService $categoryService;
 
-    public function __construct(CategoryService $categoryService)
+    public function __construct(CategoryServiceInterface $categoryService)
     {
         $this->categoryService = $categoryService;
     }
@@ -58,7 +57,7 @@ class CategoryController extends AbstractController
         requirements: ['id' => '[1-9]\d*'],
         methods: 'GET',
     )]
-    public function show(Request $request, Category $category, PaginatorInterface $paginator, AlbumRepository $repository): Response
+    public function show(Request $request, Category $category): Response
     {
         $pagination = $this->categoryService->getPaginatedListByCategory($category,
             $request->query->getInt('page',
