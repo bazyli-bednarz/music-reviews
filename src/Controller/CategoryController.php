@@ -7,7 +7,7 @@ namespace App\Controller;
 
 use App\Entity\Category;
 use App\Repository\AlbumRepository;
-use App\Repository\CategoryRepository;
+use App\Service\CategoryService;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,21 +21,26 @@ use Symfony\Component\Routing\Annotation\Route;
 class CategoryController extends AbstractController
 {
     /**
+     * Category service.
+     */
+    private CategoryService $categoryService;
+
+    public function __construct(CategoryService $categoryService)
+    {
+        $this->categoryService = $categoryService;
+    }
+
+    /**
      * Index action.
-     *
-     * @param PaginatorInterface $paginato
      */
     #[Route(
         name: 'category_index',
         methods: 'GET',
     )]
-    public function index(Request $request, CategoryRepository $repository, PaginatorInterface $paginator): Response
+    public function index(Request $request): Response
     {
-        //        $categories = $repository->findAll();
-        $pagination = $paginator->paginate(
-            $repository->queryAll(),
-            $request->query->getInt('page', 1),
-            CategoryRepository::PAGINATOR_ITEMS_PER_PAGE
+        $pagination = $this->categoryService->getPaginatedList(
+            $request->query->getInt('page', 1)
         );
 
         return $this->render(
@@ -55,11 +60,9 @@ class CategoryController extends AbstractController
     )]
     public function show(Request $request, Category $category, PaginatorInterface $paginator, AlbumRepository $repository): Response
     {
-        $pagination = $paginator->paginate(
-            $repository->queryByCategory($category),
-            $request->query->getInt('page', 1),
-            CategoryRepository::PAGINATOR_ITEMS_PER_PAGE
-        );
+        $pagination = $this->categoryService->getPaginatedListByCategory($category,
+            $request->query->getInt('page',
+                1));
 
         return $this->render(
             'category/show.html.twig',

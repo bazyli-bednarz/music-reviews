@@ -7,6 +7,7 @@ namespace App\Controller;
 
 use App\Entity\Album;
 use App\Repository\AlbumRepository;
+use App\Service\AlbumService;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,6 +20,21 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/albums')]
 class AlbumController extends AbstractController
 {
+    /**
+     * Album service.
+     *
+     * @var AlbumService
+     */
+    private AlbumService $albumService;
+
+    /**
+     * @param AlbumService $albumService
+     */
+    public function __construct(AlbumService $albumService)
+    {
+        $this->albumService = $albumService;
+    }
+
 
     /**
      * Index action.
@@ -31,13 +47,10 @@ class AlbumController extends AbstractController
         name: 'album_index',
         methods: 'GET',
     )]
-    public function index(Request $request, AlbumRepository $repository, PaginatorInterface $paginator): Response
+    public function index(Request $request): Response
     {
-        $albums = $repository->findAll();
-        $pagination = $paginator->paginate(
-            $repository->queryAll(),
-            $request->query->getInt('page', 1),
-            AlbumRepository::PAGINATOR_ITEMS_PER_PAGE
+        $pagination = $this->albumService->getPaginatedList(
+            $request->query->getInt('page', 1)
         );
 
         return $this->render(
