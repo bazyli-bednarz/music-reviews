@@ -8,6 +8,8 @@ namespace App\Service;
 use App\Entity\Category;
 use App\Repository\AlbumRepository;
 use App\Repository\CategoryRepository;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
 
@@ -70,5 +72,51 @@ class CategoryService implements CategoryServiceInterface
             $page,
             AlbumRepository::PAGINATOR_ITEMS_PER_PAGE
         );
+    }
+
+    /**
+     * Save entity.
+     *
+     * @param Category $category Category entity
+     */
+    public function save(Category $category): void
+    {
+        if (null == $category->getId()) {
+            $category->setCreatedAt(new \DateTimeImmutable());
+        }
+        $category->setUpdatedAt(new \DateTimeImmutable());
+
+        $this->categoryRepository->save($category);
+    }
+
+    /**
+     * Delete category.
+     *
+     * @param Category $category
+     *
+     * @return void
+     */
+    public function delete(Category $category): void
+    {
+        $this->categoryRepository->delete($category);
+    }
+
+
+    /**
+     * Can category be deleted?
+     *
+     * @param Category $category
+     *
+     * @return bool
+     */
+    public function canBeDeleted(Category $category): bool
+    {
+        try {
+            $result = $this->albumRepository->countByCategory($category);
+
+            return !($result > 0);
+        } catch (NoResultException|NonUniqueResultException) {
+            return false;
+        }
     }
 }

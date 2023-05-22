@@ -5,6 +5,8 @@ namespace App\Repository;
 use App\Entity\Album;
 use App\Entity\Category;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -60,6 +62,25 @@ class AlbumRepository extends ServiceEntityRepository
             ->setParameter('category', $category);
 
         return $queryBuilder;
+    }
+
+    /**
+     * Count albums by category.
+     *
+     * @param Category $category
+     * @return int
+     * @throws NoResultException
+     * @throws NonUniqueResultException
+     */
+    public function countByCategory(Category $category): int
+    {
+        $queryBuilder = $this->getOrCreateQueryBuilder();
+
+        return $queryBuilder->select($queryBuilder->expr()->countDistinct('album.id'))
+            ->where('album.category = :category')
+            ->setParameter(':category', $category)
+            ->getQuery()
+            ->getSingleScalarResult();
     }
 
     /**

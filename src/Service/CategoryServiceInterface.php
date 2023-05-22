@@ -28,4 +28,29 @@ interface CategoryServiceInterface
      * @return PaginationInterface
      */
     public function getPaginatedListByCategory(Category $category, int $page): PaginationInterface;
+
+    /**
+     * Save entity.
+     *
+     * @param Category $category Category entity
+     */
+    public function save(Category $category): void;
+
+    /**
+     * Delete category.
+     *
+     * @param Category $category
+     *
+     * @return void
+     */
+    public function delete(Category $category): void;
+
+    /**
+     * Can category be deleted?
+     *
+     * @param Category $category
+     *
+     * @return bool
+     */
+    public function canBeDeleted(Category $category): bool;
 }
