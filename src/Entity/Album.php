@@ -9,6 +9,7 @@ use App\Repository\AlbumRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: AlbumRepository::class)]
 #[ORM\Table(name: 'albums')]
@@ -26,30 +27,39 @@ class Album
      * Album title.
      */
     #[ORM\Column(length: 255)]
+    #[Assert\Type('string')]
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 3, max: 255)]
     private ?string $title = null;
 
     /**
      * Album year of creation.
      */
     #[ORM\Column]
+    #[Assert\Positive]
     private ?int $year = null;
 
     /**
      * Album review.
      */
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\Type('string')]
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 3, max: 500)]
     private ?string $description = null;
 
     /**
      * Album mark.
      */
     #[ORM\Column]
+    #[Assert\Range(min: 1, max: 5)]
     private ?int $mark = null;
 
     /**
      * Created at.
      */
     #[ORM\Column(type: 'date_immutable')]
+    #[Assert\Type(\DateTimeImmutable::class)]
     #[Gedmo\Timestampable(on: 'create')]
     private ?\DateTimeImmutable $createdAt = null;
 
@@ -57,6 +67,7 @@ class Album
      * Updated at.
      */
     #[ORM\Column(type: 'date_immutable')]
+    #[Assert\Type(\DateTimeImmutable::class)]
     #[Gedmo\Timestampable(on: 'update')]
     private ?\DateTimeImmutable $updatedAt = null;
 
@@ -74,6 +85,8 @@ class Album
      * @var string|null
      */
     #[ORM\Column(type: 'string', length: 255)]
+    #[Assert\Type('string')]
+    #[Assert\Length(min: 3, max: 255)]
     #[Gedmo\Slug(fields: ['title'])]
     private ?string $slug = null;
 
