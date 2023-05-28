@@ -19,15 +19,6 @@ interface CategoryServiceInterface
      */
     public function getPaginatedList(int $page): PaginationInterface;
 
-    /**
-     * Get paginated list of albums by category.
-     *
-     * @param Category $category
-     * @param int $page
-     *
-     * @return PaginationInterface
-     */
-    public function getPaginatedListByCategory(Category $category, int $page): PaginationInterface;
 
     /**
      * Save entity.

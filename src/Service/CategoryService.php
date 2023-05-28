@@ -63,18 +63,6 @@ class CategoryService implements CategoryServiceInterface
     }
 
     /**
-     * Get paginated list of albums by category.
-     */
-    public function getPaginatedListByCategory(Category $category, int $page): PaginationInterface
-    {
-        return $this->paginator->paginate(
-            $this->albumRepository->queryByCategory($category),
-            $page,
-            AlbumRepository::PAGINATOR_ITEMS_PER_PAGE
-        );
-    }
-
-    /**
      * Save entity.
      *
      * @param Category $category Category entity

@@ -5,6 +5,7 @@
 
 namespace App\Service;
 
+use App\Entity\Category;
 use App\Repository\AlbumRepository;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -51,4 +52,17 @@ class AlbumService implements AlbumServiceInterface
             AlbumRepository::PAGINATOR_ITEMS_PER_PAGE
         );
     }
+
+    /**
+     * Get paginated list of albums by category.
+     */
+    public function getPaginatedListByCategory(Category $category, int $page): PaginationInterface
+    {
+        return $this->paginator->paginate(
+            $this->albumRepository->queryByCategory($category),
+            $page,
+            AlbumRepository::PAGINATOR_ITEMS_PER_PAGE
+        );
+    }
+
 }

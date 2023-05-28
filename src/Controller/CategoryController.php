@@ -7,6 +7,7 @@ namespace App\Controller;
 
 use App\Entity\Category;
 use App\Form\Type\CategoryType;
+use App\Service\AlbumServiceInterface;
 use App\Service\CategoryService;
 use App\Service\CategoryServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -34,10 +35,18 @@ class CategoryController extends AbstractController
      */
     private TranslatorInterface $translator;
 
-    public function __construct(CategoryServiceInterface $categoryService, TranslatorInterface $translator)
+    /**
+     * Album service.
+     *
+     * @var AlbumServiceInterface
+     */
+    private AlbumServiceInterface $albumService;
+
+    public function __construct(CategoryServiceInterface $categoryService, TranslatorInterface $translator, AlbumServiceInterface $albumService)
     {
         $this->categoryService = $categoryService;
         $this->translator = $translator;
+        $this->albumService = $albumService;
     }
 
     /**
@@ -70,7 +79,7 @@ class CategoryController extends AbstractController
     )]
     public function show(Request $request, Category $category): Response
     {
-        $pagination = $this->categoryService->getPaginatedListByCategory($category,
+        $pagination = $this->albumService->getPaginatedListByCategory($category,
             $request->query->getInt('page',
                 1));
 
