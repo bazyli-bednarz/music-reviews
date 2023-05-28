@@ -8,6 +8,7 @@ namespace App\Entity;
 use App\Repository\AlbumRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 #[ORM\Entity(repositoryClass: AlbumRepository::class)]
 #[ORM\Table(name: 'albums')]
@@ -48,13 +49,15 @@ class Album
     /**
      * Created at.
      */
-    #[ORM\Column]
+    #[ORM\Column(type: 'date_immutable')]
+    #[Gedmo\Timestampable(on: 'create')]
     private ?\DateTimeImmutable $createdAt = null;
 
     /**
      * Updated at.
      */
-    #[ORM\Column]
+    #[ORM\Column(type: 'date_immutable')]
+    #[Gedmo\Timestampable(on: 'update')]
     private ?\DateTimeImmutable $updatedAt = null;
 
     /**
@@ -65,6 +68,14 @@ class Album
     #[ORM\ManyToOne(targetEntity: Category::class)]
     #[ORM\JoinColumn(nullable: false)]
     private ?Category $category = null;
+
+    /**
+     * Slug.
+     * @var string|null
+     */
+    #[ORM\Column(type: 'string', length: 255)]
+    #[Gedmo\Slug(fields: ['title'])]
+    private ?string $slug = null;
 
     /**
      * Getter for id.
@@ -190,5 +201,17 @@ class Album
     public function setCategory(?Category $category): void
     {
         $this->category = $category;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
+
+        return $this;
     }
 }
