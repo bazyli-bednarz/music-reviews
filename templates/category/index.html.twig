@@ -21,9 +21,9 @@
                     <td>{{ category.title }}</td>
                     <td>{{ category.description }}</td>
 
-                    <td><a href="{{ url('category_show', {id: category.id}) }}">{{ 'action.view'|trans }}</a> |
-                        <a href="{{ url('category_edit', {id: category.id}) }}">{{ 'action.edit'|trans }}</a> |
-                        <a href="{{ url('category_delete', {id: category.id}) }}">{{ 'action.delete'|trans }}</a></td>
+                    <td><a href="{{ url('category_show', {slug: category.slug}) }}">{{ 'action.view'|trans }}</a> |
+                        <a href="{{ url('category_edit', {slug: category.slug}) }}">{{ 'action.edit'|trans }}</a> |
+                        <a href="{{ url('category_delete', {slug: category.slug}) }}">{{ 'action.delete'|trans }}</a></td>
                 </tr>
             {% endfor %}
             </tbody>

@@ -72,9 +72,8 @@ class CategoryController extends AbstractController
      * Show action.
      */
     #[Route(
-        '/{id}',
+        '/{slug}',
         name: 'category_show',
-        requirements: ['id' => '[1-9]\d*'],
         methods: 'GET',
     )]
     public function show(Request $request, Category $category): Response
@@ -132,7 +131,7 @@ class CategoryController extends AbstractController
      *
      * @return Response HTTP response
      */
-    #[Route('/{id}/edit', name: 'category_edit', requirements: ['id' => '[1-9]\d*'], methods: 'GET|PUT')]
+    #[Route('/{slug}/edit', name: 'category_edit', methods: 'GET|PUT')]
     public function edit(Request $request, Category $category): Response
     {
         $form = $this->createForm(
@@ -140,7 +139,7 @@ class CategoryController extends AbstractController
             $category,
             [
                 'method' => 'PUT',
-                'action' => $this->generateUrl('category_edit', ['id' => $category->getId()]),
+                'action' => $this->generateUrl('category_edit', ['slug' => $category->getSlug()]),
             ]
         );
         $form->handleRequest($request);
@@ -173,7 +172,7 @@ class CategoryController extends AbstractController
      *
      * @return Response HTTP response
      */
-    #[Route('/{id}/delete', name: 'category_delete', requirements: ['id' => '[1-9]\d*'], methods: 'GET|DELETE')]
+    #[Route('/{slug}/delete', name: 'category_delete', methods: 'GET|DELETE')]
     public function delete(Request $request, Category $category): Response
     {
         if (!$this->categoryService->canBeDeleted($category)) {
@@ -182,12 +181,12 @@ class CategoryController extends AbstractController
                 $this->translator->trans('message.category_contains_albums')
             );
 
-            return $this->redirectToRoute('category_show', ['id' => $category->getId()]);
+            return $this->redirectToRoute('category_show', ['slug' => $category->getSlug()]);
         }
 
         $form = $this->createForm(FormType::class, $category, [
             'method' => 'DELETE',
-            'action' => $this->generateUrl('category_delete', ['id' => $category->getId()]),
+            'action' => $this->generateUrl('category_delete', ['slug' => $category->getSlug()]),
         ]);
         $form->handleRequest($request);
 

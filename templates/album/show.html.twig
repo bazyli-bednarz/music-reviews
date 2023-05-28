@@ -7,9 +7,14 @@
 {% block body %}
     {% if album is defined and album|length %}
         <h1>{{ album.title }} ({{ album.year }}) review</h1>
+        <a href="{{ url('album_show', {slug: album.slug}) }}">{{ 'action.view'|trans }}</a> |
+        <a href="{{ url('album_edit', {slug: album.slug}) }}">{{ 'action.edit'|trans }}</a> |
+        <a href="{{ url('album_delete', {slug: album.slug}) }}">{{ 'action.delete'|trans }}</a>
+
         <p>{{ 'label.mark'|trans }} {{ album.mark }}</p>
         <p>{{ album.description }}</p>
         <p>{{ album.category.title }}</p>
+
     {% else %}
         <p>{{ 'message.album_not_found'|trans }}</p>
     {% endif %}

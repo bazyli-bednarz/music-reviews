@@ -77,9 +77,8 @@ class AlbumController extends AbstractController
      * @return Response
      */
     #[Route(
-        '/{id}',
+        '/{slug}',
         name: 'album_show',
-        requirements: ['id' => '[1-9]\d*'],
         methods: 'GET',
     )]
     public function show(Album $album): Response
@@ -132,7 +131,7 @@ class AlbumController extends AbstractController
      *
      * @return Response HTTP response
      */
-    #[Route('/{id}/edit', name: 'album_edit', requirements: ['id' => '[1-9]\d*'], methods: 'GET|PUT')]
+    #[Route('/{slug}/edit', name: 'album_edit', methods: 'GET|PUT')]
     public function edit(Request $request, Album $album): Response
     {
         $form = $this->createForm(
@@ -140,7 +139,7 @@ class AlbumController extends AbstractController
             $album,
             [
                 'method' => 'PUT',
-                'action' => $this->generateUrl('album_edit', ['id' => $album->getId()]),
+                'action' => $this->generateUrl('album_edit', ['slug' => $album->getSlug()]),
             ]
         );
         $form->handleRequest($request);
@@ -173,7 +172,7 @@ class AlbumController extends AbstractController
      *
      * @return Response HTTP response
      */
-    #[Route('/{id}/delete', name: 'album_delete', requirements: ['id' => '[1-9]\d*'], methods: 'GET|DELETE')]
+    #[Route('/{slug}/delete', name: 'album_delete', methods: 'GET|DELETE')]
     public function delete(Request $request, Album $album): Response
     {
         $form = $this->createForm(
@@ -181,7 +180,7 @@ class AlbumController extends AbstractController
             $album,
             [
                 'method' => 'DELETE',
-                'action' => $this->generateUrl('album_delete', ['id' => $album->getId()]),
+                'action' => $this->generateUrl('album_delete', ['slug' => $album->getSlug()]),
             ]
         );
         $form->handleRequest($request);
