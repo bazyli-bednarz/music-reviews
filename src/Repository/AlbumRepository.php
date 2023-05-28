@@ -43,7 +43,7 @@ class AlbumRepository extends ServiceEntityRepository
     {
         return $this->getOrCreateQueryBuilder()
             ->select(
-                'partial album.{id, title, description, mark, createdAt, updatedAt, slug}',
+                'partial album.{id, title, description, mark, year, createdAt, updatedAt, slug}',
                 'partial category.{id, title, slug}',
                 'partial tags.{id, title, slug}'
             )

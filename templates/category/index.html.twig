@@ -5,29 +5,31 @@
 
 {% block body %}
     {% if pagination is defined and pagination.items|length %}
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th>{{ knp_pagination_sortable(pagination, 'label.id'|trans, 'category.id') }}</th>
-                <th>{{ knp_pagination_sortable(pagination, 'label.title'|trans, 'category.title') }}</th>
-                <th>{{ knp_pagination_sortable(pagination, 'label.description'|trans, 'category.description') }}</th>
-                <th>{{ 'label.actions'|trans }}</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for category in pagination.items %}
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
                 <tr>
-                    <td>{{ category.id }}</td>
-                    <td>{{ category.title }}</td>
-                    <td>{{ category.description }}</td>
-
-                    <td><a href="{{ url('category_show', {slug: category.slug}) }}">{{ 'action.view'|trans }}</a> |
-                        <a href="{{ url('category_edit', {slug: category.slug}) }}">{{ 'action.edit'|trans }}</a> |
-                        <a href="{{ url('category_delete', {slug: category.slug}) }}">{{ 'action.delete'|trans }}</a></td>
+                    <th>{{ knp_pagination_sortable(pagination, 'label.id'|trans, 'category.id') }}</th>
+                    <th>{{ knp_pagination_sortable(pagination, 'label.title'|trans, 'category.title') }}</th>
+                    <th>{{ knp_pagination_sortable(pagination, 'label.description'|trans, 'category.description') }}</th>
+                    <th>{{ 'label.actions'|trans }}</th>
                 </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                {% for category in pagination.items %}
+                    <tr>
+                        <td>{{ category.id }}</td>
+                        <td>{{ category.title }}</td>
+                        <td>{{ category.description }}</td>
+
+                        <td><a href="{{ url('category_show', {slug: category.slug}) }}">{{ 'action.view'|trans }}</a> |
+                            <a href="{{ url('category_edit', {slug: category.slug}) }}">{{ 'action.edit'|trans }}</a> |
+                            <a href="{{ url('category_delete', {slug: category.slug}) }}">{{ 'action.delete'|trans }}</a></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
 
         <div class="navigation text-center">
             {{ knp_pagination_render(pagination) }}

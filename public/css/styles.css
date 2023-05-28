@@ -2,12 +2,42 @@
   box-sizing: border-box;
 }
 
+body {
+  min-height: 100vh;
+}
+
+.material-symbols-outlined {
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 48;
+}
+
 label.required {
   font-weight: bold;
 }
 label.required::after {
   content: "*";
   color: red;
+}
+
+.main {
+  max-width: 1400px;
+  margin: 0 auto 92px auto;
+}
+
+@media all and (min-width: 992px) {
+  .navbar .nav-item .dropdown-menu {
+    display: none;
+  }
+  .navbar .nav-item:hover .dropdown-menu {
+    display: block;
+  }
+  .navbar .nav-item .dropdown-menu {
+    margin-top: 0;
+  }
+}
+.nav-link .material-symbols-outlined {
+  vertical-align: middle;
+  transform: translateY(-1px);
+  padding-right: 0.25rem;
 }
 
 /*# sourceMappingURL=styles.css.map */

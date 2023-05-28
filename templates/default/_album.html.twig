@@ -6,38 +6,40 @@ Album table template.
 #}
 
 {% if pagination is defined and pagination.items|length %}
-    <table class="table table-striped">
-        <thead>
-        <tr>
-            <th>{{ knp_pagination_sortable(pagination, 'label.id'|trans, 'album.id') }}</th>
-            <th>{{ knp_pagination_sortable(pagination, 'label.title'|trans, 'album.title') }}</th>
-            <th>{{ knp_pagination_sortable(pagination, 'label.description'|trans, 'album.description') }}</th>
-            <th>{{ knp_pagination_sortable(pagination, 'label.year'|trans, 'album.year') }}</th>
-            <th>{{ knp_pagination_sortable(pagination, 'label.mark'|trans, 'album.mark') }}</th>
-            <th>{{ knp_pagination_sortable(pagination, 'label.category'|trans, 'category.title') }}</th>
-            <th>{{ 'label.tags'|trans }}</th>
-            <th>{{ 'label.actions'|trans }}</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for album in pagination.items %}
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
             <tr>
-                <td>{{ album.id }}</td>
-                <td>{{ album.title }}</td>
-                <td>{{ album.description }}</td>
-                <td>{{ album.year }}</td>
-                <td>{{ album.mark }}</td>
-                <td><a href="{{ url('category_show', {slug: album.category.slug}) }}">{{ album.category.title }}</a></td>
-                <td>{% if album.tags is defined and album.tags|length %}
-                        {% for tag in album.tags %}
-                            <a href="#" class="tag">{{ tag.title }}</a>
-                        {% endfor %}
-                    {% endif %}</td>
-                <td><a href="{{ url('album_show', {slug: album.slug}) }}">{{ 'action.view'|trans }}</a> | <a href="{{ url('album_edit', {slug: album.slug}) }}">{{ 'action.edit'|trans }}</a> | <a href="{{ url('album_delete', {slug: album.slug}) }}">{{ 'action.delete'|trans }}</a></td>
+                <th>{{ knp_pagination_sortable(pagination, 'label.id'|trans, 'album.id') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label.title'|trans, 'album.title') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label.description'|trans, 'album.description') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label.year'|trans, 'album.year') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label.mark'|trans, 'album.mark') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label.category'|trans, 'category.title') }}</th>
+                <th>{{ 'label.tags'|trans }}</th>
+                <th>{{ 'label.actions'|trans }}</th>
             </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+            {% for album in pagination.items %}
+                <tr>
+                    <td>{{ album.id }}</td>
+                    <td>{{ album.title }}</td>
+                    <td>{{ album.description }}</td>
+                    <td>{{ album.year }}</td>
+                    <td>{{ album.mark }}</td>
+                    <td><a href="{{ url('category_show', {slug: album.category.slug}) }}">{{ album.category.title }}</a></td>
+                    <td>{% if album.tags is defined and album.tags|length %}
+                            {% for tag in album.tags %}
+                                <a href="#" class="tag">{{ tag.title }}</a>
+                            {% endfor %}
+                        {% endif %}</td>
+                    <td><a href="{{ url('album_show', {slug: album.slug}) }}">{{ 'action.view'|trans }}</a> | <a href="{{ url('album_edit', {slug: album.slug}) }}">{{ 'action.edit'|trans }}</a> | <a href="{{ url('album_delete', {slug: album.slug}) }}">{{ 'action.delete'|trans }}</a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
     <div class="navigation text-center">
         {{ knp_pagination_render(pagination) }}
