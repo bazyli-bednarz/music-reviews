@@ -6,6 +6,8 @@
 namespace App\Entity;
 
 use App\Repository\AlbumRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -89,6 +91,21 @@ class Album
     #[Assert\Length(min: 3, max: 255)]
     #[Gedmo\Slug(fields: ['title'])]
     private ?string $slug = null;
+
+    /**
+     * Tags.
+     *
+     * @var Collection<int, Tag>
+     */
+    #[Assert\Valid]
+    #[ORM\ManyToMany(targetEntity: Tag::class, fetch: 'EXTRA_LAZY', orphanRemoval: true)]
+    #[ORM\JoinTable(name: 'albums_tags')]
+    private Collection $tags;
+
+    public function __construct()
+    {
+        $this->tags = new ArrayCollection();
+    }
 
     /**
      * Getter for id.
@@ -226,5 +243,41 @@ class Album
         $this->slug = $slug;
 
         return $this;
+    }
+
+    /**
+     * Get tags.
+     *
+     * @return Collection<int, Tag>
+     */
+    public function getTags(): Collection
+    {
+        return $this->tags;
+    }
+
+    /**
+     * Add tag.
+     *
+     * @param Tag $tag
+     */
+    public function addTag(Tag $tag): void
+    {
+        //        if (!$this->tags->contains($tag)) {
+        //            $this->tags->add($tag);
+        //        }
+
+        if (!$this->tags->contains($tag)) {
+            $this->tags[] = $tag;
+        }
+    }
+
+    /**
+     * Remove tag.
+     *
+     * @param Tag $tag Tag entity
+     */
+    public function removeTag(Tag $tag): void
+    {
+        $this->tags->removeElement($tag);
     }
 }

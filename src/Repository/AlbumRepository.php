@@ -44,8 +44,11 @@ class AlbumRepository extends ServiceEntityRepository
         return $this->getOrCreateQueryBuilder()
             ->select(
                 'partial album.{id, title, description, mark, createdAt, updatedAt, slug}',
-                'partial category.{id, title}')
+                'partial category.{id, title, slug}',
+                'partial tags.{id, title, slug}'
+            )
             ->join('album.category', 'category')
+            ->join('album.tags', 'tags')
             ->orderBy('album.createdAt', 'DESC');
     }
 

@@ -7,6 +7,8 @@ namespace App\DataFixtures;
 
 use App\Entity\Album;
 use App\Entity\Category;
+use App\Entity\Tag;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Faker\Factory;
 
@@ -41,6 +43,14 @@ class AlbumFixtures extends AbstractBaseFixtures implements DependentFixtureInte
             /** @var Category $category */
             $category = $this->getRandomReference('categories');
             $album->setCategory($category);
+            /** @var Collection<Tag> $tags */
+            $tags = $this->getRandomReferences('tags', $this->faker->numberBetween(0, 3));
+            $tagsCount = count($tags);
+            if ($tagsCount) {
+                for ($i = 0; $i < $tagsCount; ++$i) {
+                    $album->addTag($tags[$i]);
+                }
+            }
 
             return $album;
         });
@@ -50,6 +60,6 @@ class AlbumFixtures extends AbstractBaseFixtures implements DependentFixtureInte
 
     public function getDependencies(): array
     {
-        return [CategoryFixtures::class];
+        return [CategoryFixtures::class, TagFixtures::class];
     }
 }

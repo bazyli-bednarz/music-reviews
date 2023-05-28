@@ -74,6 +74,7 @@ class CategoryController extends AbstractController
     #[Route(
         '/{slug}',
         name: 'category_show',
+        requirements: ['slug' => '[a-zA-Z\-]+'],
         methods: 'GET',
     )]
     public function show(Request $request, Category $category): Response
@@ -131,7 +132,12 @@ class CategoryController extends AbstractController
      *
      * @return Response HTTP response
      */
-    #[Route('/{slug}/edit', name: 'category_edit', methods: 'GET|PUT')]
+    #[Route(
+        '/{slug}/edit',
+        name: 'category_edit',
+        requirements: ['slug' => '[a-zA-Z\-]+'],
+        methods: 'GET|PUT'
+    )]
     public function edit(Request $request, Category $category): Response
     {
         $form = $this->createForm(
@@ -172,7 +178,12 @@ class CategoryController extends AbstractController
      *
      * @return Response HTTP response
      */
-    #[Route('/{slug}/delete', name: 'category_delete', methods: 'GET|DELETE')]
+    #[Route(
+        '/{slug}/delete',
+        name: 'category_delete',
+        requirements: ['slug' => '[a-zA-Z\-]+'],
+        methods: 'GET|DELETE'
+    )]
     public function delete(Request $request, Category $category): Response
     {
         if (!$this->categoryService->canBeDeleted($category)) {

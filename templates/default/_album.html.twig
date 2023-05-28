@@ -15,6 +15,7 @@ Album table template.
             <th>{{ knp_pagination_sortable(pagination, 'label.year'|trans, 'album.year') }}</th>
             <th>{{ knp_pagination_sortable(pagination, 'label.mark'|trans, 'album.mark') }}</th>
             <th>{{ knp_pagination_sortable(pagination, 'label.category'|trans, 'category.title') }}</th>
+            <th>{{ 'label.tags'|trans }}</th>
             <th>{{ 'label.actions'|trans }}</th>
         </tr>
         </thead>
@@ -27,6 +28,11 @@ Album table template.
                 <td>{{ album.year }}</td>
                 <td>{{ album.mark }}</td>
                 <td><a href="{{ url('category_show', {slug: album.category.slug}) }}">{{ album.category.title }}</a></td>
+                <td>{% if album.tags is defined and album.tags|length %}
+                        {% for tag in album.tags %}
+                            <a href="#" class="tag">{{ tag.title }}</a>
+                        {% endfor %}
+                    {% endif %}</td>
                 <td><a href="{{ url('album_show', {slug: album.slug}) }}">{{ 'action.view'|trans }}</a> | <a href="{{ url('album_edit', {slug: album.slug}) }}">{{ 'action.edit'|trans }}</a> | <a href="{{ url('album_delete', {slug: album.slug}) }}">{{ 'action.delete'|trans }}</a></td>
             </tr>
         {% endfor %}

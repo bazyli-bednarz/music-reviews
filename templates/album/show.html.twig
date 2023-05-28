@@ -11,6 +11,15 @@
         <a href="{{ url('album_edit', {slug: album.slug}) }}">{{ 'action.edit'|trans }}</a> |
         <a href="{{ url('album_delete', {slug: album.slug}) }}">{{ 'action.delete'|trans }}</a>
 
+        <div class="tags-wrapper">
+            {% if album.tags is defined and album.tags|length %}
+                {% for tag in album.tags %}
+                    <a href="#" class="tag">{{ tag.title }}</a>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+
         <p>{{ 'label.mark'|trans }} {{ album.mark }}</p>
         <p>{{ album.description }}</p>
         <p>{{ album.category.title }}</p>
