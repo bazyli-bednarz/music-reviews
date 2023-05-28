@@ -95,22 +95,26 @@ class AlbumRepository extends ServiceEntityRepository
         return $queryBuilder ?? $this->createQueryBuilder('album');
     }
 
-    public function save(Album $entity, bool $flush = false): void
+    /**
+     * Save album.
+     *
+     * @param Album $album
+     */
+    public function save(Album $album): void
     {
-        $this->getEntityManager()->persist($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
+        $this->_em->persist($album);
+        $this->_em->flush();
     }
 
-    public function remove(Album $entity, bool $flush = false): void
+    /**
+     * Delete entity.
+     *
+     * @param Album $album Album entity
+     */
+    public function delete(Album $album): void
     {
-        $this->getEntityManager()->remove($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
+        $this->_em->remove($album);
+        $this->_em->flush();
     }
 
 //    /**

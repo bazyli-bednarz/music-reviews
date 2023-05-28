@@ -27,7 +27,7 @@ Album table template.
                 <td>{{ album.year }}</td>
                 <td>{{ album.mark }}</td>
                 <td><a href="{{ url('category_show', {id: album.category.id}) }}">{{ album.category.title }}</a></td>
-                <td><a href="{{ url('album_show', {id: album.id}) }}">{{ 'action.view'|trans }}</a></td>
+                <td><a href="{{ url('album_show', {id: album.id}) }}">{{ 'action.view'|trans }}</a> | <a href="{{ url('album_edit', {id: album.id}) }}">{{ 'action.edit'|trans }}</a> | <a href="{{ url('album_delete', {id: album.id}) }}">{{ 'action.delete'|trans }}</a></td>
             </tr>
         {% endfor %}
         </tbody>

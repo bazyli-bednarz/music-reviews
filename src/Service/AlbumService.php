@@ -5,6 +5,7 @@
 
 namespace App\Service;
 
+use App\Entity\Album;
 use App\Entity\Category;
 use App\Repository\AlbumRepository;
 use Knp\Component\Pager\Pagination\PaginationInterface;
@@ -65,4 +66,23 @@ class AlbumService implements AlbumServiceInterface
         );
     }
 
+    /**
+     * Save entity.
+     *
+     * @param Album $album Album entity
+     */
+    public function save(Album $album): void
+    {
+        $this->albumRepository->save($album);
+    }
+
+    /**
+     * Delete entity.
+     *
+     * @param Album $album Album entity
+     */
+    public function delete(Album $album): void
+    {
+        $this->albumRepository->delete($album);
+    }
 }
