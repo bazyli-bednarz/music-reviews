@@ -98,6 +98,9 @@ class AlbumType extends AbstractType
                 'choice_label' => function ($artist): string {
                     return $artist->getName();
                 },
+                'attr' => [
+                    'class' => 'selectize-multi',
+                ],
                 'label' => 'label.artist_name',
                 'placeholder' => 'label.none',
                 'required' => true,
@@ -114,6 +117,9 @@ class AlbumType extends AbstractType
                 'choice_label' => function ($category): string {
                     return $category->getTitle();
                 },
+                'attr' => [
+                    'class' => 'selectize',
+                ],
                 'label' => 'label.category',
                 'placeholder' => 'label.none',
                 'required' => true,

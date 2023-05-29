@@ -40,4 +40,17 @@ label.required::after {
   padding-right: 0.25rem;
 }
 
+.selectize-control {
+  padding: 0;
+}
+
+.selectize-input {
+  border: none;
+}
+
+.selectize-dropdown .selected {
+  background-color: var(--bs-primary);
+  color: #fff;
+}
+
 /*# sourceMappingURL=styles.css.map */

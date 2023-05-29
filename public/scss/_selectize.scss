@@ -1,0 +1,12 @@
+.selectize-control {
+  padding: 0;
+}
+.selectize-input {
+  border: none;
+}
+
+// TODO: change to look better
+.selectize-dropdown .selected {
+  background-color: var(--bs-primary);
+  color:#fff
+}
