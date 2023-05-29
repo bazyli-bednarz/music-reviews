@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {% if artist is defined and artist|length %}
+        {{ artist.name }} |
+    {% endif %}
+    {{ 'title.artist'|trans }}
+{% endblock %}
+
+{% block body %}
+    {% if artist is defined and artist|length %}
+        <h1>{{ artist.name }}</h1>
+        <p>{{ artist.description }}</p>
+        <a href="{{ url('artist_edit', {slug: artist.slug}) }}">{{ 'action.edit'|trans }}</a> |
+        <a href="{{ url('artist_delete', {slug: artist.slug}) }}">{{ 'action.delete'|trans }}</a>
+        {% include 'default/_album.html.twig' with {
+            pagination: pagination,
+        } %}
+    {% else %}
+        <p>{{ 'message.artist_not_found'|trans }}</p>
+    {% endif %}
+    <p>
+        <a href="{{ url('artist_index') }}">
+            {{ 'action.back_to_list'|trans }}
+        </a>
+    </p>
+{% endblock %}
+
+

@@ -6,6 +6,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Album;
+use App\Entity\Artist;
 use App\Entity\Category;
 use App\Entity\Tag;
 use Doctrine\Common\Collections\Collection;
@@ -49,6 +50,14 @@ class AlbumFixtures extends AbstractBaseFixtures implements DependentFixtureInte
             if ($tagsCount) {
                 for ($i = 0; $i < $tagsCount; ++$i) {
                     $album->addTag($tags[$i]);
+                }
+            }
+            /** @var Collection<Artist> $artists */
+            $artists = $this->getRandomReferences('artists', $this->faker->numberBetween(1, 3));
+            $artistsCount = count($artists);
+            if ($artistsCount) {
+                for ($i = 0; $i < $artistsCount; ++$i) {
+                    $album->addArtist($artists[$i]);
                 }
             }
 

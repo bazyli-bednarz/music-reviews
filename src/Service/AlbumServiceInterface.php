@@ -6,6 +6,7 @@
 namespace App\Service;
 
 use App\Entity\Album;
+use App\Entity\Artist;
 use App\Entity\Category;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 
@@ -32,6 +33,16 @@ interface AlbumServiceInterface
      * @return PaginationInterface
      */
     public function getPaginatedListByCategory(Category $category, int $page): PaginationInterface;
+
+    /**
+     * Get paginated list of albums by artist.
+     *
+     * @param Artist $artist
+     * @param int $page
+     *
+     * @return PaginationInterface
+     */
+    public function getPaginatedListByArtist(Artist $artist, int $page): PaginationInterface;
 
     /**
      * Save entity.

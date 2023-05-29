@@ -5,6 +5,7 @@
 
 namespace App\Form\Type;
 
+use App\Entity\Artist;
 use App\Entity\Category;
 use App\Entity\Album;
 use App\Entity\Tag;
@@ -86,6 +87,22 @@ class AlbumType extends AbstractType
             [
                 'label' => 'label.mark',
                 'required' => true,
+            ]
+        );
+
+        $builder->add(
+            'artists',
+            EntityType::class,
+            [
+                'class' => Artist::class,
+                'choice_label' => function ($artist): string {
+                    return $artist->getName();
+                },
+                'label' => 'label.artist_name',
+                'placeholder' => 'label.none',
+                'required' => true,
+//                'expanded' => true,
+                'multiple' => true,
             ]
         );
 

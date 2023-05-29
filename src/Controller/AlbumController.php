@@ -69,25 +69,6 @@ class AlbumController extends AbstractController
         );
     }
 
-    /**
-     * Show action.
-     *
-     * @param Album $album
-     *
-     * @return Response
-     */
-    #[Route(
-        '/{slug}',
-        name: 'album_show',
-        methods: 'GET',
-    )]
-    public function show(Album $album): Response
-    {
-        return $this->render(
-            'album/show.html.twig',
-            ['album' => $album]
-        );
-    }
 
     /**
      * Create action.
@@ -122,6 +103,27 @@ class AlbumController extends AbstractController
             ['form' => $form->createView()]
         );
     }
+
+    /**
+     * Show action.
+     *
+     * @param Album $album
+     *
+     * @return Response
+     */
+    #[Route(
+        '/{slug}',
+        name: 'album_show',
+        methods: 'GET',
+    )]
+    public function show(Album $album): Response
+    {
+        return $this->render(
+            'album/show.html.twig',
+            ['album' => $album]
+        );
+    }
+
 
     /**
      * Edit action.

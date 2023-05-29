@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Album;
+use App\Entity\Artist;
 use App\Entity\Category;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
@@ -45,10 +46,12 @@ class AlbumRepository extends ServiceEntityRepository
             ->select(
                 'partial album.{id, title, description, mark, year, createdAt, updatedAt, slug}',
                 'partial category.{id, title, slug}',
-                'partial tags.{id, title, slug}'
+                'partial tags.{id, title, slug}',
+                'partial artists.{id, name, slug}'
             )
             ->join('album.category', 'category')
             ->join('album.tags', 'tags')
+            ->join('album.artists', 'artists')
             ->orderBy('album.createdAt', 'DESC');
     }
 
@@ -82,6 +85,40 @@ class AlbumRepository extends ServiceEntityRepository
         return $queryBuilder->select($queryBuilder->expr()->countDistinct('album.id'))
             ->where('album.category = :category')
             ->setParameter(':category', $category)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    /**
+     * Query albums by artist.
+     *
+     * @param Artist $artist
+     * @return QueryBuilder
+     */
+    public function queryByArtist(Artist $artist): QueryBuilder
+    {
+        $queryBuilder = $this->queryAll();
+        $queryBuilder->andWhere(':artist MEMBER OF album.artists')
+            ->setParameter('artist', $artist);
+
+        return $queryBuilder;
+    }
+
+    /**
+     * Count albums by category.
+     *
+     * @param Artist $artist
+     * @return int
+     * @throws NoResultException
+     * @throws NonUniqueResultException
+     */
+    public function countByArtist(Artist $artist): int
+    {
+        $queryBuilder = $this->getOrCreateQueryBuilder();
+
+        return $queryBuilder->select($queryBuilder->expr()->countDistinct('album.id'))
+            ->where(':artist MEMBER OF album.artists')
+            ->setParameter(':artist', $artist)
             ->getQuery()
             ->getSingleScalarResult();
     }

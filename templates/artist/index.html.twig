@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+    {{ 'title.artists'|trans }}
+{% endblock %}
+
+{% block body %}
+    {% if pagination is defined and pagination.items|length %}
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>{{ knp_pagination_sortable(pagination, 'label.id'|trans, 'artist.id') }}</th>
+                    <th>{{ knp_pagination_sortable(pagination, 'label.artist_name'|trans, 'artist.name') }}</th>
+                    <th>{{ knp_pagination_sortable(pagination, 'label.description'|trans, 'artist.description') }}</th>
+                    <th>{{ 'label.actions'|trans }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for artist in pagination.items %}
+                    <tr>
+                        <td>{{ artist.id }}</td>
+                        <td>{{ artist.name }}</td>
+                        <td>{{ artist.description }}</td>
+
+                        <td><a href="{{ url('artist_show', {slug: artist.slug}) }}">{{ 'action.view'|trans }}</a> |
+                            <a href="{{ url('artist_edit', {slug: artist.slug}) }}">{{ 'action.edit'|trans }}</a> |
+                            <a href="{{ url('artist_delete', {slug: artist.slug}) }}">{{ 'action.delete'|trans }}</a></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="navigation text-center">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+
+    {% else %}
+        <p>{{ 'message.empty_list'|trans }}</p>
+    {% endif %}
+{% endblock %}

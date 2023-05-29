@@ -102,9 +102,24 @@ class Album
     #[ORM\JoinTable(name: 'albums_tags')]
     private Collection $tags;
 
+
+    /**
+     * Artists.
+     *
+     * @var Collection<int, Artist>
+     */
+    #[Assert\Valid]
+    #[ORM\ManyToMany(targetEntity: Artist::class, fetch: 'EXTRA_LAZY')]
+    #[ORM\JoinTable(name: 'albums_artists')]
+    private Collection $artists;
+
+    /**
+     * Constructor.
+     */
     public function __construct()
     {
         $this->tags = new ArrayCollection();
+        $this->artists = new ArrayCollection();
     }
 
     /**
@@ -279,5 +294,37 @@ class Album
     public function removeTag(Tag $tag): void
     {
         $this->tags->removeElement($tag);
+    }
+
+    /**
+     * Get artists.
+     *
+     * @return Collection<int, Artist>
+     */
+    public function getArtists(): Collection
+    {
+        return $this->artists;
+    }
+
+    /**
+     * Add artist.
+     *
+     * @param Artist $artist
+     */
+    public function addArtist(Artist $artist): void
+    {
+        if (!$this->artists->contains($artist)) {
+            $this->artists[] = $artist;
+        }
+    }
+
+    /**
+     * Remove artist.
+     *
+     * @param Artist $artist
+     */
+    public function removeArtist(Artist $artist): void
+    {
+        $this->artists->removeElement($artist);
     }
 }
