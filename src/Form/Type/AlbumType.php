@@ -77,7 +77,7 @@ class AlbumType extends AbstractType
             [
                 'label' => 'label.description',
                 'required' => true,
-                'attr' => ['max_length' => 500],
+                'attr' => ['max_length' => 1500],
             ]
         );
 

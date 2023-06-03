@@ -9,6 +9,7 @@ use App\Entity\Album;
 use App\Entity\Artist;
 use App\Entity\Category;
 use App\Repository\AlbumRepository;
+use App\Repository\CommentRepository;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
 
@@ -23,6 +24,11 @@ class AlbumService implements AlbumServiceInterface
     private AlbumRepository $albumRepository;
 
     /**
+     * Comment Repository
+     */
+    private CommentRepository $commentRepository;
+
+    /**
      * Paginator.
      */
     private PaginatorInterface $paginator;
@@ -30,12 +36,14 @@ class AlbumService implements AlbumServiceInterface
     /**
      * Constructor.
      *
-     * @param AlbumRepository    $albumRepository Album repository
-     * @param PaginatorInterface $paginator       Paginator
+     * @param AlbumRepository    $albumRepository   Album repository
+     * @param CommentRepository  $commentRepository Comment repository
+     * @param PaginatorInterface $paginator         Paginator
      */
-    public function __construct(AlbumRepository $albumRepository, PaginatorInterface $paginator)
+    public function __construct(AlbumRepository $albumRepository, CommentRepository $commentRepository, PaginatorInterface $paginator)
     {
         $this->albumRepository = $albumRepository;
+        $this->commentRepository = $commentRepository;
         $this->paginator = $paginator;
     }
 
@@ -87,6 +95,19 @@ class AlbumService implements AlbumServiceInterface
             $page,
             AlbumRepository::PAGINATOR_ITEMS_PER_PAGE
         );
+    }
+
+    /**
+     * Count comments by album.
+     *
+     * @param Album $album
+     * @return int
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function countComments(Album $album): int
+    {
+        return $this->commentRepository->countByAlbum($album);
     }
 
     /**

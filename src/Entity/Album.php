@@ -47,7 +47,7 @@ class Album
     #[ORM\Column(type: Types::TEXT)]
     #[Assert\Type('string')]
     #[Assert\NotBlank]
-    #[Assert\Length(min: 3, max: 500)]
+    #[Assert\Length(min: 3, max: 1500)]
     private ?string $description = null;
 
     /**

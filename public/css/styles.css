@@ -40,6 +40,11 @@ label.required::after {
   padding-right: 0.25rem;
 }
 
+.pagination {
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
 .selectize-control {
   padding: 0;
 }

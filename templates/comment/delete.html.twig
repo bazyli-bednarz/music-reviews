@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'title.delete_comment'|trans }} | {{ album.title }}
+{% endblock %}
+
+{% block body %}
+    <h1>{{ 'title.delete_comment'|trans }} | {{ album.title }}</h1>
+    {{ form_start(form) }}
+    {% if false == form.vars.valid %}
+        {% include 'default/_single_alert_message.html.twig' with {
+            type: 'danger',
+            message: 'message.form_error'|trans,
+        }%}
+    {% endif %}
+    <div class="comment p-4 mb-3">
+        <a href="#">Author</a>
+        <p class="rating">
+            {% for i in range(0, 4) %}
+                {% if i < comment.rating %}
+                    <span class="material-icons material-icons-outlined">star</span>
+                {% else %}
+                    <span class="material-symbols-outlined">star</span>
+                {% endif %}
+            {% endfor %}
+        </p>
+        <p class="created-at">
+            {{ comment.createdAt|format_date('long') }}
+            {% if comment.createdAt != comment.updatedAt %}
+                <span class="updated-at">({{ 'label.edited'|trans }}: {{ comment.updatedAt|format_date('long') }})</span>
+            {% endif %}
+        </p>
+
+        <p>{{ comment.description }}</p>
+    </div>
+
+    {{ form_widget(form) }}
+    <div class="form-group row float-sm-right">
+        <input type="submit" value="{{ 'action.delete'|trans }}" class="btn btn-primary"/>
+    </div>
+
+    <div class="form-group row float-sm-left">
+        <a href="{{ url('album_show', {slug: album.slug }) }}" class="btn btn-link">
+            {{ 'action.back_to_album'|trans }}
+        </a>
+    </div>
+
+    {{ form_end(form) }}
+{% endblock %}

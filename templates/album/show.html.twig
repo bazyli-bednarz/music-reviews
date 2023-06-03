@@ -5,24 +5,89 @@
 {% endblock %}
 
 {% block body %}
-    {% if album is defined and album|length %}
-        <h1>{{ album.title }} ({{ album.year }}) review</h1>
-        <a href="{{ url('album_show', {slug: album.slug}) }}">{{ 'action.view'|trans }}</a> |
-        <a href="{{ url('album_edit', {slug: album.slug}) }}">{{ 'action.edit'|trans }}</a> |
-        <a href="{{ url('album_delete', {slug: album.slug}) }}">{{ 'action.delete'|trans }}</a>
+    {% if false == form.vars.valid %}
+        {% include 'default/_single_alert_message.html.twig' with {
+            type: 'danger',
+            message: 'message.form_error'|trans,
+        } %}
+    {% endif %}
 
-        <div class="tags-wrapper">
-            {% if album.tags is defined and album.tags|length %}
-                {% for tag in album.tags %}
-                    <a href="#" class="tag">{{ tag.title }}</a>
+    {% if album is defined and album|length %}
+        <div class="album p-4">
+            <h1>{{ album.title }} ({{ album.year }}) review</h1>
+            <a href="{{ url('album_show', {slug: album.slug}) }}">{{ 'action.view'|trans }}</a> |
+            <a href="{{ url('album_edit', {slug: album.slug}) }}">{{ 'action.edit'|trans }}</a> |
+            <a href="{{ url('album_delete', {slug: album.slug}) }}">{{ 'action.delete'|trans }}</a>
+
+            <div class="tags-wrapper">
+                {% if album.tags is defined and album.tags|length %}
+                    {% for tag in album.tags %}
+                        <a href="#" class="tag">{{ tag.title }}</a>
+                    {% endfor %}
+                {% endif %}
+            </div>
+
+
+            <p>{{ 'label.mark'|trans }} {{ album.mark }}</p>
+            <p>{{ album.description }}</p>
+            <p>{{ album.category.title }}</p>
+
+        </div>
+        <div class="comments-wrapper shadow-lg mb-3 bg-body rounded" id="{{ 'id.comments'|trans }}">
+            <h2 class="p-4">{{ 'label.comments'|trans }}</h2>
+            <div class="comment-form p-4">
+                {{ form_start(form) }}
+
+                {{ form_widget(form) }}
+                <div class="form-group row float-sm-right p-3">
+                    <button type="submit" class="btn btn-primary">
+                        <span class="material-symbols-outlined">add_comment</span> {{ 'action.add_new_comment'|trans }}
+                    </button>
+                </div>
+                {{ form_end(form) }}
+
+            </div>
+
+            {% if pagination is defined and pagination|length %}
+                {% for comment in pagination %}
+                    <div class="comment p-4 mb-3 {% if not loop.last %}border-bottom{% endif %}">
+                        <a href="#">Author</a>
+                        <p class="rating">
+                            {% for i in range(0, 4) %}
+                                {% if i < comment.rating %}
+                                    <span class="material-icons material-icons-outlined">star</span>
+                                {% else %}
+                                    <span class="material-symbols-outlined">star</span>
+                                {% endif %}
+                            {% endfor %}
+                        </p>
+                        <p class="created-at">
+                            {{ comment.createdAt|format_date('long') }}
+                            {% if comment.createdAt != comment.updatedAt %}
+                                <span class="updated-at">({{ 'label.edited'|trans }}: {{ comment.updatedAt|format_date('long') }})</span>
+                            {% endif %}
+                            <a href="{{ url('comment_edit', {id: comment.id}) }}" title="{{ 'action.edit'|trans }}">
+                                <span class="material-symbols-outlined">edit</span>
+                            </a>
+                            <a href="{{ url('comment_delete', {id: comment.id}) }}"
+                               title="{{ 'action.delete'|trans }}">
+                                <span class="material-symbols-outlined">delete</span>
+                            </a>
+                        </p>
+
+                        <p>{{ comment.description }}</p>
+                    </div>
                 {% endfor %}
+                <div class="navigation text-center pb-2">
+                    {{ knp_pagination_render(pagination) }}
+                </div>
+            {% else %}
+                <p>{{ 'message.no_comments_yet'|trans }}</p>
             {% endif %}
+
+
         </div>
 
-
-        <p>{{ 'label.mark'|trans }} {{ album.mark }}</p>
-        <p>{{ album.description }}</p>
-        <p>{{ album.category.title }}</p>
 
     {% else %}
         <p>{{ 'message.album_not_found'|trans }}</p>

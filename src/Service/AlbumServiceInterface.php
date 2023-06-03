@@ -45,6 +45,16 @@ interface AlbumServiceInterface
     public function getPaginatedListByArtist(Artist $artist, int $page): PaginationInterface;
 
     /**
+     * Count comments by album.
+     *
+     * @param Album $album
+     * @return int
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function countComments(Album $album): int;
+
+    /**
      * Save entity.
      *
      * @param Album $album Album entity

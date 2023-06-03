@@ -6,9 +6,13 @@
 namespace App\Controller;
 
 use App\Entity\Album;
+use App\Entity\Comment;
 use App\Form\Type\AlbumType;
+use App\Form\Type\CommentType;
 use App\Service\AlbumService;
 use App\Service\AlbumServiceInterface;
+use App\Service\CommentService;
+use App\Service\CommentServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,6 +34,13 @@ class AlbumController extends AbstractController
     private AlbumService $albumService;
 
     /**
+     * Comment service.
+     *
+     * @var CommentService
+     */
+    private CommentService $commentService;
+
+    /**
      * Translator.
      *
      * @var TranslatorInterface
@@ -39,9 +50,10 @@ class AlbumController extends AbstractController
     /**
      * @param AlbumService $albumService
      */
-    public function __construct(AlbumServiceInterface $albumService, TranslatorInterface $translator)
+    public function __construct(AlbumServiceInterface $albumService, CommentServiceInterface $commentService, TranslatorInterface $translator)
     {
         $this->albumService = $albumService;
+        $this->commentService = $commentService;
         $this->translator = $translator;
     }
 
@@ -108,19 +120,50 @@ class AlbumController extends AbstractController
      * Show action.
      *
      * @param Album $album
+     * @param Request $request
      *
      * @return Response
      */
     #[Route(
         '/{slug}',
         name: 'album_show',
-        methods: 'GET',
+        methods: 'GET|POST|DELETE',
     )]
-    public function show(Album $album): Response
+    public function show(Album $album, Request $request, Comment $commentToModify = null): Response
     {
+        /* Add comment */
+        $comment = new Comment();
+        $form = $this->createForm(
+            CommentType::class,
+            $comment,
+            ['action' => $this->generateUrl('album_show', ['slug' => $album->getSlug()])]
+        );
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $comment->setAlbum($album);
+            $this->commentService->save($comment);
+
+            $this->addFlash(
+                'success',
+                $this->translator->trans('message.created_successfully')
+            );
+
+            return $this->redirectToRoute('album_show', ['slug' => $album->getSlug()]);
+        }
+
+        $pagination = $this->commentService->getPaginatedListByAlbum(
+            $album,
+            $request->query->getInt('page', 1)
+        );
+
         return $this->render(
             'album/show.html.twig',
-            ['album' => $album]
+            [
+                'album' => $album,
+                'pagination' => $pagination,
+                'form' => $form->createView(),
+            ]
         );
     }
 
