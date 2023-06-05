@@ -7,6 +7,7 @@ namespace App\DataFixtures;
 
 use App\Entity\Album;
 use App\Entity\Comment;
+use App\Entity\User;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Faker\Factory;
 
@@ -41,6 +42,10 @@ class CommentFixtures extends AbstractBaseFixtures implements DependentFixtureIn
             $album = $this->getRandomReference('albums');
             $comment->setAlbum($album);
 
+            /** @var User $author */
+            $author = $this->getRandomReference('users');
+            $comment->setAuthor($author);
+
             return $comment;
         });
 
@@ -49,6 +54,6 @@ class CommentFixtures extends AbstractBaseFixtures implements DependentFixtureIn
 
     public function getDependencies(): array
     {
-        return [AlbumFixtures::class];
+        return [AlbumFixtures::class, UserFixtures::class];
     }
 }

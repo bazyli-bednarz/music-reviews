@@ -25,7 +25,7 @@
         </ul>
     </div>
     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-        <div class="bg-dark text-light me-2">{{ app.user.email }}</div>
+        <div class="bg-dark text-light me-2"><a href="{{ url('user_show', {slug: app.user.slug}) }}">{{ app.user.username }}</a></div>
         <div>
             <a href="{{ url('app_logout') }}">{{ 'action_logout'|trans }}</a>
         </div>

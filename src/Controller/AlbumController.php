@@ -129,10 +129,12 @@ class AlbumController extends AbstractController
         name: 'album_show',
         methods: 'GET|POST|DELETE',
     )]
-    public function show(Album $album, Request $request, Comment $commentToModify = null): Response
+    public function show(Album $album, Request $request): Response
     {
         /* Add comment */
         $comment = new Comment();
+        $user = $this->getUser();
+        $comment->setAuthor($user);
         $form = $this->createForm(
             CommentType::class,
             $comment,

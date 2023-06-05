@@ -63,6 +63,17 @@ class Comment
     private ?Album $album = null;
 
     /**
+     * Comment author.
+     *
+     * @var User|null
+     */
+    #[ORM\ManyToOne(targetEntity: User::class, fetch: 'EXTRA_LAZY')]
+    #[ORM\JoinColumn(nullable: false)]
+    #[Assert\NotBlank]
+    #[Assert\Type(User::class)]
+    private ?User $author = null;
+
+    /**
      * Getter for id.
      *
      * @return int|null
@@ -170,5 +181,25 @@ class Comment
     public function setAlbum(?Album $album): void
     {
         $this->album = $album;
+    }
+
+    /**
+     * Get comment author.
+     *
+     * @return User|null
+     */
+    public function getAuthor(): ?User
+    {
+        return $this->author;
+    }
+
+    /**
+     * Set comment author.
+     *
+     * @param User|null $author
+     */
+    public function setAuthor(?User $author): void
+    {
+        $this->author = $author;
     }
 }

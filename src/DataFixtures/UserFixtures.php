@@ -40,6 +40,7 @@ class UserFixtures extends AbstractBaseFixtures
             $user = new User();
             $user->setEmail(sprintf('user%d@musicreviews.com', $i));
             $user->setRoles([UserRole::ROLE_USER->value]);
+            $user->setUsername($this->faker->unique()->firstName);
             $user->setPassword(
                 $this->passwordHasher->hashPassword(
                     $user,
@@ -54,6 +55,7 @@ class UserFixtures extends AbstractBaseFixtures
             $user = new User();
             $user->setEmail(sprintf('admin%d@musicreviews.com', $i));
             $user->setRoles([UserRole::ROLE_USER->value, UserRole::ROLE_ADMIN->value]);
+            $user->setUsername($this->faker->unique()->firstName);
             $user->setPassword(
                 $this->passwordHasher->hashPassword(
                     $user,
