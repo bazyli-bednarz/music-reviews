@@ -49,7 +49,7 @@ class CommentRepository extends ServiceEntityRepository
             ->select(
                 'partial comment.{id, description, createdAt, updatedAt, rating}',
                 'partial album.{id, title, slug}',
-                'partial author.{id, email, username, slug}',
+                'partial author.{id, email, username, roles, password, slug}',
             )
             ->join('comment.album', 'album')
             ->join('comment.author', 'author')

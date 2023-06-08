@@ -10,6 +10,7 @@ use App\Form\Type\CommentType;
 use App\Service\AlbumServiceInterface;
 use App\Service\CommentService;
 use App\Service\CommentServiceInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
@@ -64,6 +65,7 @@ class CommentController extends AbstractController
         requirements: ['id' => '[1-9]\d*'],
         methods: 'GET|PUT'
     )]
+    #[IsGranted('EDIT', subject: 'comment')]
     public function edit(Request $request, Comment $comment): Response
     {
         $form = $this->createForm(
@@ -111,6 +113,7 @@ class CommentController extends AbstractController
         requirements: ['id' => '[1-9]\d*'],
         methods: 'GET|DELETE'
     )]
+    #[IsGranted('DELETE', subject: 'comment')]
     public function delete(Request $request, Comment $comment): Response
     {
         $form = $this->createForm(FormType::class, $comment, [

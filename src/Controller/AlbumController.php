@@ -131,40 +131,49 @@ class AlbumController extends AbstractController
     )]
     public function show(Album $album, Request $request): Response
     {
-        /* Add comment */
-        $comment = new Comment();
-        $user = $this->getUser();
-        $comment->setAuthor($user);
-        $form = $this->createForm(
-            CommentType::class,
-            $comment,
-            ['action' => $this->generateUrl('album_show', ['slug' => $album->getSlug()])]
-        );
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $comment->setAlbum($album);
-            $this->commentService->save($comment);
-
-            $this->addFlash(
-                'success',
-                $this->translator->trans('message.created_successfully')
-            );
-
-            return $this->redirectToRoute('album_show', ['slug' => $album->getSlug()]);
-        }
-
         $pagination = $this->commentService->getPaginatedListByAlbum(
             $album,
             $request->query->getInt('page', 1)
         );
+        /* Add comment */
+        if ($this->getUser()) {
+            $comment = new Comment();
+            $user = $this->getUser();
+            $comment->setAuthor($user);
+            $form = $this->createForm(
+                CommentType::class,
+                $comment,
+                ['action' => $this->generateUrl('album_show', ['slug' => $album->getSlug()])]
+            );
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                $comment->setAlbum($album);
+                $this->commentService->save($comment);
+
+                $this->addFlash(
+                    'success',
+                    $this->translator->trans('message.created_successfully')
+                );
+
+                return $this->redirectToRoute('album_show', ['slug' => $album->getSlug()]);
+            }
+
+            return $this->render(
+                'album/show.html.twig',
+                [
+                    'album' => $album,
+                    'pagination' => $pagination,
+                    'form' => $form->createView(),
+                ]
+            );
+        }
 
         return $this->render(
             'album/show.html.twig',
             [
                 'album' => $album,
                 'pagination' => $pagination,
-                'form' => $form->createView(),
             ]
         );
     }

@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block body %}
-    {% if false == form.vars.valid %}
+    {% if form is defined and false == form.vars.valid %}
         {% include 'default/_single_alert_message.html.twig' with {
             type: 'danger',
             message: 'message.form_error'|trans,
@@ -35,6 +35,9 @@
         </div>
         <div class="comments-wrapper shadow-lg mb-3 bg-body rounded" id="{{ 'id.comments'|trans }}">
             <h2 class="p-4">{{ 'label.comments'|trans }}</h2>
+
+            {% if form is defined %}
+
             <div class="comment-form p-4">
                 {{ form_start(form) }}
 
@@ -47,6 +50,8 @@
                 {{ form_end(form) }}
 
             </div>
+
+           {% endif %}
 
             {% if pagination is defined and pagination|length %}
                 {% for comment in pagination %}
@@ -66,13 +71,17 @@
                             {% if comment.createdAt != comment.updatedAt %}
                                 <span class="updated-at">({{ 'label.edited'|trans }}: {{ comment.updatedAt|format_date('long') }})</span>
                             {% endif %}
+                            {% if is_granted('EDIT', comment) %}
                             <a href="{{ url('comment_edit', {id: comment.id}) }}" title="{{ 'action.edit'|trans }}">
                                 <span class="material-symbols-outlined">edit</span>
                             </a>
+                            {% endif %}
+                            {% if is_granted('DELETE', comment) %}
                             <a href="{{ url('comment_delete', {id: comment.id}) }}"
                                title="{{ 'action.delete'|trans }}">
                                 <span class="material-symbols-outlined">delete</span>
                             </a>
+                            {% endif %}
                         </p>
 
                         <p>{{ comment.description }}</p>
