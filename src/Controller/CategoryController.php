@@ -69,27 +69,6 @@ class CategoryController extends AbstractController
     }
 
     /**
-     * Show action.
-     */
-    #[Route(
-        '/{slug}',
-        name: 'category_show',
-        requirements: ['slug' => '[a-zA-Z\-]+'],
-        methods: 'GET',
-    )]
-    public function show(Request $request, Category $category): Response
-    {
-        $pagination = $this->albumService->getPaginatedListByCategory($category,
-            $request->query->getInt('page',
-                1));
-
-        return $this->render(
-            'category/show.html.twig',
-            ['category' => $category, 'pagination' => $pagination]
-        );
-    }
-
-    /**
      * Create action.
      *
      * @param Request $request HTTP request
@@ -123,6 +102,28 @@ class CategoryController extends AbstractController
             ['form' => $form->createView()]
         );
     }
+
+    /**
+     * Show action.
+     */
+    #[Route(
+        '/{slug}',
+        name: 'category_show',
+        requirements: ['slug' => '[a-zA-Z\-]+'],
+        methods: 'GET',
+    )]
+    public function show(Request $request, Category $category): Response
+    {
+        $pagination = $this->albumService->getPaginatedListByCategory($category,
+            $request->query->getInt('page',
+                1));
+
+        return $this->render(
+            'category/show.html.twig',
+            ['category' => $category, 'pagination' => $pagination]
+        );
+    }
+
 
     /**
      * Edit action.

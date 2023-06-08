@@ -51,7 +51,7 @@
             {% if pagination is defined and pagination|length %}
                 {% for comment in pagination %}
                     <div class="comment p-4 mb-3 {% if not loop.last %}border-bottom{% endif %}">
-                        <a href="#">{{ comment.author.email }}</a>
+                        <a href="{{ url('user_show', {slug: comment.author.slug }) }}">{{ comment.author.username }}</a>
                         <p class="rating">
                             {% for i in range(0, 4) %}
                                 {% if i < comment.rating %}

@@ -39,7 +39,7 @@ Album table template.
                             {% for tag in album.tags %}
                                 <a href="#" class="tag">{{ tag.title }}</a>
                             {% endfor %}
-                        {% endif %}</td>
+                        {% else %}-{% endif %}</td>
                     <td><a href="{{ url('album_show', {slug: album.slug}) }}">{{ 'action.view'|trans }}</a> | <a href="{{ url('album_edit', {slug: album.slug}) }}">{{ 'action.edit'|trans }}</a> | <a href="{{ url('album_delete', {slug: album.slug}) }}">{{ 'action.delete'|trans }}</a></td>
                 </tr>
             {% endfor %}

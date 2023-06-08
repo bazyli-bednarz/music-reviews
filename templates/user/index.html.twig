@@ -4,6 +4,7 @@
 {% endblock %}
 
 {% block body %}
+    <h1 class="mb-4 mt-4 d-inline-block">{{ 'title.users'|trans }}</h1>
     {% if pagination is defined and pagination.items|length %}
         <div class="table-responsive">
             <table class="table table-striped">
