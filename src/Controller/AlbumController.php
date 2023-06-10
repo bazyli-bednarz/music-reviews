@@ -152,6 +152,15 @@ class AlbumController extends AbstractController
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
+                if ($user->isBlocked()) {
+                    $this->addFlash(
+                        'warning',
+                        $this->translator->trans('message.you_are_blocked_cant_comment')
+                    );
+
+                    return $this->redirectToRoute('album_show', ['slug' => $album->getSlug()]);
+                }
+
                 $comment->setAlbum($album);
                 $this->commentService->save($comment);
 

@@ -85,6 +85,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $slug = null;
 
     /**
+     * Is user blocked.
+     *
+     * @var bool|null
+     */
+    #[ORM\Column(nullable: true)]
+    private ?bool $blocked = false;
+
+    /**
      * Getter for id.
      *
      * @return int|null Id
@@ -245,5 +253,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setSlug(string $slug): void
     {
         $this->slug = $slug;
+    }
+
+    public function isBlocked(): ?bool
+    {
+        return $this->blocked;
+    }
+
+    public function setBlocked(?bool $blocked): self
+    {
+        $this->blocked = $blocked;
+
+        return $this;
     }
 }

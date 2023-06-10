@@ -11,8 +11,10 @@
     {% if category is defined and category|length %}
         <h1>{{ category.title }}</h1>
         <p>{{ category.description }}</p>
-        <a href="{{ url('category_edit', {slug: category.slug}) }}">{{ 'action.edit'|trans }}</a> |
-        <a href="{{ url('category_delete', {slug: category.slug}) }}">{{ 'action.delete'|trans }}</a>
+        {% if is_granted('ROLE_ADMIN') %}
+            <a href="{{ url('category_edit', {slug: category.slug}) }}">{{ 'action.edit'|trans }}</a> |
+            <a href="{{ url('category_delete', {slug: category.slug}) }}">{{ 'action.delete'|trans }}</a>
+        {% endif %}
         {% include 'default/_album.html.twig' with {
             pagination: pagination,
         } %}

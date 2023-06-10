@@ -1,0 +1,65 @@
+{#
+Default template for forms.
+
+parameters:
+    - page_title: page title
+    - form: form view variable
+    - submit_label: label for submit button
+#}
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {% if user is defined %}
+        {% if user.blocked %}
+            {{ 'title.unblock_user' }} {{ user.username }}?
+        {% else %}
+            {{ 'title.block_user' }} {{ user.username }}?
+        {% endif %}
+    {% else %}
+        {{ 'title.block_user_undefined' }}
+    {% endif %}
+{% endblock %}
+
+{% block body %}
+    <h1>{% if user is defined %}
+            {% if user.blocked %}
+                {{ 'title.unblock_user' }} {{ user.username }}?
+            {% else %}
+                {{ 'title.block_user' }} {{ user.username }}?
+            {% endif %}
+        {% else %}
+            {{ 'title.block_user_undefined' }}
+        {% endif %}</h1>
+    {% if user is defined and form is defined %}
+        {{ form_start(form) }}
+        {% if false == form.vars.valid %}
+            {% include 'default/_single_alert_message.html.twig' with {
+                type: 'danger',
+                message: 'message.form_error'|trans,
+            } %}
+        {% endif %}
+        {{ form_widget(form) }}
+        <div class="form-group row float-sm-right">
+            <button type="submit"  class="btn btn-primary">
+                {% if user.blocked %}
+                    {{ 'action.unblock_user' }}
+                {% else %}
+                    {{ 'action.block_user' }}
+                {% endif %}</button>
+        </div>
+        {% if user is defined %}
+            <div class="form-group row float-sm-left">
+                <a href="{{ url('user_show', {slug: user.slug}) }}" class="btn btn-link">
+                    {{ 'action.back_to_profile'|trans }}
+                </a>
+            </div>
+        {% else %}
+            <div class="form-group row float-sm-left">
+                <a href="{{ url('user_index') }}" class="btn btn-link">
+                    {{ 'action.back_to_list'|trans }}
+                </a>
+            </div>
+        {% endif %}
+        {{ form_end(form) }}
+    {% endif %}
+{% endblock %}

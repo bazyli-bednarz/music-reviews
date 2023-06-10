@@ -5,8 +5,10 @@
 
 {% block body %}
     <h1 class="mb-4 mt-4 d-inline-block">{{ 'title.categories'|trans }}</h1>
+    {% if is_granted('ROLE_ADMIN') %}
     <a class="d-inline-block h1" href="{{ url('category_create') }}">
         <span class="material-symbols-outlined">add_box</span></a>
+    {% endif %}
     {% if pagination is defined and pagination.items|length %}
         <div class="table-responsive">
             <table class="table table-striped">
@@ -25,9 +27,14 @@
                         <td>{{ category.title }}</td>
                         <td>{{ category.description }}</td>
 
-                        <td><a href="{{ url('category_show', {slug: category.slug}) }}">{{ 'action.view'|trans }}</a> |
-                            <a href="{{ url('category_edit', {slug: category.slug}) }}">{{ 'action.edit'|trans }}</a> |
-                            <a href="{{ url('category_delete', {slug: category.slug}) }}">{{ 'action.delete'|trans }}</a></td>
+                        <td><a href="{{ url('category_show', {slug: category.slug}) }}">{{ 'action.view'|trans }}</a>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                | <a
+                                    href="{{ url('category_edit', {slug: category.slug}) }}">{{ 'action.edit'|trans }}</a>
+                                | <a
+                                    href="{{ url('category_delete', {slug: category.slug}) }}">{{ 'action.delete'|trans }}</a>
+                            {% endif %}
+                        </td>
                     </tr>
                 {% endfor %}
                 </tbody>

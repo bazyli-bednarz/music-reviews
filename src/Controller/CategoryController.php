@@ -10,6 +10,7 @@ use App\Form\Type\CategoryType;
 use App\Service\AlbumServiceInterface;
 use App\Service\CategoryService;
 use App\Service\CategoryServiceInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
@@ -80,6 +81,7 @@ class CategoryController extends AbstractController
         name: 'category_create',
         methods: 'GET|POST',
     )]
+    #[IsGranted('ROLE_ADMIN')]
     public function create(Request $request): Response
     {
         $category = new Category();
@@ -139,6 +141,7 @@ class CategoryController extends AbstractController
         requirements: ['slug' => '[a-zA-Z\-]+'],
         methods: 'GET|PUT'
     )]
+    #[IsGranted('ROLE_ADMIN')]
     public function edit(Request $request, Category $category): Response
     {
         $form = $this->createForm(
@@ -185,6 +188,7 @@ class CategoryController extends AbstractController
         requirements: ['slug' => '[a-zA-Z\-]+'],
         methods: 'GET|DELETE'
     )]
+    #[IsGranted('ROLE_ADMIN')]
     public function delete(Request $request, Category $category): Response
     {
         if (!$this->categoryService->canBeDeleted($category)) {

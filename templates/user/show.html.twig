@@ -2,69 +2,78 @@
 
 {% block title %}
     {{ 'title.user'|trans }}{% if user is defined %} {{ user.username }}{% endif %}
-    {% endblock %}
+{% endblock %}
 
 {% block body %}
     {% if user is defined %}
         <div class="user p-4">
-            <h1>{% if app.user == user %}{{ 'info.hey'|trans }}, {% endif %}{{ user.username }}</h1>
-            <a href="{{ url('user_edit', {slug: user.slug}) }}">{{ 'action.change_password'|trans }}</a> |
-            <a href="{{ url('user_delete', {slug: user.slug}) }}">{{ 'action.delete'|trans }}</a>
+            <h1>{% if app.user == user %}{{ 'info.hey'|trans }}, {% endif %}<span{% if user.blocked %}
+                    class="text-muted text-decoration-line-through" {% endif %}>{{ user.username }}</span></h1>
+            {% if is_granted('EDIT', user) %}
+                <a href="{{ url('user_edit', {slug: user.slug}) }}">{{ 'action.change_password'|trans }}</a> {% endif %}
+            {% if is_granted('BLOCK', user) %}|
+            <a href="{{ url('user_block', {slug: user.slug}) }}">
+                {% if user.blocked %}
+                    {{ 'action.unblock'|trans }}
+                {% else %}
+                    {{ 'action.block'|trans }}
+                {% endif %}
+                </a>{% endif %}
         </div>
-{#        <div class="comments-wrapper shadow-lg mb-3 bg-body rounded" id="{{ 'id.comments'|trans }}">#}
-{#            <h2 class="p-4">{{ 'label.comments'|trans }}</h2>#}
-{#            <div class="comment-form p-4">#}
-{#                {{ form_start(form) }}#}
+        {#        <div class="comments-wrapper shadow-lg mb-3 bg-body rounded" id="{{ 'id.comments'|trans }}"> #}
+        {#            <h2 class="p-4">{{ 'label.comments'|trans }}</h2> #}
+        {#            <div class="comment-form p-4"> #}
+        {#                {{ form_start(form) }} #}
 
-{#                {{ form_widget(form) }}#}
-{#                <div class="form-group row float-sm-right p-3">#}
-{#                    <button type="submit" class="btn btn-primary">#}
-{#                        <span class="material-symbols-outlined">add_comment</span> {{ 'action.add_new_comment'|trans }}#}
-{#                    </button>#}
-{#                </div>#}
-{#                {{ form_end(form) }}#}
+        {#                {{ form_widget(form) }} #}
+        {#                <div class="form-group row float-sm-right p-3"> #}
+        {#                    <button type="submit" class="btn btn-primary"> #}
+        {#                        <span class="material-symbols-outlined">add_comment</span> {{ 'action.add_new_comment'|trans }} #}
+        {#                    </button> #}
+        {#                </div> #}
+        {#                {{ form_end(form) }} #}
 
-{#            </div>#}
+        {#            </div> #}
 
-{#            {% if pagination is defined and pagination|length %}#}
-{#                {% for comment in pagination %}#}
-{#                    <div class="comment p-4 mb-3 {% if not loop.last %}border-bottom{% endif %}">#}
-{#                        <a href="#">{{ comment.author.email }}</a>#}
-{#                        <p class="rating">#}
-{#                            {% for i in range(0, 4) %}#}
-{#                                {% if i < comment.rating %}#}
-{#                                    <span class="material-icons material-icons-outlined">star</span>#}
-{#                                {% else %}#}
-{#                                    <span class="material-symbols-outlined">star</span>#}
-{#                                {% endif %}#}
-{#                            {% endfor %}#}
-{#                        </p>#}
-{#                        <p class="created-at">#}
-{#                            {{ comment.createdAt|format_date('long') }}#}
-{#                            {% if comment.createdAt != comment.updatedAt %}#}
-{#                                <span class="updated-at">({{ 'label.edited'|trans }}: {{ comment.updatedAt|format_date('long') }})</span>#}
-{#                            {% endif %}#}
-{#                            <a href="{{ url('comment_edit', {id: comment.id}) }}" title="{{ 'action.edit'|trans }}">#}
-{#                                <span class="material-symbols-outlined">edit</span>#}
-{#                            </a>#}
-{#                            <a href="{{ url('comment_delete', {id: comment.id}) }}"#}
-{#                               title="{{ 'action.delete'|trans }}">#}
-{#                                <span class="material-symbols-outlined">delete</span>#}
-{#                            </a>#}
-{#                        </p>#}
+        {#            {% if pagination is defined and pagination|length %} #}
+        {#                {% for comment in pagination %} #}
+        {#                    <div class="comment p-4 mb-3 {% if not loop.last %}border-bottom{% endif %}"> #}
+        {#                        <a href="#">{{ comment.author.email }}</a> #}
+        {#                        <p class="rating"> #}
+        {#                            {% for i in range(0, 4) %} #}
+        {#                                {% if i < comment.rating %} #}
+        {#                                    <span class="material-icons material-icons-outlined">star</span> #}
+        {#                                {% else %} #}
+        {#                                    <span class="material-symbols-outlined">star</span> #}
+        {#                                {% endif %} #}
+        {#                            {% endfor %} #}
+        {#                        </p> #}
+        {#                        <p class="created-at"> #}
+        {#                            {{ comment.createdAt|format_date('long') }} #}
+        {#                            {% if comment.createdAt != comment.updatedAt %} #}
+        {#                                <span class="updated-at">({{ 'label.edited'|trans }}: {{ comment.updatedAt|format_date('long') }})</span> #}
+        {#                            {% endif %} #}
+        {#                            <a href="{{ url('comment_edit', {id: comment.id}) }}" title="{{ 'action.edit'|trans }}"> #}
+        {#                                <span class="material-symbols-outlined">edit</span> #}
+        {#                            </a> #}
+        {#                            <a href="{{ url('comment_delete', {id: comment.id}) }}" #}
+        {#                               title="{{ 'action.delete'|trans }}"> #}
+        {#                                <span class="material-symbols-outlined">delete</span> #}
+        {#                            </a> #}
+        {#                        </p> #}
 
-{#                        <p>{{ comment.description }}</p>#}
-{#                    </div>#}
-{#                {% endfor %}#}
-{#                <div class="navigation text-center pb-2">#}
-{#                    {{ knp_pagination_render(pagination) }}#}
-{#                </div>#}
-{#            {% else %}#}
-{#                <p>{{ 'message.no_comments_yet'|trans }}</p>#}
-{#            {% endif %}#}
+        {#                        <p>{{ comment.description }}</p> #}
+        {#                    </div> #}
+        {#                {% endfor %} #}
+        {#                <div class="navigation text-center pb-2"> #}
+        {#                    {{ knp_pagination_render(pagination) }} #}
+        {#                </div> #}
+        {#            {% else %} #}
+        {#                <p>{{ 'message.no_comments_yet'|trans }}</p> #}
+        {#            {% endif %} #}
 
 
-{#        </div>#}
+        {#        </div> #}
 
 
     {% else %}

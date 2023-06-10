@@ -10,6 +10,7 @@ use App\Form\Type\ArtistType;
 use App\Service\AlbumServiceInterface;
 use App\Service\ArtistService;
 use App\Service\ArtistServiceInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
@@ -80,6 +81,7 @@ class ArtistController extends AbstractController
         name: 'artist_create',
         methods: 'GET|POST',
     )]
+    #[IsGranted('ROLE_ADMIN')]
     public function create(Request $request): Response
     {
         $artist = new Artist();
@@ -139,6 +141,7 @@ class ArtistController extends AbstractController
         requirements: ['slug' => '[a-zA-Z\-]+'],
         methods: 'GET|PUT'
     )]
+    #[IsGranted('ROLE_ADMIN')]
     public function edit(Request $request, Artist $artist): Response
     {
         $form = $this->createForm(
@@ -185,6 +188,7 @@ class ArtistController extends AbstractController
         requirements: ['slug' => '[a-zA-Z\-]+'],
         methods: 'GET|DELETE'
     )]
+    #[IsGranted('ROLE_ADMIN')]
     public function delete(Request $request, Artist $artist): Response
     {
         if (!$this->artistService->canBeDeleted($artist)) {

@@ -68,6 +68,16 @@ class CommentController extends AbstractController
     #[IsGranted('EDIT', subject: 'comment')]
     public function edit(Request $request, Comment $comment): Response
     {
+        $user = $this->getUser();
+        if ($user->isBlocked()) {
+            $this->addFlash(
+                'warning',
+                $this->translator->trans('message.you_are_blocked_cant_edit_comment')
+            );
+
+            return $this->redirectToRoute('album_show', ['slug' => $comment->getAlbum()->getSlug()]);
+        }
+
         $form = $this->createForm(
             CommentType::class,
             $comment,

@@ -48,7 +48,7 @@ class AlbumRepository extends ServiceEntityRepository
                 'partial category.{id, title, slug}',
                 'partial tags.{id, title, slug}',
                 'partial artists.{id, name, slug}',
-                'partial user.{id, email, username, roles, password, slug}'
+                'partial user.{id, email, username, roles, password, slug, blocked}'
             )
             ->join('album.category', 'category')
             ->leftJoin('album.tags', 'tags')

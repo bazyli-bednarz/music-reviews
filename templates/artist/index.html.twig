@@ -5,8 +5,10 @@
 
 {% block body %}
     <h1 class="mb-4 mt-4 d-inline-block">{{ 'title.artists'|trans }}</h1>
+    {% if is_granted('ROLE_ADMIN') %}
     <a class="d-inline-block h1" href="{{ url('artist_create') }}">
-    <span class="material-symbols-outlined">add_box</span></a>
+        <span class="material-symbols-outlined">add_box</span></a>
+    {% endif %}
     {% if pagination is defined and pagination.items|length %}
         <div class="table-responsive">
             <table class="table table-striped">
@@ -25,9 +27,13 @@
                         <td>{{ artist.name }}</td>
                         <td>{{ artist.description }}</td>
 
-                        <td><a href="{{ url('artist_show', {slug: artist.slug}) }}">{{ 'action.view'|trans }}</a> |
-                            <a href="{{ url('artist_edit', {slug: artist.slug}) }}">{{ 'action.edit'|trans }}</a> |
-                            <a href="{{ url('artist_delete', {slug: artist.slug}) }}">{{ 'action.delete'|trans }}</a></td>
+                        <td><a href="{{ url('artist_show', {slug: artist.slug}) }}">{{ 'action.view'|trans }}</a>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                | <a href="{{ url('artist_edit', {slug: artist.slug}) }}">{{ 'action.edit'|trans }}</a>
+                                | <a
+                                    href="{{ url('artist_delete', {slug: artist.slug}) }}">{{ 'action.delete'|trans }}</a>
+                            {% endif %}
+                        </td>
                     </tr>
                 {% endfor %}
                 </tbody>
