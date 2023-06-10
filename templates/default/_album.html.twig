@@ -13,6 +13,7 @@ Album table template.
                 <th>{{ knp_pagination_sortable(pagination, 'label.id'|trans, 'album.id') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'label.title'|trans, 'album.title') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'label.artist_name'|trans, 'artist.name') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label.review_by'|trans, 'user.username') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'label.description'|trans, 'album.description') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'label.year'|trans, 'album.year') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'label.mark'|trans, 'album.mark') }}</th>
@@ -31,6 +32,7 @@ Album table template.
                                 <a href="{{ url('artist_show', {slug: artist.slug}) }}" class="artist">{{ artist.name }}</a>
                             {% endfor %}
                         {% endif %}</td>
+                    <td><a href="{{ url('user_show', {slug: album.author.slug }) }}">{{ album.author.username }}</a></td>
                     <td>{{ album.description }}</td>
                     <td>{{ album.year }}</td>
                     <td>{{ album.mark }}</td>

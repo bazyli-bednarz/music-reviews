@@ -13,6 +13,7 @@ use App\Service\AlbumService;
 use App\Service\AlbumServiceInterface;
 use App\Service\CommentService;
 use App\Service\CommentServiceInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
@@ -90,9 +91,12 @@ class AlbumController extends AbstractController
      * @return Response HTTP response
      */
     #[Route('/create', name: 'album_create', methods: 'GET|POST', )]
+    #[IsGranted('ROLE_ADMIN')]
     public function create(Request $request): Response
     {
+        $user = $this->getUser();
         $album = new Album();
+        $album->setAuthor($user);
         $form = $this->createForm(
             AlbumType::class,
             $album,
@@ -188,6 +192,7 @@ class AlbumController extends AbstractController
      * @return Response HTTP response
      */
     #[Route('/{slug}/edit', name: 'album_edit', methods: 'GET|PUT')]
+    #[IsGranted('EDIT', subject: 'album')]
     public function edit(Request $request, Album $album): Response
     {
         $form = $this->createForm(
@@ -229,6 +234,7 @@ class AlbumController extends AbstractController
      * @return Response HTTP response
      */
     #[Route('/{slug}/delete', name: 'album_delete', methods: 'GET|DELETE')]
+    #[IsGranted('DELETE', subject: 'album')]
     public function delete(Request $request, Album $album): Response
     {
         $form = $this->createForm(

@@ -4,8 +4,11 @@
 {% endblock %}
 
 {% block body %}
-    <h1 class="mb-4 mt-4 d-inline-block">{{ 'title.albums'|trans }}</h1> <a class="d-inline-block h1" href="{{ url('album_create') }}">
-    <span class="material-symbols-outlined">add_box</span></a>
+    <h1 class="mb-4 mt-4 d-inline-block">{{ 'title.albums'|trans }}</h1>
+    {% if is_granted('ROLE_ADMIN') %}
+    <a class="d-inline-block h1" href="{{ url('album_create') }}">
+        <span class="material-symbols-outlined">add_box</span></a>
+    {% endif %}
     {% include 'default/_album.html.twig' with {
         pagination: pagination,
     } %}

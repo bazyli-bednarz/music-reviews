@@ -9,6 +9,7 @@ use App\Entity\Album;
 use App\Entity\Artist;
 use App\Entity\Category;
 use App\Entity\Tag;
+use App\Entity\User;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Faker\Factory;
@@ -41,6 +42,10 @@ class AlbumFixtures extends AbstractBaseFixtures implements DependentFixtureInte
             $album->setUpdatedAt(
                 \DateTimeImmutable::createFromMutable($this->faker->dateTimeBetween('-100 days', '-1 days'))
             );
+
+            /** @var User $author */
+            $author = $this->getRandomReference('admins');
+            $album->setAuthor($author);
             /** @var Category $category */
             $category = $this->getRandomReference('categories');
             $album->setCategory($category);
@@ -69,6 +74,6 @@ class AlbumFixtures extends AbstractBaseFixtures implements DependentFixtureInte
 
     public function getDependencies(): array
     {
-        return [CategoryFixtures::class, TagFixtures::class];
+        return [CategoryFixtures::class, TagFixtures::class, UserFixtures::class];
     }
 }

@@ -15,9 +15,12 @@
     {% if album is defined and album|length %}
         <div class="album p-4">
             <h1>{{ album.title }} ({{ album.year }}) review</h1>
-            <a href="{{ url('album_show', {slug: album.slug}) }}">{{ 'action.view'|trans }}</a> |
-            <a href="{{ url('album_edit', {slug: album.slug}) }}">{{ 'action.edit'|trans }}</a> |
-            <a href="{{ url('album_delete', {slug: album.slug}) }}">{{ 'action.delete'|trans }}</a>
+            {% if is_granted('EDIT', album) %}
+                <a href="{{ url('album_edit', {slug: album.slug}) }}">{{ 'action.edit'|trans }}</a> |
+            {% endif %}
+            {% if is_granted('DELETE', album) %}
+                <a href="{{ url('album_delete', {slug: album.slug}) }}">{{ 'action.delete'|trans }}</a>
+            {% endif %}
 
             <div class="tags-wrapper">
                 {% if album.tags is defined and album.tags|length %}
@@ -38,20 +41,20 @@
 
             {% if form is defined %}
 
-            <div class="comment-form p-4">
-                {{ form_start(form) }}
+                <div class="comment-form p-4">
+                    {{ form_start(form) }}
 
-                {{ form_widget(form) }}
-                <div class="form-group row float-sm-right p-3">
-                    <button type="submit" class="btn btn-primary">
-                        <span class="material-symbols-outlined">add_comment</span> {{ 'action.add_new_comment'|trans }}
-                    </button>
+                    {{ form_widget(form) }}
+                    <div class="form-group row float-sm-right p-3">
+                        <button type="submit" class="btn btn-primary">
+                            <span class="material-symbols-outlined">add_comment</span> {{ 'action.add_new_comment'|trans }}
+                        </button>
+                    </div>
+                    {{ form_end(form) }}
+
                 </div>
-                {{ form_end(form) }}
 
-            </div>
-
-           {% endif %}
+            {% endif %}
 
             {% if pagination is defined and pagination|length %}
                 {% for comment in pagination %}
@@ -72,15 +75,15 @@
                                 <span class="updated-at">({{ 'label.edited'|trans }}: {{ comment.updatedAt|format_date('long') }})</span>
                             {% endif %}
                             {% if is_granted('EDIT', comment) %}
-                            <a href="{{ url('comment_edit', {id: comment.id}) }}" title="{{ 'action.edit'|trans }}">
-                                <span class="material-symbols-outlined">edit</span>
-                            </a>
+                                <a href="{{ url('comment_edit', {id: comment.id}) }}" title="{{ 'action.edit'|trans }}">
+                                    <span class="material-symbols-outlined">edit</span>
+                                </a>
                             {% endif %}
                             {% if is_granted('DELETE', comment) %}
-                            <a href="{{ url('comment_delete', {id: comment.id}) }}"
-                               title="{{ 'action.delete'|trans }}">
-                                <span class="material-symbols-outlined">delete</span>
-                            </a>
+                                <a href="{{ url('comment_delete', {id: comment.id}) }}"
+                                   title="{{ 'action.delete'|trans }}">
+                                    <span class="material-symbols-outlined">delete</span>
+                                </a>
                             {% endif %}
                         </p>
 

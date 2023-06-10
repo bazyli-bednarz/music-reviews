@@ -59,7 +59,7 @@ class Comment
      * @var Album|null
      */
     #[ORM\ManyToOne(targetEntity: Album::class)]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private ?Album $album = null;
 
     /**

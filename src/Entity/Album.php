@@ -114,6 +114,17 @@ class Album
     private Collection $artists;
 
     /**
+     * Album review author.
+     *
+     * @var User|null
+     */
+    #[ORM\ManyToOne(targetEntity: User::class)]
+    #[ORM\JoinColumn(nullable: false)]
+    #[Assert\NotBlank]
+    #[Assert\Type(User::class)]
+    private ?User $author = null;
+
+    /**
      * Constructor.
      */
     public function __construct()
@@ -326,5 +337,27 @@ class Album
     public function removeArtist(Artist $artist): void
     {
         $this->artists->removeElement($artist);
+    }
+
+    /**
+     * Getter for author.
+     *
+     * @return User|null
+     */
+    public function getAuthor(): ?User
+    {
+        return $this->author;
+    }
+
+    /**
+     * Setter for author.
+     *
+     * @param User|null $author
+     *
+     * @return void
+     */
+    public function setAuthor(?User $author): void
+    {
+        $this->author = $author;
     }
 }
