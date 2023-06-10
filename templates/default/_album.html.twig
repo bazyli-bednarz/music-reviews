@@ -39,7 +39,7 @@ Album table template.
                     <td><a href="{{ url('category_show', {slug: album.category.slug}) }}">{{ album.category.title }}</a></td>
                     <td>{% if album.tags is defined and album.tags|length %}
                             {% for tag in album.tags %}
-                                <a href="#" class="tag">{{ tag.title }}</a>
+                                <a href="{{ url('album_index', {'filters.tag_slug' : tag.slug}) }}" class="tag">{{ tag.title }}</a>
                             {% endfor %}
                         {% else %}-{% endif %}</td>
                     <td>

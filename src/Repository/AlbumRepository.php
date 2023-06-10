@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Album;
 use App\Entity\Artist;
 use App\Entity\Category;
+use App\Entity\Tag;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
@@ -38,11 +39,13 @@ class AlbumRepository extends ServiceEntityRepository
     /**
      * Query all records.
      *
-     * @return QueryBuilder Query builder
+     * @param array $filters
+     *
+     * @return QueryBuilder
      */
-    public function queryAll(): QueryBuilder
+    public function queryAll(array $filters = []): QueryBuilder
     {
-        return $this->getOrCreateQueryBuilder()
+        $queryBuilder = $this->getOrCreateQueryBuilder()
             ->select(
                 'partial album.{id, title, description, mark, year, createdAt, updatedAt, slug}',
                 'partial category.{id, title, slug}',
@@ -55,6 +58,8 @@ class AlbumRepository extends ServiceEntityRepository
             ->join('album.artists', 'artists')
             ->join('album.author', 'user')
             ->orderBy('album.createdAt', 'DESC');
+
+        return $this->applyFiltersToList($queryBuilder, $filters);
     }
 
     /**
@@ -157,6 +162,25 @@ class AlbumRepository extends ServiceEntityRepository
     {
         $this->_em->remove($album);
         $this->_em->flush();
+    }
+
+
+    /**
+     * Apply filters to paginated list.
+     *
+     * @param QueryBuilder          $queryBuilder Query builder
+     * @param array<string, object> $filters      Filters array
+     *
+     * @return QueryBuilder Query builder
+     */
+    private function applyFiltersToList(QueryBuilder $queryBuilder, array $filters = []): QueryBuilder
+    {
+        if (isset($filters['tag']) && $filters['tag'] instanceof Tag) {
+            $queryBuilder->andWhere('tags IN (:tag)')
+                ->setParameter('tag', $filters['tag']);
+        }
+
+        return $queryBuilder;
     }
 
 //    /**

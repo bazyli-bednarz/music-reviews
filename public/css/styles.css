@@ -45,6 +45,16 @@ label.required::after {
   margin-bottom: 1rem;
 }
 
+.tag {
+  text-decoration: none;
+  display: inline-block;
+  white-space: nowrap;
+  padding: 5px 10px;
+  border-radius: 100vw;
+  margin-bottom: 5px;
+  margin-right: 5px;
+}
+
 .selectize-control {
   padding: 0;
 }

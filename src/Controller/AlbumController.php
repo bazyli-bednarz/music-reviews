@@ -72,8 +72,9 @@ class AlbumController extends AbstractController
     )]
     public function index(Request $request): Response
     {
+        $filters = $this->getFilters($request);
         $pagination = $this->albumService->getPaginatedList(
-            $request->query->getInt('page', 1)
+            $request->query->getInt('page', 1), $filters
         );
 
         return $this->render(
@@ -274,6 +275,21 @@ class AlbumController extends AbstractController
                 'album' => $album,
             ]
         );
+    }
+
+    /**
+     * Get filters from request.
+     *
+     * @param Request $request HTTP request
+     *
+     * @return array<string, int> Array of filters
+     */
+    private function getFilters(Request $request): array
+    {
+        $filters = [];
+        $filters['tag_slug'] = $request->query->get('filters_tag_slug');
+
+        return $filters;
     }
 
 }

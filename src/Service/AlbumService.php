@@ -10,6 +10,8 @@ use App\Entity\Artist;
 use App\Entity\Category;
 use App\Repository\AlbumRepository;
 use App\Repository\CommentRepository;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
 
@@ -24,9 +26,14 @@ class AlbumService implements AlbumServiceInterface
     private AlbumRepository $albumRepository;
 
     /**
-     * Comment Repository
+     * Comment Repository.
      */
     private CommentRepository $commentRepository;
+
+    /**
+     * Tag service.
+     */
+    private TagServiceInterface $tagService;
 
     /**
      * Paginator.
@@ -36,28 +43,36 @@ class AlbumService implements AlbumServiceInterface
     /**
      * Constructor.
      *
-     * @param AlbumRepository    $albumRepository   Album repository
-     * @param CommentRepository  $commentRepository Comment repository
-     * @param PaginatorInterface $paginator         Paginator
+     * @param AlbumRepository     $albumRepository   Album repository
+     * @param CommentRepository   $commentRepository Comment repository
+     * @param TagServiceInterface $tagService        Tag service
+     * @param PaginatorInterface  $paginator         Paginator
      */
-    public function __construct(AlbumRepository $albumRepository, CommentRepository $commentRepository, PaginatorInterface $paginator)
+    public function __construct(AlbumRepository $albumRepository, CommentRepository $commentRepository,
+        TagServiceInterface $tagService, PaginatorInterface $paginator)
     {
         $this->albumRepository = $albumRepository;
         $this->commentRepository = $commentRepository;
+        $this->tagService = $tagService;
         $this->paginator = $paginator;
     }
 
     /**
      * Get paginated list.
      *
-     * @param int $page Page number
+     * @param int   $page    Page number
+     * @param array $filters Filters
      *
      * @return PaginationInterface<string, mixed> Paginated list
+     *
+     * @throws NonUniqueResultException
      */
-    public function getPaginatedList(int $page): PaginationInterface
+    public function getPaginatedList(int $page, array $filters = []): PaginationInterface
     {
+        $filters = $this->prepareFilters($filters);
+
         return $this->paginator->paginate(
-            $this->albumRepository->queryAll(),
+            $this->albumRepository->queryAll($filters),
             $page,
             AlbumRepository::PAGINATOR_ITEMS_PER_PAGE
         );
@@ -102,8 +117,8 @@ class AlbumService implements AlbumServiceInterface
      *
      * @param Album $album
      * @return int
-     * @throws \Doctrine\ORM\NoResultException
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NoResultException
+     * @throws NonUniqueResultException
      */
     public function countComments(Album $album): int
     {
@@ -128,5 +143,27 @@ class AlbumService implements AlbumServiceInterface
     public function delete(Album $album): void
     {
         $this->albumRepository->delete($album);
+    }
+
+    /**
+     * Prepare filters for the tasks list.
+     *
+     * @param array $filters
+     * @return array
+     *
+     * @throws NonUniqueResultException
+     */
+    private function prepareFilters(array $filters): array
+    {
+        $resultFilters = [];
+
+        if (!empty($filters['tag_slug'])) {
+            $tag = $this->tagService->findOneBySlug($filters['tag_slug']);
+            if (null !== $tag) {
+                $resultFilters['tag'] = $tag;
+            }
+        }
+
+        return $resultFilters;
     }
 }

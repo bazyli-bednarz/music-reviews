@@ -25,13 +25,24 @@
             <div class="tags-wrapper">
                 {% if album.tags is defined and album.tags|length %}
                     {% for tag in album.tags %}
-                        <a href="#" class="tag">{{ tag.title }}</a>
+                        <a href="{{ url('album_index', {'filters.tag_slug' : tag.slug}) }}"
+                           class="tag">{{ tag.title }}</a>
                     {% endfor %}
                 {% endif %}
             </div>
 
 
-            <p>{{ 'label.mark'|trans }} {{ album.mark }}</p>
+            <p>{{ 'label.reviewer_rating'|trans }}
+                <span class="rating rating--reviewer">
+
+                {% for i in range(0, 4) %}
+                    {% if i < album.mark %}
+                        <span class="material-icons material-icons-outlined">star</span>
+                    {% else %}
+                        <span class="material-symbols-outlined">star</span>
+                    {% endif %}
+                {% endfor %}
+                </span></p>
             <p>{{ album.description }}</p>
             <a href="{{ url('category_show', {slug: album.category.slug }) }}">{{ album.category.title }}</a>
 
@@ -50,8 +61,8 @@
                             {% if app.user.blocked %}
                                 {{ 'message.you_are_blocked_and_cant_comment'|trans }}
                             {% else %}
-                            <span class="material-symbols-outlined">add_comment</span>
-                            {{ 'action.add_new_comment'|trans }}{% endif %}
+                                <span class="material-symbols-outlined">add_comment</span>
+                                {{ 'action.add_new_comment'|trans }}{% endif %}
                         </button>
                     </div>
                     {{ form_end(form) }}
@@ -83,7 +94,7 @@
                             {% endif %}
                             {% if is_granted('EDIT', comment) %}
                                 <a href="{{ url('comment_edit', {id: comment.id}) }}" title="{{ 'action.edit'|trans }}"
-                                {% if app.user.blocked %} class="disabled text-muted" aria-disabled="true"{% endif %}
+                                        {% if app.user.blocked %} class="disabled text-muted" aria-disabled="true"{% endif %}
                                 >
                                     <span class="material-symbols-outlined">edit</span>
                                 </a>
