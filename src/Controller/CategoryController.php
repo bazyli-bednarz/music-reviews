@@ -111,7 +111,7 @@ class CategoryController extends AbstractController
     #[Route(
         '/{slug}',
         name: 'category_show',
-        requirements: ['slug' => '[a-zA-Z\-]+'],
+        requirements: ['slug' => '[a-zA-Z0-9\-]+'],
         methods: 'GET',
     )]
     public function show(Request $request, Category $category): Response
@@ -138,7 +138,7 @@ class CategoryController extends AbstractController
     #[Route(
         '/{slug}/edit',
         name: 'category_edit',
-        requirements: ['slug' => '[a-zA-Z\-]+'],
+        requirements: ['slug' => '[a-zA-Z0-9\-]+'],
         methods: 'GET|PUT'
     )]
     #[IsGranted('ROLE_ADMIN')]
@@ -185,7 +185,7 @@ class CategoryController extends AbstractController
     #[Route(
         '/{slug}/delete',
         name: 'category_delete',
-        requirements: ['slug' => '[a-zA-Z\-]+'],
+        requirements: ['slug' => '[a-zA-Z0-9\-]+'],
         methods: 'GET|DELETE'
     )]
     #[IsGranted('ROLE_ADMIN')]

@@ -68,7 +68,7 @@ class UserController extends AbstractController
     #[Route(
         '/{slug}',
         name: 'user_show',
-        requirements: ['slug' => '[a-zA-Z\-]+'],
+        requirements: ['slug' => '[a-zA-Z0-9\-]+'],
         methods: 'GET',
     )]
     public function show(Request $request, User $user): Response
@@ -125,7 +125,7 @@ class UserController extends AbstractController
     #[Route(
         '/{slug}/change-password',
         name: 'user_edit',
-        requirements: ['slug' => '[a-zA-Z\-]+'],
+        requirements: ['slug' => '[a-zA-Z0-9\-]+'],
         methods: 'GET|POST'
     )]
     #[IsGranted('EDIT', 'user')]
@@ -180,7 +180,7 @@ class UserController extends AbstractController
     #[Route(
         '/{slug}/block',
         name: 'user_block',
-        requirements: ['slug' => '[a-zA-Z\-]+'],
+        requirements: ['slug' => '[a-zA-Z0-9\-]+'],
         methods: 'GET|PUT'
     )]
     #[IsGranted('BLOCK', 'user')]

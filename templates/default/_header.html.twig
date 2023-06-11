@@ -31,11 +31,14 @@
     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
         <div class="bg-dark text-light me-2"><a href="{{ url('user_show', {slug: app.user.slug}) }}">{{ app.user.username }}</a></div>
         <div>
-            <a href="{{ url('app_logout') }}">{{ 'action_logout'|trans }}</a>
+            <a href="{{ url('app_logout') }}">{{ 'action.logout'|trans }}</a>
         </div>
     {% else %}
         <div>
-            <a href="{{ url('app_login') }}">{{ 'action_login'|trans }}</a>
+            <a href="{{ url('app_login') }}">{{ 'action.login'|trans }}</a>
+        </div>
+        <div>
+            <a class="ms-1" href="{{ url('app_register') }}">{{ 'action.register'|trans }}</a>
         </div>
     {% endif %}
 </nav>

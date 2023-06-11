@@ -76,7 +76,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @var string|null
      */
     #[ORM\Column(length: 50)]
-    #[Assert\NotBlank]
+    #[Assert\Type('string')]
     #[Assert\Length(
         min: 3,
         max: 50

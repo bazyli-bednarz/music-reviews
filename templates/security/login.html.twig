@@ -10,9 +10,10 @@
 
         {% if app.user %}
             <div class="mb-3">
-                {{ 'info.you_are_logged_in_as'|trans }}{{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">{{ 'action.logout'|trans }}</a>
+                <p>{{ 'info.you_are_logged_in_as'|trans }} {{ app.user.username }}</p>
+                <a href="{{ path('app_logout') }}">{{ 'action.logout'|trans }}</a>
             </div>
-        {% endif %}
+        {% else %}
 
         <h1 class="h3 mb-3 mt-5 font-weight-normal">{{ 'title.sign_in'|trans }}</h1>
         <div class="inputGroup inputGroup1">
@@ -47,6 +48,12 @@
             </button>
         </div>
     </form>
+    <p>
+        {{ 'message.no_account_yet'|trans }}
+        <a href="{{ url('app_register') }}"> {{ 'action.register'|trans }}</a>
+    </p>
+    {% endif %}
+
 {% endblock %}
 
 

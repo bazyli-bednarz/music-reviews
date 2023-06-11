@@ -55,6 +55,14 @@ label.required::after {
   margin-right: 5px;
 }
 
+.footer {
+  position: fixed;
+  z-index: 10;
+  left: 0;
+  right: 0;
+  bottom: 36px;
+}
+
 .selectize-control {
   padding: 0;
 }

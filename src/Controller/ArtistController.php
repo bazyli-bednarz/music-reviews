@@ -112,7 +112,7 @@ class ArtistController extends AbstractController
     #[Route(
         '/{slug}',
         name: 'artist_show',
-        requirements: ['slug' => '[a-zA-Z\-]+'],
+        requirements: ['slug' => '[a-zA-Z0-9\-]+'],
         methods: 'GET',
     )]
     public function show(Request $request, Artist $artist): Response
@@ -138,7 +138,7 @@ class ArtistController extends AbstractController
     #[Route(
         '/{slug}/edit',
         name: 'artist_edit',
-        requirements: ['slug' => '[a-zA-Z\-]+'],
+        requirements: ['slug' => '[a-zA-Z0-9\-]+'],
         methods: 'GET|PUT'
     )]
     #[IsGranted('ROLE_ADMIN')]
@@ -185,7 +185,7 @@ class ArtistController extends AbstractController
     #[Route(
         '/{slug}/delete',
         name: 'artist_delete',
-        requirements: ['slug' => '[a-zA-Z\-]+'],
+        requirements: ['slug' => '[a-zA-Z0-9\-]+'],
         methods: 'GET|DELETE'
     )]
     #[IsGranted('ROLE_ADMIN')]
