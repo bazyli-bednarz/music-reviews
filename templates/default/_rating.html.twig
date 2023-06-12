@@ -1,0 +1,14 @@
+{# Parameters:
+    - rating
+#}
+{% if rating is defined %}
+    <span class="rating">
+        {% for i in range(0, 4) %}
+            {% if i < rating %}
+                <span class="material-icons material-icons-outlined">star</span>
+            {% else %}
+                <span class="material-symbols-outlined">star</span>
+            {% endif %}
+        {% endfor %}
+    </span>
+{% endif %}

@@ -8,6 +8,8 @@ namespace App\Service;
 use App\Entity\Album;
 use App\Entity\Comment;
 use App\Repository\CommentRepository;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
 
@@ -69,6 +71,21 @@ class CommentService implements CommentServiceInterface
             $page,
             CommentRepository::PAGINATOR_ITEMS_PER_PAGE
         );
+    }
+
+    /**
+     * Count comments in album.
+     *
+     * @param Album $album
+     *
+     * @return int
+     *
+     * @throws NoResultException
+     * @throws NonUniqueResultException
+     */
+    public function countByAlbum(Album $album): int
+    {
+        return $this->commentRepository->countByAlbum($album);
     }
 
     /**

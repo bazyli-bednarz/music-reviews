@@ -35,7 +35,22 @@ class AlbumFixtures extends AbstractBaseFixtures implements DependentFixtureInte
             $album->setTitle(ucfirst($this->faker->words(3, true).' '.$this->faker->emoji));
             $album->setYear(intval($this->faker->year()));
             $album->setMark($this->faker->numberBetween(1, 5));
-            $album->setDescription($this->faker->paragraph(5));
+            $description = '**';
+            $description .= $this->faker->paragraph(3);
+            $description .= '**';
+            $description .= "\n ## ".$this->faker->word."\n\n";
+            $description .= $this->faker->paragraph(5);
+            $description .= "\n ### ".$this->faker->word."\n\n";
+            foreach (range(1, $this->faker->numberBetween(5, 15)) as $number) {
+                $description .= $number.'. '.$this->faker->word.' ('.$this->faker->numberBetween(1, 10).':'.
+                    str_pad($this->faker->numberBetween(0, 59), 2, '0', STR_PAD_LEFT)
+                    .')'."\n\n";
+            }
+            $description .= $this->faker->paragraph(4);
+            $description .= "\n ### ".$this->faker->word."\n\n";
+            $description .= '>'.$this->faker->paragraph(2)."\n\n";
+            $description .= $this->faker->paragraph(2);
+            $album->setDescription($description);
             $album->setCreatedAt(
                 \DateTimeImmutable::createFromMutable($this->faker->dateTimeBetween('-100 days', '-1 days'))
             );

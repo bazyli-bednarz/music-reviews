@@ -10,11 +10,9 @@ Album table template.
         <table class="table table-striped">
             <thead>
             <tr>
-                <th>{{ knp_pagination_sortable(pagination, 'label.id'|trans, 'album.id') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'label.title'|trans, 'album.title') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'label.artist_name'|trans, 'artist.name') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'label.review_by'|trans, 'user.username') }}</th>
-                <th>{{ knp_pagination_sortable(pagination, 'label.description'|trans, 'album.description') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'label.year'|trans, 'album.year') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'label.mark'|trans, 'album.mark') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'label.category'|trans, 'category.title') }}</th>
@@ -25,7 +23,6 @@ Album table template.
             <tbody>
             {% for album in pagination.items %}
                 <tr>
-                    <td>{{ album.id }}</td>
                     <td>{{ album.title }}</td>
                     <td>{% if album.artists is defined and album.artists|length %}
                             {% for artist in album.artists %}
@@ -33,9 +30,8 @@ Album table template.
                             {% endfor %}
                         {% endif %}</td>
                     <td><a href="{{ url('user_show', {slug: album.author.slug }) }}">{{ album.author.username }}</a></td>
-                    <td>{{ album.description }}</td>
                     <td>{{ album.year }}</td>
-                    <td>{{ album.mark }}</td>
+                    <td>{% include 'default/_rating.html.twig' with {rating: album.mark} %}</td>
                     <td><a href="{{ url('category_show', {slug: album.category.slug}) }}">{{ album.category.title }}</a></td>
                     <td>{% if album.tags is defined and album.tags|length %}
                             {% for tag in album.tags %}

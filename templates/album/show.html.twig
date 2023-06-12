@@ -33,22 +33,13 @@
 
 
             <p>{{ 'label.reviewer_rating'|trans }}
-                <span class="rating rating--reviewer">
-
-                {% for i in range(0, 4) %}
-                    {% if i < album.mark %}
-                        <span class="material-icons material-icons-outlined">star</span>
-                    {% else %}
-                        <span class="material-symbols-outlined">star</span>
-                    {% endif %}
-                {% endfor %}
-                </span></p>
-            <p>{{ album.description }}</p>
+                {% include 'default/_rating.html.twig' with {rating: album.mark} %}</p>
+            <p>{{ album.description|markdown_to_html  }}</p>
             <a href="{{ url('category_show', {slug: album.category.slug }) }}">{{ album.category.title }}</a>
 
         </div>
         <div class="comments-wrapper shadow-lg mb-3 bg-body rounded" id="{{ 'id.comments'|trans }}">
-            <h2 class="p-4">{{ 'label.comments'|trans }}</h2>
+            <h2 class="p-4">{{ 'label.comments'|trans }} ({{ number_of_comments }})</h2>
 
             {% if form is defined %}
 
@@ -78,14 +69,8 @@
                             class="text-muted text-decoration-line-through"{% endif %}>{{ comment.author.username }}</a>
                         {% if comment.author.blocked %}<small class="text-muted">
                             {{ 'message.user_blocked'|trans }}</small> {% endif %}
-                        <p class="rating">
-                            {% for i in range(0, 4) %}
-                                {% if i < comment.rating %}
-                                    <span class="material-icons material-icons-outlined">star</span>
-                                {% else %}
-                                    <span class="material-symbols-outlined">star</span>
-                                {% endif %}
-                            {% endfor %}
+                        <p>
+                            {% include 'default/_rating.html.twig' with {rating: comment.rating} %}</p>
                         </p>
                         <p class="created-at">
                             {{ comment.createdAt|format_date('long') }}
@@ -107,7 +92,7 @@
                             {% endif %}
                         </p>
 
-                        <p>{{ comment.description }}</p>
+                        <p>{{ comment.description|markdown_to_html }}</p>
                     </div>
                 {% endfor %}
                 <div class="navigation text-center pb-2">

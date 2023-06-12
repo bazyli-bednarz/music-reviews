@@ -13,6 +13,8 @@ use App\Service\AlbumService;
 use App\Service\AlbumServiceInterface;
 use App\Service\CommentService;
 use App\Service\CommentServiceInterface;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
@@ -140,6 +142,14 @@ class AlbumController extends AbstractController
             $album,
             $request->query->getInt('page', 1)
         );
+
+        $numberOfComments = 0;
+        try {
+            $numberOfComments = $this->commentService->countByAlbum($album);
+        } catch (NoResultException|NonUniqueResultException $e) {
+            echo $e;
+        }
+
         /* Add comment */
         if ($this->getUser()) {
             $comment = new Comment();
@@ -178,6 +188,7 @@ class AlbumController extends AbstractController
                 [
                     'album' => $album,
                     'pagination' => $pagination,
+                    'number_of_comments' => $numberOfComments,
                     'form' => $form->createView(),
                 ]
             );
@@ -188,6 +199,7 @@ class AlbumController extends AbstractController
             [
                 'album' => $album,
                 'pagination' => $pagination,
+                'number_of_comments' => $numberOfComments,
             ]
         );
     }

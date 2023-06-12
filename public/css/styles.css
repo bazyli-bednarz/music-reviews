@@ -63,6 +63,10 @@ label.required::after {
   bottom: 36px;
 }
 
+.rating {
+  white-space: nowrap;
+}
+
 .selectize-control {
   padding: 0;
 }
