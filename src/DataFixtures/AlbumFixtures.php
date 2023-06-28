@@ -16,6 +16,8 @@ use Faker\Factory;
 
 /**
  * Class AlbumFixtures.
+ *
+ * @codeCoverageIgnore
  */
 class AlbumFixtures extends AbstractBaseFixtures implements DependentFixtureInterface
 {

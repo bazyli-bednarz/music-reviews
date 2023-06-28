@@ -9,6 +9,8 @@ use App\Entity\Category;
 
 /**
  * Class CategoryFixtures.
+ *
+ * @codeCoverageIgnore
  */
 class CategoryFixtures extends AbstractBaseFixtures
 {

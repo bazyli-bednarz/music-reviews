@@ -12,6 +12,8 @@ use Faker\Generator;
 
 /**
  * Class AbstractBaseFixtures.
+ *
+ * @codeCoverageIgnore
  */
 abstract class AbstractBaseFixtures extends Fixture
 {

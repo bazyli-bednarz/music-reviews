@@ -9,6 +9,8 @@ use App\Entity\Tag;
 
 /**
  * Class TagFixtures.
+ *
+ * @codeCoverageIgnore
  */
 class TagFixtures extends AbstractBaseFixtures
 {

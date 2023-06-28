@@ -9,6 +9,8 @@ use App\Entity\Artist;
 
 /**
  * Class ArtistFixtures.
+ *
+ * @codeCoverageIgnore
  */
 class ArtistFixtures extends AbstractBaseFixtures
 {

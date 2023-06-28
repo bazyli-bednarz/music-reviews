@@ -153,7 +153,7 @@ class AlbumService implements AlbumServiceInterface
      *
      * @throws NonUniqueResultException
      */
-    private function prepareFilters(array $filters): array
+    public function prepareFilters(array $filters): array
     {
         $resultFilters = [];
 

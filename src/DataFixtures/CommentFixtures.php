@@ -13,6 +13,8 @@ use Faker\Factory;
 
 /**
  * Class CommentFixtures.
+ *
+ * @codeCoverageIgnore
  */
 class CommentFixtures extends AbstractBaseFixtures implements DependentFixtureInterface
 {
