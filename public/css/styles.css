@@ -67,6 +67,10 @@ label.required::after {
   white-space: nowrap;
 }
 
+.material-icons {
+  text-rendering: optimizeLegibility;
+}
+
 .selectize-control {
   padding: 0;
 }
@@ -78,6 +82,98 @@ label.required::after {
 .selectize-dropdown .selected {
   background-color: var(--bs-primary);
   color: #fff;
+}
+
+.album__cover {
+  width: 80%;
+  object-fit: contain;
+  margin: 20px auto;
+  display: block;
+  max-width: 100%;
+  max-height: 700px;
+}
+.album__cover--thumbnail {
+  width: 140px;
+  height: 140px;
+  z-index: 3;
+  object-fit: cover;
+}
+.album__cover--small {
+  display: none;
+}
+
+@media (min-width: 1200px) {
+  .album__cover {
+    width: 80%;
+    object-fit: contain;
+    margin: 20px auto;
+    display: block;
+    max-width: 100%;
+    max-height: 700px;
+  }
+  .album__cover_inner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    transition: 0.3s;
+  }
+  .album__cover_inner::before {
+    content: "";
+    position: absolute;
+    width: 130px;
+    height: 130px;
+    top: 15px;
+    left: 50px;
+    background-image: url("../images/album-default.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    transition: 0.3s;
+    z-index: 1;
+  }
+  .album__cover_inner .album__cover--small {
+    display: block;
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    top: 50px;
+    left: 85px;
+    object-fit: cover;
+    transition: 0.3s;
+    z-index: 2;
+    border-radius: 50%;
+    border: 1px solid white;
+  }
+  .album__cover_wrapper {
+    position: relative;
+    aspect-ratio: 1;
+    height: 160px;
+    width: 220px;
+  }
+  .album__cover--thumbnail {
+    position: absolute;
+    top: 10px;
+    left: 40px;
+    bottom: 10px;
+    right: 10px;
+    width: 140px;
+    height: 140px;
+    z-index: 3;
+    object-fit: cover;
+    transition: 0.3s;
+  }
+  tr:hover .album__cover--thumbnail {
+    transform: translateX(-40px);
+  }
+  tr:hover .album__cover_inner {
+    transform: translateX(40px);
+    filter: drop-shadow(0 0.25rem 0.25rem rgba(35, 35, 35, 0.47));
+  }
+  tr:hover .album__cover--small {
+    transform: rotate(45deg);
+  }
 }
 
 /*# sourceMappingURL=styles.css.map */

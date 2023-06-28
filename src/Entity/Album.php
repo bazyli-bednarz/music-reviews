@@ -124,6 +124,9 @@ class Album
     #[Assert\Type(User::class)]
     private ?User $author = null;
 
+    #[ORM\OneToOne(mappedBy: 'album', cascade: ['persist', 'remove'])]
+    private ?Cover $cover = null;
+
     /**
      * Constructor.
      */
@@ -359,5 +362,22 @@ class Album
     public function setAuthor(?User $author): void
     {
         $this->author = $author;
+    }
+
+    public function getCover(): ?Cover
+    {
+        return $this->cover;
+    }
+
+    public function setCover(Cover $cover): self
+    {
+        // set the owning side of the relation if necessary
+        if ($cover->getAlbum() !== $this) {
+            $cover->setAlbum($this);
+        }
+
+        $this->cover = $cover;
+
+        return $this;
     }
 }

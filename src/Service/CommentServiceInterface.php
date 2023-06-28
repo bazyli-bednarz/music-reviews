@@ -50,6 +50,15 @@ interface CommentServiceInterface
     public function countByAlbum(Album $album): int;
 
     /**
+     * Average album user rating.
+     *
+     * @param Album $album
+     *
+     * @return float
+     */
+    public function getAverageUserRating(Album $album): float;
+
+    /**
      * Save entity.
      *
      * @param Comment $comment Comment entity

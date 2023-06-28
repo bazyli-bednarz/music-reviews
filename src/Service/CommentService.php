@@ -89,6 +89,18 @@ class CommentService implements CommentServiceInterface
     }
 
     /**
+     * Average album user rating.
+     *
+     * @param Album $album
+     *
+     * @return float
+     */
+    public function getAverageUserRating(Album $album): float
+    {
+        return $this->commentRepository->getAverageUserRating($album);
+    }
+
+    /**
      * Save entity.
      *
      * @param Comment $comment Comment entity

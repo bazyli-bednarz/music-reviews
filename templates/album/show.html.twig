@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    Album review
+    {{ album.title }} ({{ album.year }}) - {{ 'title.review'|trans }}
 {% endblock %}
 
 {% block body %}
@@ -14,13 +14,21 @@
 
     {% if album is defined and album|length %}
         <div class="album p-4">
-            <h1>{{ album.title }} ({{ album.year }}) review</h1>
+            <h1>{{ album.title }} ({{ album.year }}) - {{ 'title.review'|trans }}</h1>
             {% if is_granted('EDIT', album) %}
                 <a href="{{ url('album_edit', {slug: album.slug}) }}">{{ 'action.edit'|trans }}</a> |
             {% endif %}
             {% if is_granted('DELETE', album) %}
                 <a href="{{ url('album_delete', {slug: album.slug}) }}">{{ 'action.delete'|trans }}</a>
             {% endif %}
+
+            <img class="album__cover" src="
+                {% if album.cover.filename is defined and album.cover.filename|length %}
+                    {{ asset(covers_directory~album.cover.filename) }}
+                {% else %}
+                    {{ asset('images/question-mark.jpg') }}
+                {% endif %}
+            ">
 
             <div class="tags-wrapper">
                 {% if album.tags is defined and album.tags|length %}
@@ -33,7 +41,9 @@
 
 
             <p>{{ 'label.reviewer_rating'|trans }}
-                {% include 'default/_rating.html.twig' with {rating: album.mark} %}</p>
+                {% include 'default/_rating.html.twig' with {rating: album.mark} %} ({{ album.mark }}/5)</p>
+            <p>{{ 'label.user_avg_rating'|trans }}
+                {% include 'default/_rating.html.twig' with {rating: avg} %} ({{ avg }}/5)</p>
             <p>{{ album.description|markdown_to_html  }}</p>
             <a href="{{ url('category_show', {slug: album.category.slug }) }}">{{ album.category.title }}</a>
 

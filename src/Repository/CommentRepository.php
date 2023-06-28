@@ -91,6 +91,30 @@ class CommentRepository extends ServiceEntityRepository
     }
 
     /**
+     * Get average user rating.
+     *
+     * @param Album $album
+     *
+     * @return float
+     */
+    public function getAverageUserRating(Album $album): float
+    {
+        $queryBuilder = $this->getOrCreateQueryBuilder();
+
+        try {
+            return (float) $queryBuilder->select('AVG(comment.rating) as score')
+                ->where('comment.album = :album')
+                ->setParameter(':album', $album)
+                ->getQuery()
+                ->getSingleScalarResult();
+        } catch (NoResultException|NonUniqueResultException $e) {
+            echo $e;
+        }
+
+        return 0;
+    }
+
+    /**
      * Get or create new query builder.
      *
      * @param QueryBuilder|null $queryBuilder Query builder
