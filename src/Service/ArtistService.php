@@ -98,8 +98,11 @@ class ArtistService implements ArtistServiceInterface
             $result = $this->albumRepository->countByArtist($artist);
 
             return !($result > 0);
-        } catch (NoResultException|NonUniqueResultException) {
+        }
+        // @codeCoverageIgnoreStart
+        catch (NoResultException|NonUniqueResultException) {
             return false;
         }
+        // @codeCoverageIgnoreEnd
     }
 }

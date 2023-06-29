@@ -1,4 +1,7 @@
 <?php
+/**
+ * Tag repository.
+ */
 
 namespace App\Repository;
 
@@ -7,6 +10,8 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
+ * TagRepository class.
+ *
  * @extends ServiceEntityRepository<Tag>
  *
  * @method Tag|null find($id, $lockMode = null, $lockVersion = null)
@@ -16,12 +21,23 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class TagRepository extends ServiceEntityRepository
 {
+    /**
+     * Constructor.
+     *
+     * @param ManagerRegistry $registry
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Tag::class);
     }
 
-    public function save(Tag $entity, bool $flush = false): void
+    /**
+     * Save tag.
+     *
+     * @param Tag $entity
+     * @param bool $flush
+     */
+    public function save(Tag $entity, bool $flush = true): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -30,7 +46,13 @@ class TagRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(Tag $entity, bool $flush = false): void
+    /**
+     * Delete tag.
+     *
+     * @param Tag $entity
+     * @param bool $flush
+     */
+    public function delete(Tag $entity, bool $flush = true): void
     {
         $this->getEntityManager()->remove($entity);
 

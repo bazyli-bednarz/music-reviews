@@ -13,10 +13,8 @@ use App\Repository\AlbumRepository;
 use App\Repository\ArtistRepository;
 use App\Repository\CategoryRepository;
 use App\Repository\UserRepository;
-use App\Tests\BaseFunctions;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
-use InvalidArgumentException;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
@@ -151,9 +149,7 @@ class CategoryControllerTest extends WebTestCase
         $testCategory->setUpdatedAt(new \DateTimeImmutable('now'));
         $categoryRepository->save($testCategory);
         $testCategorySlug = $testCategory->getSlug();
-        $testCategoryId = $testCategory->getId();
         $this->httpClient->request('GET', self::TEST_ROUTE.'/'.$testCategorySlug.'/edit');
-
 
         // when
         $this->httpClient->submitForm(
@@ -214,7 +210,7 @@ class CategoryControllerTest extends WebTestCase
     public function testCategoryDeleteWhenNotEmptyRoute(): void
     {
         // given
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(\InvalidArgumentException::class);
 
         $user = null;
         try {
@@ -234,24 +230,18 @@ class CategoryControllerTest extends WebTestCase
         $testCategory->setCreatedAt(new \DateTimeImmutable('now'));
         $testCategory->setUpdatedAt(new \DateTimeImmutable('now'));
 
-
         $artist = $this->createArtist('DeleteNE');
         $album = $this->createAlbum('DeleteNEAlbum', $testCategory, $artist, $user);
-
-        dump($album);
 
         $categoryRepository->save($testCategory);
         $testCategorySlug = $testCategory->getSlug();
         $testCategoryId = $testCategory->getId();
-
-
 
         // when
         $this->httpClient->request('GET', self::TEST_ROUTE.'/'.$testCategorySlug.'/delete');
 
         // then
         $this->assertNotNull($categoryRepository->findOneById($testCategoryId));
-
     }
 
     /**
@@ -304,7 +294,6 @@ class CategoryControllerTest extends WebTestCase
 
         return $album;
     }
-
 
     /**
      * Create artist.

@@ -63,7 +63,7 @@ class TagsDataTransformer implements DataTransformerInterface
      */
     public function reverseTransform($value): array
     {
-        $tagTitles = explode(',', $value);
+        $tagTitles = explode(',', $value ?? '');
 
         $tags = [];
 

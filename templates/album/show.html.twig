@@ -42,8 +42,10 @@
 
             <p>{{ 'label.reviewer_rating'|trans }}
                 {% include 'default/_rating.html.twig' with {rating: album.mark} %} ({{ album.mark }}/5)</p>
+            {% if avg is defined %}
             <p>{{ 'label.user_avg_rating'|trans }}
                 {% include 'default/_rating.html.twig' with {rating: avg} %} ({{ avg }}/5)</p>
+            {% endif %}
             <p>{{ album.description|markdown_to_html  }}</p>
             <a href="{{ url('category_show', {slug: album.category.slug }) }}">{{ album.category.title }}</a>
 
@@ -62,7 +64,6 @@
                             {% if app.user.blocked %}
                                 {{ 'message.you_are_blocked_and_cant_comment'|trans }}
                             {% else %}
-                                <span class="material-symbols-outlined">add_comment</span>
                                 {{ 'action.add_new_comment'|trans }}{% endif %}
                         </button>
                     </div>

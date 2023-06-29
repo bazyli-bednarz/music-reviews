@@ -63,6 +63,8 @@ class CategoryServiceTest extends KernelTestCase
         $expectedCategory = new Category();
         $expectedCategory->setTitle('Test category title');
         $expectedCategory->setDescription('Test category description');
+        $expectedCategory->setSlug('test-category-description');
+
 
         // when
         $this->categoryService->save($expectedCategory);
@@ -78,6 +80,9 @@ class CategoryServiceTest extends KernelTestCase
             ->getSingleResult();
 
         $this->assertEquals($expectedCategory, $resultCategory);
+        $this->assertEquals($expectedCategory->getUpdatedAt(), $resultCategory->getUpdatedAt());
+        $this->assertEquals($expectedCategory->getCreatedAt(), $resultCategory->getCreatedAt());
+        $this->assertEquals($expectedCategory->getSlug(), $resultCategory->getSlug());
     }
 
     /**

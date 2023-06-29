@@ -8,11 +8,13 @@ namespace App\Tests\Service;
 
 use App\Entity\Tag;
 use App\Form\DataTransformer\TagsDataTransformer;
+use App\Repository\TagRepository;
 use App\Service\TagService;
 use App\Service\TagServiceInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\NonUniqueResultException;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
@@ -106,5 +108,39 @@ class TagsDataTransformerTest extends KernelTestCase
 
         // then
         $this->assertEquals($tags[0]->getTitle(), $result[0]->getTitle());
+    }
+
+    /**
+     * Test tag methods.
+     *
+     * @throws NonUniqueResultException
+     */
+    public function testMethods(): void
+    {
+        // given
+        $tag = new Tag();
+        $tagTitle = 'tag-test';
+        $tagSlug = 'tag-test';
+        $tagUpdatedAt = new \DateTimeImmutable('now');
+        $tagCreatedAt = new \DateTimeImmutable('now');
+
+        $tag->setTitle($tagTitle);
+
+        $tag->setSlug($tagSlug);
+        $tag->setUpdatedAt($tagUpdatedAt);
+        $tag->setCreatedAt($tagCreatedAt);
+
+        $this->tagService->save($tag);
+
+        $this->assertEquals($tagTitle, $tag->getTitle());
+        $this->assertEquals($tagSlug, $tag->getSlug());
+        $this->assertEquals($tagUpdatedAt, $tag->getUpdatedAt());
+        $this->assertEquals($tagCreatedAt, $tag->getCreatedAt());
+
+        $tagId = $tag->getId();
+
+        $this->assertEquals($this->tagService->findOneById($tagId)->getId(), $tag->getId());
+        $this->tagService->delete($tag);
+        $this->assertNull($this->tagService->findOneById($tagId));
     }
 }

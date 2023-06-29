@@ -8,11 +8,15 @@ namespace App\Tests\Service;
 use App\Entity\Album;
 use App\Entity\Artist;
 use App\Entity\Category;
+use App\Entity\Comment;
+use App\Entity\Cover;
 use App\Entity\Tag;
 use App\Entity\User;
 use App\Repository\AlbumRepository;
 use App\Repository\ArtistRepository;
 use App\Repository\CategoryRepository;
+use App\Repository\CoverRepository;
+use App\Repository\TagRepository;
 use App\Repository\UserRepository;
 use App\Service\AlbumService;
 use App\Service\AlbumServiceInterface;
@@ -64,6 +68,7 @@ class AlbumServiceTest extends KernelTestCase
         // given
         $expectedAlbum = new Album();
         $expectedAlbum->setTitle('Test album title');
+        $expectedAlbum->setSlug('test-album-title');
         $expectedAlbum->setDescription('Test album description');
         try {
             $expectedAlbum->setAuthor($this->createUser(['ROLE_USER', 'ROLE_ADMIN'], 'admin2@example.pl', 'Admin test'));
@@ -78,6 +83,24 @@ class AlbumServiceTest extends KernelTestCase
 
         $artist = $this->createArtist('Artist name for album test');
         $expectedAlbum->addArtist($artist);
+        $expectedAlbum->removeArtist($artist);
+
+        $tag = new Tag();
+        $tag->setTitle('album-tag');
+        $expectedAlbum->addTag($tag);
+        $expectedAlbum->removeTag($tag);
+
+        $cover = $this->createCover('dummy.png', $expectedAlbum);
+        $expectedAlbum->setCover($cover);
+
+        $secondAlbum = null;
+        try {
+            $secondAlbum = $this->createAlbum($this->createCategory('Title-2'), $artist, $this->createUser(['ROLE_USER', 'ROLE_ADMIN'], 'admin2-double@example.pl', 'Admin test'));
+        } catch (OptimisticLockException|NotFoundExceptionInterface|ContainerExceptionInterface $e) {
+        }
+
+        $cover->setAlbum($secondAlbum);
+        $expectedAlbum->setCover($cover);
 
 
         // when
@@ -94,6 +117,11 @@ class AlbumServiceTest extends KernelTestCase
             ->getSingleResult();
 
         $this->assertEquals($expectedAlbum, $resultAlbum);
+        $this->assertEquals($expectedAlbum->getUpdatedAt(), $resultAlbum->getUpdatedAt());
+        $this->assertEquals($expectedAlbum->getCreatedAt(), $resultAlbum->getCreatedAt());
+        $this->assertEquals($expectedAlbum->getSlug(), $resultAlbum->getSlug());
+        $this->assertEquals($expectedAlbum->getAuthor(), $resultAlbum->getAuthor());
+        $this->assertEquals($expectedAlbum->getCover()->getId(), $resultAlbum->getCover()->getId());
     }
 
     /**
@@ -107,10 +135,13 @@ class AlbumServiceTest extends KernelTestCase
         $expectedAlbum = new Album();
         $expectedAlbum->setTitle('Test album comments title');
         $expectedAlbum->setDescription('Test album description');
+        $user = null;
         try {
-            $expectedAlbum->setAuthor($this->createUser(['ROLE_USER', 'ROLE_ADMIN'], 'adminalbumcomments@example.pl', 'Admin test'));
-        } catch (OptimisticLockException|NotFoundExceptionInterface|ContainerExceptionInterface|ORMException $e) {
+            $user = $this->createUser(['ROLE_USER', 'ROLE_ADMIN'], 'adminalbumcomments@example.pl', 'Admin test');
+        } catch (OptimisticLockException|ContainerExceptionInterface $e) {
         }
+        $expectedAlbum->setAuthor($user);
+
 
         $expectedAlbum->setMark(4);
         $expectedAlbum->setCategory($this->createCategory('Title category albums comments'));
@@ -128,6 +159,16 @@ class AlbumServiceTest extends KernelTestCase
         // then
         $comments = $this->albumService->countComments($expectedAlbum);
         $this->assertEquals(0, $comments);
+
+        $comment = new Comment();
+        $comment->setDescription('Comment testCountComments');
+        $comment->setRating(5);
+        $comment->setAlbum($expectedAlbum);
+        $comment->setAuthor($user);
+
+        $this->assertEquals($expectedAlbum, $comment->getAlbum());
+        $this->assertEquals($user, $comment->getAuthor());
+
     }
 
 
@@ -158,16 +199,22 @@ class AlbumServiceTest extends KernelTestCase
 
         $tag = new Tag();
         $tag->setTitle('Tag');
-        $slug = 'tag';
         $expectedTags = ['tag' => $tag];
         $this->entityManager->persist($tag);
         $this->entityManager->flush();
 
+        $tagId = $tag->getId();
+
+
+
         // when
         $resultTags = $this->albumService->prepareFilters(['tag_slug' => 'tag']);
+        $tagRepository = static::getContainer()->get(TagRepository::class);
+        $tagInDb = $tagRepository->findOneById($tagId);
 
         // then
         $this->assertEquals($expectedTags, $resultTags);
+        $this->assertEquals($tagId, $tagInDb->getId());
     }
 
     /**
@@ -440,5 +487,25 @@ class AlbumServiceTest extends KernelTestCase
         $categoryRepository->save($category);
 
         return $category;
+    }
+
+
+    /**
+     * Create cover.
+     *
+     * @param string $filename
+     * @param Album $album
+     * @return Cover
+     */
+    public function createCover(string $filename, Album $album): Cover
+    {
+        $cover = new Cover();
+        $cover->setFilename($filename);
+        $cover->setAlbum($album);
+
+        $coverRepository = self::getContainer()->get(CoverRepository::class);
+        $coverRepository->save($cover);
+
+        return $cover;
     }
 }

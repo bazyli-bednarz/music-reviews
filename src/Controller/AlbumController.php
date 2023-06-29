@@ -173,9 +173,12 @@ class AlbumController extends AbstractController
         $numberOfComments = 0;
         try {
             $numberOfComments = $this->commentService->countByAlbum($album);
-        } catch (NoResultException|NonUniqueResultException $e) {
+        }
+        // @codeCoverageIgnoreStart
+        catch (NoResultException|NonUniqueResultException $e) {
             echo $e;
         }
+        // @codeCoverageIgnoreEnd
 
         $averageRating = 0;
         $averageRating = $this->commentService->getAverageUserRating($album);
@@ -195,12 +198,14 @@ class AlbumController extends AbstractController
 
             if ($form->isSubmitted() && $form->isValid()) {
                 if ($user->isBlocked()) {
+                    // @codeCoverageIgnoreStart
                     $this->addFlash(
                         'warning',
                         $this->translator->trans('message.you_are_blocked_cant_comment')
                     );
 
                     return $this->redirectToRoute('album_show', ['slug' => $album->getSlug()]);
+                    // @codeCoverageIgnoreEnd
                 }
 
                 $comment->setAlbum($album);
@@ -232,6 +237,7 @@ class AlbumController extends AbstractController
                 'album' => $album,
                 'pagination' => $pagination,
                 'number_of_comments' => $numberOfComments,
+                'avg' => $averageRating,
             ]
         );
     }

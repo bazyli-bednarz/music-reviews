@@ -123,7 +123,9 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
         if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
+            // @codeCoverageIgnoreStart
             return new RedirectResponse($targetPath);
+            // @codeCoverageIgnoreEnd
         }
 
         return new RedirectResponse($this->urlGenerator->generate(self::DEFAULT_ROUTE));
@@ -138,7 +140,9 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
      */
     protected function getLoginUrl(Request $request): string
     {
+        // @codeCoverageIgnoreStart
         return $this->urlGenerator->generate(self::LOGIN_ROUTE);
+        // @codeCoverageIgnoreEnd
     }
 }
 

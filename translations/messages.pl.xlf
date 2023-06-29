@@ -2,6 +2,10 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
   <file source-language="en" datatype="plaintext" original="file.ext">
     <body>
+      <trans-unit id="action.add_new_comment">
+        <source>action.add_new_comment</source>
+        <target>Skomentuj</target>
+      </trans-unit>
       <trans-unit id="action.delete">
         <source>action.delete</source>
         <target>Usuń</target>
@@ -10,6 +14,10 @@
         <source>action.edit</source>
         <target>Edytuj</target>
       </trans-unit>
+      <trans-unit id="action.login">
+        <source>action.login</source>
+        <target>Zaloguj</target>
+      </trans-unit>
       <trans-unit id="action.view">
         <source>action.view</source>
         <target>Zobacz</target>
@@ -17,6 +25,14 @@
       <trans-unit id="action.save">
         <source>action.save</source>
         <target>Zapisz</target>
+      </trans-unit>
+      <trans-unit id="action.sign_up">
+        <source>action.sign_up</source>
+        <target>Zarejestruj się</target>
+      </trans-unit>
+      <trans-unit id="action.register">
+        <source>action.register</source>
+        <target>Rejestracja</target>
       </trans-unit>
 
       <trans-unit id="label.actions">
