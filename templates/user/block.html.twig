@@ -42,9 +42,9 @@ parameters:
         <div class="form-group row float-sm-right">
             <button type="submit"  class="btn btn-primary">
                 {% if user.blocked %}
-                    {{ 'action.unblock_user' }}
+                    {{ 'action.unblock_user'|trans }}
                 {% else %}
-                    {{ 'action.block_user' }}
+                    {{ 'action.block_user'|trans }}
                 {% endif %}</button>
         </div>
         {% if user is defined %}

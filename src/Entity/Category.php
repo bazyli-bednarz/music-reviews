@@ -188,7 +188,6 @@ class Category
      * Setter for slug.
      *
      * @param string $slug
-     * @return void
      */
     public function setSlug(string $slug): void
     {

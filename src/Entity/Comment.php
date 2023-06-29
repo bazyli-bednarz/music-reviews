@@ -1,4 +1,7 @@
 <?php
+/**
+ * Comment entity.
+ */
 
 namespace App\Entity;
 
@@ -8,6 +11,9 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 
+/**
+ * Comment.
+ */
 #[ORM\Entity(repositoryClass: CommentRepository::class)]
 #[ORM\Table(name: 'comments')]
 class Comment

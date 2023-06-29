@@ -1,4 +1,7 @@
 <?php
+/**
+ * User Voter.
+ */
 
 namespace App\Security\Voter;
 
@@ -8,6 +11,9 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Core\User\UserInterface;
 
+/**
+ * User Voter class.
+ */
 class UserVoter extends Voter
 {
     /**

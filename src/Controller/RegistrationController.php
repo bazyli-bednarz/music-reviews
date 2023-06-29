@@ -1,27 +1,39 @@
 <?php
+/**
+ * Registration controller.
+ */
 
 namespace App\Controller;
 
-use App\Entity\Enum\UserRole;
 use App\Entity\User;
 use App\Form\Type\RegistrationFormType;
 use App\Security\LoginFormAuthenticator;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Mime\Address;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-
+/**
+ * Registration controller.
+ */
 class RegistrationController extends AbstractController
 {
+    /**
+     * Translator.
+     *
+     * @var TranslatorInterface
+     */
     private TranslatorInterface $translator;
 
+    /**
+     * Constructor.
+     *
+     * @param TranslatorInterface $translator
+     */
     public function __construct(TranslatorInterface $translator)
     {
         $this->translator = $translator;
@@ -30,8 +42,18 @@ class RegistrationController extends AbstractController
     /**
      * Register action.
      *
-     * @Route("/register", name="app_register")
+     * @param Request                     $request
+     * @param UserPasswordHasherInterface $userPasswordHasher
+     * @param UserAuthenticatorInterface  $userAuthenticator
+     * @param LoginFormAuthenticator      $authenticator
+     * @param EntityManagerInterface      $entityManager
+     *
+     * @return Response
      */
+    #[Route(
+        '/register',
+        name: 'app_register',
+    )]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, LoginFormAuthenticator $authenticator, EntityManagerInterface $entityManager): Response
     {
         $user = new User();

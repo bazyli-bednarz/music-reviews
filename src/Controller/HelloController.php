@@ -29,16 +29,11 @@ class HelloController extends AbstractController
         defaults: ['name' => 'World'],
         methods: 'GET'
     )]
-
-
     public function index(string $name): Response
     {
         return $this->render(
             'hello/index.html.twig',
             ['name' => $name]
         );
-
     }
-
-
 }

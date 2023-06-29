@@ -9,10 +9,8 @@ use App\Entity\User;
 use App\Form\Type\BlockUserType;
 use App\Form\Type\ChangePasswordType;
 use App\Service\UserServiceInterface;
-use phpDocumentor\Reflection\Utils;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -27,6 +25,8 @@ class UserController extends AbstractController
 {
     /**
      * User service.
+     *
+     * @var UserServiceInterface
      */
     private UserServiceInterface $userService;
 
@@ -37,6 +37,12 @@ class UserController extends AbstractController
      */
     private TranslatorInterface $translator;
 
+    /**
+     * Constructor.
+     *
+     * @param UserServiceInterface $userService
+     * @param TranslatorInterface  $translator
+     */
     public function __construct(UserServiceInterface $userService, TranslatorInterface $translator)
     {
         $this->userService = $userService;
@@ -45,6 +51,10 @@ class UserController extends AbstractController
 
     /**
      * Index action.
+     *
+     * @param Request $request
+     *
+     * @return Response
      */
     #[Route(
         name: 'user_index',
@@ -64,6 +74,11 @@ class UserController extends AbstractController
 
     /**
      * Show action.
+     *
+     * @param Request $request
+     * @param User    $user
+     *
+     * @return Response
      */
     #[Route(
         '/{slug}',
@@ -80,47 +95,14 @@ class UserController extends AbstractController
     }
 
     /**
-     * Create action.
-     *
-     * @param Request $request HTTP request
-     *
-     * @return Response HTTP response
-     */
-    #[Route(
-        '/create',
-        name: 'user_create',
-        methods: 'GET|POST',
-    )]
-    public function create(Request $request): Response
-    {
-        $user = new User();
-        $form = $this->createForm(UserType::class, $user);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->userService->save($user);
-
-            $this->addFlash(
-                'success',
-                $this->translator->trans('message.created_successfully')
-            );
-
-            return $this->redirectToRoute('user_index');
-        }
-
-        return $this->render(
-            'user/create.html.twig',
-            ['form' => $form->createView()]
-        );
-    }
-
-    /**
      * Change password action.
      *
-     * @param Request $request HTTP request
-     * @param User    $user    User entity
+     * @param Request                     $request
+     * @param UserPasswordHasherInterface $userPasswordHasher
+     * @param TranslatorInterface         $translator
+     * @param User                        $user
      *
-     * @return Response HTTP response
+     * @return Response
      */
     #[Route(
         '/{slug}/change-password',

@@ -8,6 +8,9 @@ namespace App\Service;
 use App\Entity\Artist;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 
+/**
+ * ArtistServiceInterface.
+ */
 interface ArtistServiceInterface
 {
     /**

@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Album Voter.
+ */
 namespace App\Security\Voter;
 
 use App\Entity\Album;
@@ -9,6 +11,9 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Core\User\UserInterface;
 
+/**
+ * Album Voter.
+ */
 class AlbumVoter extends Voter
 {
     /**
@@ -52,8 +57,6 @@ class AlbumVoter extends Voter
      */
     protected function supports(string $attribute, mixed $subject): bool
     {
-        // replace with your own logic
-        // https://symfony.com/doc/current/security/voters.html
         return in_array($attribute, [self::EDIT, self::DELETE])
             && $subject instanceof Album;
     }
@@ -80,10 +83,8 @@ class AlbumVoter extends Voter
         switch ($attribute) {
             case self::EDIT:
                 return $this->canEdit($subject, $user);
-
             case self::DELETE:
                 return $this->canDelete($subject, $user);
-
         }
 
         return false;

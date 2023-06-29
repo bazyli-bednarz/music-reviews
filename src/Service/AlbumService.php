@@ -48,8 +48,7 @@ class AlbumService implements AlbumServiceInterface
      * @param TagServiceInterface $tagService        Tag service
      * @param PaginatorInterface  $paginator         Paginator
      */
-    public function __construct(AlbumRepository $albumRepository, CommentRepository $commentRepository,
-        TagServiceInterface $tagService, PaginatorInterface $paginator)
+    public function __construct(AlbumRepository $albumRepository, CommentRepository $commentRepository, TagServiceInterface $tagService, PaginatorInterface $paginator)
     {
         $this->albumRepository = $albumRepository;
         $this->commentRepository = $commentRepository;
@@ -82,7 +81,7 @@ class AlbumService implements AlbumServiceInterface
      * Get paginated list of albums by category.
      *
      * @param Category $category
-     * @param int $page
+     * @param int      $page
      *
      * @return PaginationInterface
      */
@@ -99,7 +98,7 @@ class AlbumService implements AlbumServiceInterface
      * Get paginated list of albums by artist.
      *
      * @param Artist $artist
-     * @param int $page
+     * @param int    $page
      *
      * @return PaginationInterface
      */
@@ -116,7 +115,9 @@ class AlbumService implements AlbumServiceInterface
      * Count comments by album.
      *
      * @param Album $album
+     *
      * @return int
+     *
      * @throws NoResultException
      * @throws NonUniqueResultException
      */
@@ -149,6 +150,7 @@ class AlbumService implements AlbumServiceInterface
      * Prepare filters for the tasks list.
      *
      * @param array $filters
+     *
      * @return array
      *
      * @throws NonUniqueResultException

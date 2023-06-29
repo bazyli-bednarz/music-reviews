@@ -68,6 +68,358 @@
         <source>message.empty_list</source>
         <target>Lista jest pusta.</target>
       </trans-unit>
+
+      <trans-unit id="message.created_successfully">
+        <source>message.created_successfully</source>
+        <target>Utworzono pomyślnie!</target>
+      </trans-unit>
+      <trans-unit id="message.you_are_blocked_cant_comment">
+        <source>message.you_are_blocked_cant_comment</source>
+        <target>Nie możesz komentować.</target>
+      </trans-unit>
+      <trans-unit id="message.edited_successfully">
+        <source>message.edited_successfully</source>
+        <target>Edytowano pomyślnie!</target>
+      </trans-unit>
+      <trans-unit id="message.deleted_successfully">
+        <source>message.deleted_successfully</source>
+        <target>Usunięto!</target>
+      </trans-unit>
+      <trans-unit id="message.artist_contains_albums">
+        <source>message.artist_contains_albums</source>
+        <target>Ten artysta ma przypisane albumy - usuń je wcześniej.</target>
+      </trans-unit>
+      <trans-unit id="message.category_contains_albums">
+        <source>message.category_contains_albums</source>
+        <target>Ta kategoria ma przypisane albumy - usuń je wcześniej.</target>
+      </trans-unit>
+      <trans-unit id="message.you_are_blocked_cant_edit_comment">
+        <source>message.you_are_blocked_cant_edit_comment</source>
+        <target>Nie możesz edytować komentarzy.</target>
+      </trans-unit>
+      <trans-unit id="message.registered_successfully">
+        <source>message.registered_successfully</source>
+        <target>Zarejestrowano pomyślnie!</target>
+      </trans-unit>
+      <trans-unit id="message.old_password_wrong">
+        <source>message.old_password_wrong</source>
+        <target>Stare hasło jest niepoprawne.</target>
+      </trans-unit>
+      <trans-unit id="message.password_changed">
+        <source>message.password_changed</source>
+        <target>Hasło zostało zmienione.</target>
+      </trans-unit>
+      <trans-unit id="message.unblocked_user">
+        <source>message.unblocked_user</source>
+        <target>Użytkownik odblokowany.</target>
+      </trans-unit>
+      <trans-unit id="message.blocked_user">
+        <source>message.blocked_user</source>
+        <target>Użytkownik zablokowany</target>
+      </trans-unit>
+      <trans-unit id="message.cant_block_this_user">
+        <source>message.cant_block_this_user</source>
+        <target>Nie możesz zablokować tego użytkownika.</target>
+      </trans-unit>
+      <trans-unit id="title.index">
+        <source>title.index</source>
+        <target>Music reviews</target>
+      </trans-unit>
+      <trans-unit id="text.index">
+        <source>text.index</source>
+        <target>Witaj na stronie głównej Music Reviews! Czytaj i komentuj recenzje najlepszych albumów na całym świecie!
+        Użytkownicy testowi: user[0-9]@musicreviews.com; user1234;
+        Administratorzy testowi: admin[0-2]@musicreviews.com; admin1234
+        </target>
+      </trans-unit>
+      <trans-unit id="label.artist_name">
+        <source>label.artist_name</source>
+        <target>Artysta</target>
+      </trans-unit>
+      <trans-unit id="label.review_by">
+        <source>label.review_by</source>
+        <target>Recenzent</target>
+      </trans-unit>
+      <trans-unit id="label.category">
+        <source>label.category</source>
+        <target>Kategoria</target>
+      </trans-unit>
+      <trans-unit id="label.tags">
+        <source>label.tags</source>
+        <target>Tagi</target>
+      </trans-unit>
+      <trans-unit id="message.form_error">
+        <source>message.form_error</source>
+        <target>Błąd formularza.</target>
+      </trans-unit>
+      <trans-unit id="action.back_to_list">
+        <source>action.back_to_list</source>
+        <target>Powrót do listy.</target>
+      </trans-unit>
+      <trans-unit id="nav.home">
+        <source>nav.home</source>
+        <target>Strona główna</target>
+      </trans-unit>
+      <trans-unit id="nav.albums">
+        <source>nav.albums</source>
+        <target>Albumy</target>
+      </trans-unit>
+      <trans-unit id="nav.artists">
+        <source>nav.artists</source>
+        <target>Artyści</target>
+      </trans-unit>
+      <trans-unit id="nav.categories">
+        <source>nav.categories</source>
+        <target>Kategorie</target>
+      </trans-unit>
+      <trans-unit id="nav.users">
+        <source>nav.users</source>
+        <target>Użytkownicy</target>
+      </trans-unit>
+      <trans-unit id="action.logout">
+        <source>action.logout</source>
+        <target>Wyloguj</target>
+      </trans-unit>
+      <trans-unit id="title.edit_comment">
+        <source>title.edit_comment</source>
+        <target>Edycja</target>
+      </trans-unit>
+      <trans-unit id="action.back_to_album">
+        <source>action.back_to_album</source>
+        <target>Powrót do recenzji</target>
+      </trans-unit>
+      <trans-unit id="title.delete_comment">
+        <source>title.delete_comment</source>
+        <target>Usuń</target>
+      </trans-unit>
+      <trans-unit id="label.edited">
+        <source>label.edited</source>
+        <target>edytowane</target>
+      </trans-unit>
+      <trans-unit id="title.artist">
+        <source>title.artist</source>
+        <target>Artysta</target>
+      </trans-unit>
+      <trans-unit id="message.artist_not_found">
+        <source>message.artist_not_found</source>
+        <target>Nie odnaleziono artysty.</target>
+      </trans-unit>
+      <trans-unit id="title.artist_create">
+        <source>title.artist_create</source>
+        <target>Dodaj artystę</target>
+      </trans-unit>
+      <trans-unit id="title.artists">
+        <source>title.artists</source>
+        <target>Artyści</target>
+      </trans-unit>
+      <trans-unit id="title.artist_edit">
+        <source>title.artist_edit</source>
+        <target>Edytuj artystę</target>
+      </trans-unit>
+      <trans-unit id="title.artist_delete">
+        <source>title.artist_delete</source>
+        <target>Usuń artystę</target>
+      </trans-unit>
+      <trans-unit id="title.sign_in">
+        <source>title.sign_in</source>
+        <target>Zaloguj się</target>
+      </trans-unit>
+      <trans-unit id="info.you_are_logged_in_as">
+        <source>info.you_are_logged_in_as</source>
+        <target>Jesteś zalogowany jako</target>
+      </trans-unit>
+      <trans-unit id="label.email">
+        <source>label.email</source>
+        <target>E-mail</target>
+      </trans-unit>
+      <trans-unit id="label.password">
+        <source>label.password</source>
+        <target>Hasło</target>
+      </trans-unit>
+      <trans-unit id="message.no_account_yet">
+        <source>message.no_account_yet</source>
+        <target>Nie masz jeszcze konta? </target>
+      </trans-unit>
+      <trans-unit id="title.review">
+        <source>title.review</source>
+        <target>recenzja</target>
+      </trans-unit>
+      <trans-unit id="label.reviewer_rating">
+        <source>label.reviewer_rating</source>
+        <target>Ocena recenzenta</target>
+      </trans-unit>
+      <trans-unit id="label.user_avg_rating">
+        <source>label.user_avg_rating</source>
+        <target>Średnia ocena użytkowników</target>
+      </trans-unit>
+      <trans-unit id="id.comments">
+        <source>id.comments</source>
+        <target>Komentarze</target>
+      </trans-unit>
+      <trans-unit id="label.comments">
+        <source>label.comments</source>
+        <target>Komentarze</target>
+      </trans-unit>
+      <trans-unit id="message.you_are_blocked_and_cant_comment">
+        <source>message.you_are_blocked_and_cant_comment</source>
+        <target>Nie możesz komentować.</target>
+      </trans-unit>
+      <trans-unit id="message.user_blocked">
+        <source>message.user_blocked</source>
+        <target>Uzytkownik zablokowany.</target>
+      </trans-unit>
+      <trans-unit id="message.no_comments_yet">
+        <source>message.no_comments_yet</source>
+        <target>Nie ma jeszcze komentarzy</target>
+      </trans-unit>
+      <trans-unit id="title.album_create">
+        <source>title.album_create</source>
+        <target>Utwórz album</target>
+      </trans-unit>
+      <trans-unit id="title.albums">
+        <source>title.albums</source>
+        <target>Albumy</target>
+      </trans-unit>
+      <trans-unit id="title.album_edit">
+        <source>title.album_edit</source>
+        <target>Edytuj album</target>
+      </trans-unit>
+      <trans-unit id="title.album_delete">
+        <source>title.album_delete</source>
+        <target>Usuń album</target>
+      </trans-unit>
+      <trans-unit id="title.category">
+        <source>title.category</source>
+        <target>Kategoria</target>
+      </trans-unit>
+      <trans-unit id="message.category_not_found">
+        <source>message.category_not_found</source>
+        <target>Nie odnaleziono kategorii</target>
+      </trans-unit>
+      <trans-unit id="title.category_create">
+        <source>title.category_create</source>
+        <target>Utwórz kategorię</target>
+      </trans-unit>
+      <trans-unit id="title.categories">
+        <source>title.categories</source>
+        <target>Kategorie</target>
+      </trans-unit>
+      <trans-unit id="title.category_edit">
+        <source>title.category_edit</source>
+        <target>Edytuj kategorię</target>
+      </trans-unit>
+      <trans-unit id="title.category_delete">
+        <source>title.category_delete</source>
+        <target>Usuń kategorię</target>
+      </trans-unit>
+      <trans-unit id="title.user">
+        <source>title.user</source>
+        <target>Użytkownik</target>
+      </trans-unit>
+      <trans-unit id="info.hey">
+        <source>info.hey</source>
+        <target>Cześć</target>
+      </trans-unit>
+      <trans-unit id="action.change_password">
+        <source>action.change_password</source>
+        <target>Zmień hasło</target>
+      </trans-unit>
+      <trans-unit id="action.unblock">
+        <source>action.unblock</source>
+        <target>Odblokuj</target>
+      </trans-unit>
+      <trans-unit id="action.block">
+        <source>action.block</source>
+        <target>Zablokuj</target>
+      </trans-unit>
+      <trans-unit id="message.user_not_found">
+        <source>message.user_not_found</source>
+        <target>Nie znaleziono użytkownika</target>
+      </trans-unit>
+      <trans-unit id="title.users">
+        <source>title.users</source>
+        <target>Użytkownicy</target>
+      </trans-unit>
+      <trans-unit id="label.username">
+        <source>label.username</source>
+        <target>Nazwa użytkownika</target>
+      </trans-unit>
+      <trans-unit id="action.back_to_profile">
+        <source>action.back_to_profile</source>
+        <target>Powrót do profilu</target>
+      </trans-unit>
+      <trans-unit id="title.change_password">
+        <source>title.change_password</source>
+        <target>Zmień hasło</target>
+      </trans-unit>
+      <trans-unit id="title.register">
+        <source>title.register</source>
+        <target>Zarejestruj</target>
+      </trans-unit>
+      <trans-unit id="message.logged_in_as">
+        <source>message.logged_in_as</source>
+        <target>Jesteś zalogowany jako</target>
+      </trans-unit>
+      <trans-unit id="message.logged_in_description">
+        <source>message.logged_in_description</source>
+        <target>Jesteś aktualnie zalogowany. </target>
+      </trans-unit>
+      <trans-unit id="message.already_have_account">
+        <source>message.already_have_account</source>
+        <target>Masz już konto?</target>
+      </trans-unit>
+      <trans-unit id="label.cover">
+        <source>label.cover</source>
+        <target>Okładka albumu</target>
+      </trans-unit>
+      <trans-unit id="label.none">
+        <source>label.none</source>
+        <target>Wybierz...</target>
+      </trans-unit>
+      <trans-unit id="label.artist_description">
+        <source>label.artist_description</source>
+        <target>Opis artysty</target>
+      </trans-unit>
+      <trans-unit id="action.block_user">
+        <source>action.block_user</source>
+        <target>Zablokuj użytkownika</target>
+      </trans-unit>
+      <trans-unit id="action.unblock_user">
+        <source>action.unblock_user</source>
+        <target>Odblokuj użytkownika</target>
+      </trans-unit>
+      <trans-unit id="label.user_email">
+        <source>label.user_email</source>
+        <target>e-mail</target>
+      </trans-unit>
+      <trans-unit id="label.user_name">
+        <source>label.user_name</source>
+        <target>nazwa użytkownika</target>
+      </trans-unit>
+      <trans-unit id="label.user_password">
+        <source>label.user_password</source>
+        <target>Hasło</target>
+      </trans-unit>
+      <trans-unit id="label.agree_terms">
+        <source>label.agree_terms</source>
+        <target>Zgadzam się na warunki korzystania z serwisu.</target>
+      </trans-unit>
+      <trans-unit id="label.old_password">
+        <source>label.old_password</source>
+        <target>Stare hasło</target>
+      </trans-unit>
+      <trans-unit id="label.new_password">
+        <source>label.new_password</source>
+        <target>Nowe hasło</target>
+      </trans-unit>
+      <trans-unit id="label.password_repeat">
+        <source>label.password_repeat</source>
+        <target>Powtórz nowe hasło</target>
+      </trans-unit>
+      <trans-unit id="label.rating">
+        <source>label.rating</source>
+        <target>Ocena (1-5)</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

@@ -56,12 +56,11 @@ class FileUploadService implements FileUploadServiceInterface
 
         try {
             $file->move($this->getTargetDirectory(), $fileName);
-        }
-        // @codeCoverageIgnoreStart
-        catch (FileException $e) {
+            // @codeCoverageIgnoreStart
+        } catch (FileException $e) {
             // ... handle exception if something happens during file upload
+            // @codeCoverageIgnoreEnd
         }
-        // @codeCoverageIgnoreEnd
 
         return $fileName;
     }

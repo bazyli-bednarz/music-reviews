@@ -1,6 +1,6 @@
 <?php
 /**
- * Hello controller.
+ * Index controller.
  */
 
 namespace App\Controller;
@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * Class HelloController.
+ * Class Index controller.
  */
 #[Route('/')]
 class IndexController extends AbstractController
@@ -25,8 +25,6 @@ class IndexController extends AbstractController
         name: 'index',
         methods: 'GET'
     )]
-
-
     public function index(): Response
     {
         return $this->render(

@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Artist entity.
+ */
 namespace App\Entity;
 
 use App\Repository\ArtistRepository;
@@ -9,6 +11,9 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 
+/**
+ * Artist.
+ */
 #[ORM\Entity(repositoryClass: ArtistRepository::class)]
 #[ORM\Table(name: 'artists')]
 class Artist
@@ -180,7 +185,6 @@ class Artist
      * Setter for slug.
      *
      * @param string $slug
-     * @return void
      */
     public function setSlug(string $slug): void
     {

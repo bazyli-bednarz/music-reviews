@@ -16,8 +16,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class BlockUserType extends AbstractType
 {
-
-
     /**
      * Form builder.
      *
@@ -43,8 +41,5 @@ class BlockUserType extends AbstractType
                 'data_class' => User::class,
             ]
         );
-
     }
-
-
 }

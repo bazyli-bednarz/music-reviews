@@ -62,12 +62,12 @@ class AlbumController extends AbstractController
     private CoverService $coverService;
 
     /**
-     * Contructor.
+     * Constructor.
      *
-     * @param AlbumServiceInterface $albumService
+     * @param AlbumServiceInterface   $albumService
      * @param CommentServiceInterface $commentService
-     * @param TranslatorInterface $translator
-     * @param CoverServiceInterface $coverService
+     * @param TranslatorInterface     $translator
+     * @param CoverServiceInterface   $coverService
      */
     public function __construct(AlbumServiceInterface $albumService, CommentServiceInterface $commentService, TranslatorInterface $translator, CoverServiceInterface $coverService)
     {
@@ -84,6 +84,7 @@ class AlbumController extends AbstractController
      * @param Request $request
      *
      * @return Response
+     *
      * @throws NonUniqueResultException
      */
     #[Route(
@@ -94,7 +95,8 @@ class AlbumController extends AbstractController
     {
         $filters = $this->getFilters($request);
         $pagination = $this->albumService->getPaginatedList(
-            $request->query->getInt('page', 1), $filters
+            $request->query->getInt('page', 1),
+            $filters,
         );
 
         return $this->render(
@@ -111,7 +113,7 @@ class AlbumController extends AbstractController
      *
      * @return Response HTTP response
      */
-    #[Route('/create', name: 'album_create', methods: 'GET|POST', )]
+    #[Route('/create', name: 'album_create', methods: 'GET|POST')]
     #[IsGranted('ROLE_ADMIN')]
     public function create(Request $request): Response
     {
@@ -145,7 +147,8 @@ class AlbumController extends AbstractController
             return $this->redirectToRoute('album_index');
         }
 
-        return $this->render('album/create.html.twig',
+        return $this->render(
+            'album/create.html.twig',
             ['form' => $form->createView()]
         );
     }
@@ -153,7 +156,7 @@ class AlbumController extends AbstractController
     /**
      * Show action.
      *
-     * @param Album $album
+     * @param Album   $album
      * @param Request $request
      *
      * @return Response
@@ -173,12 +176,12 @@ class AlbumController extends AbstractController
         $numberOfComments = 0;
         try {
             $numberOfComments = $this->commentService->countByAlbum($album);
-        }
-        // @codeCoverageIgnoreStart
-        catch (NoResultException|NonUniqueResultException $e) {
+            // @codeCoverageIgnoreStart
+        } catch (NoResultException|NonUniqueResultException $e) {
             echo $e;
+            // @codeCoverageIgnoreEnd
         }
-        // @codeCoverageIgnoreEnd
+
 
         $averageRating = 0;
         $averageRating = $this->commentService->getAverageUserRating($album);
@@ -355,5 +358,4 @@ class AlbumController extends AbstractController
 
         return $filters;
     }
-
 }

@@ -13,6 +13,9 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 
+/**
+ * Album entity.
+ */
 #[ORM\Entity(repositoryClass: AlbumRepository::class)]
 #[ORM\Table(name: 'albums')]
 class Album
@@ -138,6 +141,8 @@ class Album
 
     /**
      * Getter for id.
+     *
+     * @return int|null
      */
     public function getId(): ?int
     {
@@ -146,6 +151,8 @@ class Album
 
     /**
      * Getter for title.
+     *
+     * @return string|null
      */
     public function getTitle(): ?string
     {
@@ -154,6 +161,8 @@ class Album
 
     /**
      * Setter for title.
+     *
+     * @param string $title
      */
     public function setTitle(string $title): void
     {
@@ -162,6 +171,8 @@ class Album
 
     /**
      * Getter for year.
+     *
+     * @return int|null
      */
     public function getYear(): ?int
     {
@@ -170,6 +181,8 @@ class Album
 
     /**
      * Setter for year.
+     *
+     * @param int $year
      */
     public function setYear(int $year): void
     {
@@ -178,6 +191,8 @@ class Album
 
     /**
      * Getter for review.
+     *
+     * @return string|null
      */
     public function getDescription(): ?string
     {
@@ -186,6 +201,8 @@ class Album
 
     /**
      * Setter for review.
+     *
+     * @param string $description
      */
     public function setDescription(string $description): void
     {
@@ -194,6 +211,8 @@ class Album
 
     /**
      * Getter for mark.
+     *
+     * @return int|null
      */
     public function getMark(): ?int
     {
@@ -202,6 +221,8 @@ class Album
 
     /**
      * Setter for mark.
+     *
+     * @param int $mark
      */
     public function setMark(int $mark): void
     {
@@ -210,6 +231,8 @@ class Album
 
     /**
      * Getter for created at.
+     *
+     * @return \DateTimeImmutable|null
      */
     public function getCreatedAt(): ?\DateTimeImmutable
     {
@@ -218,6 +241,8 @@ class Album
 
     /**
      * Setter for created at.
+     *
+     * @param \DateTimeImmutable $createdAt
      */
     public function setCreatedAt(\DateTimeImmutable $createdAt): void
     {
@@ -226,6 +251,8 @@ class Album
 
     /**
      * Getter for updated at.
+     *
+     * @return \DateTimeImmutable|null
      */
     public function getUpdatedAt(): ?\DateTimeImmutable
     {
@@ -234,6 +261,8 @@ class Album
 
     /**
      * Setter for updated at.
+     *
+     * @param \DateTimeImmutable $updatedAt
      */
     public function setUpdatedAt(\DateTimeImmutable $updatedAt): void
     {
@@ -255,23 +284,30 @@ class Album
      * Setter for category.
      *
      * @param Category|null $category
-     * @return void
      */
     public function setCategory(?Category $category): void
     {
         $this->category = $category;
     }
 
+    /**
+     * Getter for slug.
+     *
+     * @return string|null
+     */
     public function getSlug(): ?string
     {
         return $this->slug;
     }
 
-    public function setSlug(string $slug): self
+    /**
+     * Setter for slug.
+     *
+     * @param string $slug
+     */
+    public function setSlug(string $slug): void
     {
         $this->slug = $slug;
-
-        return $this;
     }
 
     /**
@@ -291,10 +327,6 @@ class Album
      */
     public function addTag(Tag $tag): void
     {
-        //        if (!$this->tags->contains($tag)) {
-        //            $this->tags->add($tag);
-        //        }
-
         if (!$this->tags->contains($tag)) {
             $this->tags[] = $tag;
         }
@@ -364,12 +396,22 @@ class Album
         $this->author = $author;
     }
 
+    /**
+     * Getter for album cover.
+     *
+     * @return Cover|null
+     */
     public function getCover(): ?Cover
     {
         return $this->cover;
     }
 
-    public function setCover(Cover $cover): self
+    /**
+     * Setter for album cover.
+     *
+     * @param Cover $cover
+     */
+    public function setCover(Cover $cover): void
     {
         // set the owning side of the relation if necessary
         if ($cover->getAlbum() !== $this) {
@@ -377,7 +419,5 @@ class Album
         }
 
         $this->cover = $cover;
-
-        return $this;
     }
 }

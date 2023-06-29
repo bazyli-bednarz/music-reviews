@@ -34,7 +34,7 @@ class TagRepository extends ServiceEntityRepository
     /**
      * Save tag.
      *
-     * @param Tag $entity
+     * @param Tag  $entity
      * @param bool $flush
      */
     public function save(Tag $entity, bool $flush = true): void
@@ -49,7 +49,7 @@ class TagRepository extends ServiceEntityRepository
     /**
      * Delete tag.
      *
-     * @param Tag $entity
+     * @param Tag  $entity
      * @param bool $flush
      */
     public function delete(Tag $entity, bool $flush = true): void
@@ -60,29 +60,4 @@ class TagRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
-
-//    /**
-//     * @return Tag[] Returns an array of Tag objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('t')
-//            ->andWhere('t.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('t.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
-
-//    public function findOneBySomeField($value): ?Tag
-//    {
-//        return $this->createQueryBuilder('t')
-//            ->andWhere('t.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
 }

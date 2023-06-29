@@ -2,6 +2,7 @@
 /**
  * User entity.
  */
+
 namespace App\Entity;
 
 use App\Entity\Enum\UserRole;
@@ -196,7 +197,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * Returning a salt is only needed, if you are not using a modern
      * hashing algorithm (e.g. bcrypt or sodium) in your security.yaml.
      *
-     * @see UserInterface
+     * @return string|null
      */
     public function getSalt(): ?string
     {
@@ -255,11 +256,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->slug = $slug;
     }
 
+    /**
+     * Is user blocked?
+     *
+     * @return bool|null
+     */
     public function isBlocked(): ?bool
     {
         return $this->blocked;
     }
 
+    /**
+     * Set user blocked status.
+     *
+     * @param bool|null $blocked
+     *
+     * @return $this
+     */
     public function setBlocked(?bool $blocked): self
     {
         $this->blocked = $blocked;

@@ -8,7 +8,6 @@ namespace App\Form\Type;
 use App\Entity\Artist;
 use App\Entity\Category;
 use App\Entity\Album;
-use App\Entity\Tag;
 use App\Form\DataTransformer\TagsDataTransformer;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -62,7 +61,8 @@ class AlbumType extends AbstractType
                 'label' => 'label.title',
                 'required' => true,
                 'attr' => ['max_length' => 255],
-            ]);
+            ]
+        );
 
         $builder->add(
             'year',
@@ -106,7 +106,6 @@ class AlbumType extends AbstractType
                 'label' => 'label.artist_name',
                 'placeholder' => 'label.none',
                 'required' => true,
-//                'expanded' => true,
                 'multiple' => true,
             ]
         );
@@ -138,9 +137,7 @@ class AlbumType extends AbstractType
             ]
         );
 
-        $builder->get('tags')->addModelTransformer(
-            $this->tagsDataTransformer
-        );
+        $builder->get('tags')->addModelTransformer($this->tagsDataTransformer);
 
         $builder->add(
             'file',

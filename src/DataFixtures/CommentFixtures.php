@@ -18,6 +18,17 @@ use Faker\Factory;
  */
 class CommentFixtures extends AbstractBaseFixtures implements DependentFixtureInterface
 {
+
+    /**
+     * Get dependencies.
+     *
+     * @return string[]
+     */
+    public function getDependencies(): array
+    {
+        return [AlbumFixtures::class, UserFixtures::class];
+    }
+
     /**
      * Load comment data.
      */
@@ -52,10 +63,5 @@ class CommentFixtures extends AbstractBaseFixtures implements DependentFixtureIn
         });
 
         $this->manager->flush();
-    }
-
-    public function getDependencies(): array
-    {
-        return [AlbumFixtures::class, UserFixtures::class];
     }
 }

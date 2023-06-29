@@ -1,4 +1,7 @@
 <?php
+/**
+ * Album repository.
+ */
 
 namespace App\Repository;
 
@@ -31,6 +34,11 @@ class AlbumRepository extends ServiceEntityRepository
      */
     public const PAGINATOR_ITEMS_PER_PAGE = 10;
 
+    /**
+     * Constructor.
+     *
+     * @param ManagerRegistry $registry
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Album::class);
@@ -66,6 +74,7 @@ class AlbumRepository extends ServiceEntityRepository
      * Query albums by category.
      *
      * @param Category $category
+     *
      * @return QueryBuilder
      */
     public function queryByCategory(Category $category): QueryBuilder
@@ -81,7 +90,9 @@ class AlbumRepository extends ServiceEntityRepository
      * Count albums by category.
      *
      * @param Category $category
+     *
      * @return int
+     *
      * @throws NoResultException
      * @throws NonUniqueResultException
      */
@@ -100,6 +111,7 @@ class AlbumRepository extends ServiceEntityRepository
      * Query albums by artist.
      *
      * @param Artist $artist
+     *
      * @return QueryBuilder
      */
     public function queryByArtist(Artist $artist): QueryBuilder
@@ -115,7 +127,9 @@ class AlbumRepository extends ServiceEntityRepository
      * Count albums by category.
      *
      * @param Artist $artist
+     *
      * @return int
+     *
      * @throws NoResultException
      * @throws NonUniqueResultException
      */
@@ -128,18 +142,6 @@ class AlbumRepository extends ServiceEntityRepository
             ->setParameter(':artist', $artist)
             ->getQuery()
             ->getSingleScalarResult();
-    }
-
-    /**
-     * Get or create new query builder.
-     *
-     * @param QueryBuilder|null $queryBuilder Query builder
-     *
-     * @return QueryBuilder Query builder
-     */
-    private function getOrCreateQueryBuilder(QueryBuilder $queryBuilder = null): QueryBuilder
-    {
-        return $queryBuilder ?? $this->createQueryBuilder('album');
     }
 
     /**
@@ -164,6 +166,17 @@ class AlbumRepository extends ServiceEntityRepository
         $this->_em->flush();
     }
 
+    /**
+     * Get or create new query builder.
+     *
+     * @param QueryBuilder|null $queryBuilder Query builder
+     *
+     * @return QueryBuilder Query builder
+     */
+    private function getOrCreateQueryBuilder(QueryBuilder $queryBuilder = null): QueryBuilder
+    {
+        return $queryBuilder ?? $this->createQueryBuilder('album');
+    }
 
     /**
      * Apply filters to paginated list.
@@ -182,29 +195,4 @@ class AlbumRepository extends ServiceEntityRepository
 
         return $queryBuilder;
     }
-
-//    /**
-//     * @return Album[] Returns an array of Album objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('a')
-//            ->andWhere('a.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('a.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
-
-//    public function findOneBySomeField($value): ?Album
-//    {
-//        return $this->createQueryBuilder('a')
-//            ->andWhere('a.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
 }

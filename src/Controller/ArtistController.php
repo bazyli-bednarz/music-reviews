@@ -43,6 +43,13 @@ class ArtistController extends AbstractController
      */
     private AlbumServiceInterface $albumService;
 
+    /**
+     * Constructor.
+     *
+     * @param ArtistServiceInterface $artistService
+     * @param TranslatorInterface    $translator
+     * @param AlbumServiceInterface  $albumService
+     */
     public function __construct(ArtistServiceInterface $artistService, TranslatorInterface $translator, AlbumServiceInterface $albumService)
     {
         $this->artistService = $artistService;
@@ -52,6 +59,10 @@ class ArtistController extends AbstractController
 
     /**
      * Index action.
+     *
+     * @param Request $request
+     *
+     * @return Response
      */
     #[Route(
         name: 'artist_index',
@@ -108,6 +119,11 @@ class ArtistController extends AbstractController
 
     /**
      * Show action.
+     *
+     * @param Request $request
+     * @param Artist  $artist
+     *
+     * @return Response
      */
     #[Route(
         '/{slug}',
@@ -117,9 +133,13 @@ class ArtistController extends AbstractController
     )]
     public function show(Request $request, Artist $artist): Response
     {
-        $pagination = $this->albumService->getPaginatedListByArtist($artist,
-            $request->query->getInt('page',
-                1));
+        $pagination = $this->albumService->getPaginatedListByArtist(
+            $artist,
+            $request->query->getInt(
+                'page',
+                1
+            )
+        );
 
         return $this->render(
             'artist/show.html.twig',

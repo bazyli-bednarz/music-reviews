@@ -31,7 +31,7 @@ interface CommentServiceInterface
      * Get paginated list of comments by album.
      *
      * @param Album $album
-     * @param int $page
+     * @param int   $page
      *
      * @return PaginationInterface
      */

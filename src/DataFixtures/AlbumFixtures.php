@@ -21,6 +21,17 @@ use Faker\Factory;
  */
 class AlbumFixtures extends AbstractBaseFixtures implements DependentFixtureInterface
 {
+
+    /**
+     * Get dependencies.
+     *
+     * @return string[]
+     */
+    public function getDependencies(): array
+    {
+        return [CategoryFixtures::class, TagFixtures::class, UserFixtures::class];
+    }
+
     /**
      * Load album data.
      */
@@ -87,10 +98,5 @@ class AlbumFixtures extends AbstractBaseFixtures implements DependentFixtureInte
         });
 
         $this->manager->flush();
-    }
-
-    public function getDependencies(): array
-    {
-        return [CategoryFixtures::class, TagFixtures::class, UserFixtures::class];
     }
 }

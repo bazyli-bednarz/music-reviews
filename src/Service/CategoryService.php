@@ -36,8 +36,9 @@ class CategoryService implements CategoryServiceInterface
     /**
      * Constructor.
      *
-     * @param CategoryRepository $categoryRepository Category repository
-     * @param PaginatorInterface $paginator          Paginator
+     * @param CategoryRepository $categoryRepository
+     * @param AlbumRepository    $albumRepository
+     * @param PaginatorInterface $paginator
      */
     public function __construct(CategoryRepository $categoryRepository, AlbumRepository $albumRepository, PaginatorInterface $paginator)
     {
@@ -98,11 +99,10 @@ class CategoryService implements CategoryServiceInterface
             $result = $this->albumRepository->countByCategory($category);
 
             return !($result > 0);
-        }
-        // @codeCoverageIgnoreStart
-        catch (NoResultException|NonUniqueResultException) {
+            // @codeCoverageIgnoreStart
+        } catch (NoResultException|NonUniqueResultException) {
             return false;
+            // @codeCoverageIgnoreEnd
         }
-        // @codeCoverageIgnoreEnd
     }
 }

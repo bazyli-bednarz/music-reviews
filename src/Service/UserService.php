@@ -6,10 +6,7 @@
 namespace App\Service;
 
 use App\Entity\User;
-use App\Repository\AlbumRepository;
 use App\Repository\UserRepository;
-use Doctrine\ORM\NonUniqueResultException;
-use Doctrine\ORM\NoResultException;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
 
@@ -81,7 +78,8 @@ class UserService implements UserServiceInterface
     /**
      * Upgrade password.
      *
-     * @param User $user User entity
+     * @param User   $user
+     * @param string $password
      */
     public function upgradePassword(User $user, string $password): void
     {

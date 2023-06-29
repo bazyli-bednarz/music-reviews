@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Comment repository.
+ */
 namespace App\Repository;
 
 use App\Entity\Album;
@@ -60,6 +62,7 @@ class CommentRepository extends ServiceEntityRepository
      * Query comments by album.
      *
      * @param Album $album
+     *
      * @return QueryBuilder
      */
     public function queryByAlbum(Album $album): QueryBuilder
@@ -75,7 +78,9 @@ class CommentRepository extends ServiceEntityRepository
      * Count comments by album.
      *
      * @param Album $album
+     *
      * @return int
+     *
      * @throws NoResultException
      * @throws NonUniqueResultException
      */
@@ -115,18 +120,6 @@ class CommentRepository extends ServiceEntityRepository
     }
 
     /**
-     * Get or create new query builder.
-     *
-     * @param QueryBuilder|null $queryBuilder Query builder
-     *
-     * @return QueryBuilder Query builder
-     */
-    private function getOrCreateQueryBuilder(QueryBuilder $queryBuilder = null): QueryBuilder
-    {
-        return $queryBuilder ?? $this->createQueryBuilder('comment');
-    }
-
-    /**
      * Save comment.
      *
      * @param Comment $comment
@@ -148,28 +141,15 @@ class CommentRepository extends ServiceEntityRepository
         $this->_em->flush();
     }
 
-//    /**
-//     * @return Comment[] Returns an array of Comment objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('c')
-//            ->andWhere('c.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('c.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
-
-//    public function findOneBySomeField($value): ?Comment
-//    {
-//        return $this->createQueryBuilder('c')
-//            ->andWhere('c.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    /**
+     * Get or create new query builder.
+     *
+     * @param QueryBuilder|null $queryBuilder Query builder
+     *
+     * @return QueryBuilder Query builder
+     */
+    private function getOrCreateQueryBuilder(QueryBuilder $queryBuilder = null): QueryBuilder
+    {
+        return $queryBuilder ?? $this->createQueryBuilder('comment');
+    }
 }

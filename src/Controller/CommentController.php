@@ -7,7 +7,6 @@ namespace App\Controller;
 
 use App\Entity\Comment;
 use App\Form\Type\CommentType;
-use App\Service\AlbumServiceInterface;
 use App\Service\CommentService;
 use App\Service\CommentServiceInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -37,19 +36,16 @@ class CommentController extends AbstractController
     private TranslatorInterface $translator;
 
     /**
-     * Album service.
+     * Constructor.
      *
-     * @var AlbumServiceInterface
+     * @param CommentServiceInterface $commentService
+     * @param TranslatorInterface     $translator
      */
-    private AlbumServiceInterface $albumService;
-
-    public function __construct(CommentServiceInterface $commentService, TranslatorInterface $translator, AlbumServiceInterface $albumService)
+    public function __construct(CommentServiceInterface $commentService, TranslatorInterface $translator)
     {
         $this->commentService = $commentService;
         $this->translator = $translator;
-        $this->albumService = $albumService;
     }
-
 
     /**
      * Edit action.

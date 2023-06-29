@@ -43,6 +43,13 @@ class CategoryController extends AbstractController
      */
     private AlbumServiceInterface $albumService;
 
+    /**
+     * Constructor.
+     *
+     * @param CategoryServiceInterface $categoryService
+     * @param TranslatorInterface      $translator
+     * @param AlbumServiceInterface    $albumService
+     */
     public function __construct(CategoryServiceInterface $categoryService, TranslatorInterface $translator, AlbumServiceInterface $albumService)
     {
         $this->categoryService = $categoryService;
@@ -52,6 +59,10 @@ class CategoryController extends AbstractController
 
     /**
      * Index action.
+     *
+     * @param Request $request
+     *
+     * @return Response
      */
     #[Route(
         name: 'category_index',
@@ -107,6 +118,11 @@ class CategoryController extends AbstractController
 
     /**
      * Show action.
+     *
+     * @param Request  $request
+     * @param Category $category
+     *
+     * @return Response
      */
     #[Route(
         '/{slug}',
@@ -116,9 +132,13 @@ class CategoryController extends AbstractController
     )]
     public function show(Request $request, Category $category): Response
     {
-        $pagination = $this->albumService->getPaginatedListByCategory($category,
-            $request->query->getInt('page',
-                1));
+        $pagination = $this->albumService->getPaginatedListByCategory(
+            $category,
+            $request->query->getInt(
+                'page',
+                1
+            )
+        );
 
         return $this->render(
             'category/show.html.twig',

@@ -37,7 +37,8 @@ class ArtistType extends AbstractType
                 'label' => 'label.artist_name',
                 'required' => true,
                 'attr' => ['max_length' => 255],
-            ]);
+            ]
+        );
 
         $builder->add(
             'description',

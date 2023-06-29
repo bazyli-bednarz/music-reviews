@@ -36,8 +36,9 @@ class ArtistService implements ArtistServiceInterface
     /**
      * Constructor.
      *
-     * @param ArtistRepository   $artistRepository Artist repository
-     * @param PaginatorInterface $paginator        Paginator
+     * @param ArtistRepository   $artistRepository
+     * @param AlbumRepository    $albumRepository
+     * @param PaginatorInterface $paginator
      */
     public function __construct(ArtistRepository $artistRepository, AlbumRepository $albumRepository, PaginatorInterface $paginator)
     {
@@ -98,11 +99,10 @@ class ArtistService implements ArtistServiceInterface
             $result = $this->albumRepository->countByArtist($artist);
 
             return !($result > 0);
-        }
-        // @codeCoverageIgnoreStart
-        catch (NoResultException|NonUniqueResultException) {
+            // @codeCoverageIgnoreStart
+        } catch (NoResultException|NonUniqueResultException) {
             return false;
+            // @codeCoverageIgnoreEnd
         }
-        // @codeCoverageIgnoreEnd
     }
 }

@@ -8,6 +8,9 @@ namespace App\Service;
 use App\Entity\User;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 
+/**
+ * UserServiceInterface class.
+ */
 interface UserServiceInterface
 {
     /**
@@ -48,7 +51,10 @@ interface UserServiceInterface
     /**
      * Upgrade password.
      *
-     * @param User $user User entity
+     * @param User   $user
+     * @param string $password
+     *
+     * @return void
      */
     public function upgradePassword(User $user, string $password): void;
 }
