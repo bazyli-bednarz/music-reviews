@@ -64,7 +64,7 @@ class AlbumService implements AlbumServiceInterface
      *
      * @return PaginationInterface<string, mixed> Paginated list
      *
-     * @throws NonUniqueResultException
+     * @throws NonUniqueResultException NonUniqueResultException
      */
     public function getPaginatedList(int $page, array $filters = []): PaginationInterface
     {
@@ -80,10 +80,10 @@ class AlbumService implements AlbumServiceInterface
     /**
      * Get paginated list of albums by category.
      *
-     * @param Category $category
-     * @param int      $page
+     * @param Category $category Category
+     * @param int      $page     Page number
      *
-     * @return PaginationInterface
+     * @return PaginationInterface Paginator
      */
     public function getPaginatedListByCategory(Category $category, int $page): PaginationInterface
     {
@@ -97,10 +97,10 @@ class AlbumService implements AlbumServiceInterface
     /**
      * Get paginated list of albums by artist.
      *
-     * @param Artist $artist
-     * @param int    $page
+     * @param Artist $artist Artist
+     * @param int    $page   Page number
      *
-     * @return PaginationInterface
+     * @return PaginationInterface Paginator
      */
     public function getPaginatedListByArtist(Artist $artist, int $page): PaginationInterface
     {
@@ -114,12 +114,12 @@ class AlbumService implements AlbumServiceInterface
     /**
      * Count comments by album.
      *
-     * @param Album $album
+     * @param Album $album Album
      *
-     * @return int
+     * @return int Number of comments
      *
-     * @throws NoResultException
-     * @throws NonUniqueResultException
+     * @throws NoResultException        NoResultException
+     * @throws NonUniqueResultException NonUniqueResultException
      */
     public function countComments(Album $album): int
     {
@@ -149,11 +149,11 @@ class AlbumService implements AlbumServiceInterface
     /**
      * Prepare filters for the tasks list.
      *
-     * @param array $filters
+     * @param array $filters Filters
      *
-     * @return array
+     * @return array Prepared filters
      *
-     * @throws NonUniqueResultException
+     * @throws NonUniqueResultException NonUniqueResultException
      */
     public function prepareFilters(array $filters): array
     {

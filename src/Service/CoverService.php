@@ -39,10 +39,10 @@ class CoverService implements CoverServiceInterface
     /**
      * Constructor.
      *
-     * @param string                     $targetDirectory
-     * @param CoverRepository            $coverRepository
-     * @param FileUploadServiceInterface $fileUploadService
-     * @param Filesystem                 $filesystem
+     * @param string                     $targetDirectory   Target directory
+     * @param CoverRepository            $coverRepository   CoverRepository
+     * @param FileUploadServiceInterface $fileUploadService FileUploadServiceInterface
+     * @param Filesystem                 $filesystem        Filesystem
      */
     public function __construct(string $targetDirectory, CoverRepository $coverRepository, FileUploadServiceInterface $fileUploadService, Filesystem $filesystem)
     {
@@ -71,9 +71,9 @@ class CoverService implements CoverServiceInterface
     /**
      * Update cover.
      *
-     * @param UploadedFile $uploadedFile
-     * @param Cover        $cover
-     * @param Album        $album
+     * @param UploadedFile $uploadedFile Uploaded file
+     * @param Cover        $cover        Cover
+     * @param Album        $album        Album
      */
     public function update(UploadedFile $uploadedFile, Cover $cover, Album $album): void
     {

@@ -2,10 +2,10 @@
 /**
  * Comment repository.
  */
+
 namespace App\Repository;
 
 use App\Entity\Album;
-use App\Entity\Category;
 use App\Entity\Comment;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
@@ -33,7 +33,7 @@ class CommentRepository extends ServiceEntityRepository
     /**
      * Constructor.
      *
-     * @param ManagerRegistry $registry
+     * @param ManagerRegistry $registry Registry
      */
     public function __construct(ManagerRegistry $registry)
     {
@@ -61,9 +61,9 @@ class CommentRepository extends ServiceEntityRepository
     /**
      * Query comments by album.
      *
-     * @param Album $album
+     * @param Album $album Album
      *
-     * @return QueryBuilder
+     * @return QueryBuilder QueryBuilder
      */
     public function queryByAlbum(Album $album): QueryBuilder
     {
@@ -77,12 +77,12 @@ class CommentRepository extends ServiceEntityRepository
     /**
      * Count comments by album.
      *
-     * @param Album $album
+     * @param Album $album Album
      *
-     * @return int
+     * @return int Number of albums
      *
-     * @throws NoResultException
-     * @throws NonUniqueResultException
+     * @throws NoResultException        NoResultException
+     * @throws NonUniqueResultException NonUniqueResultException
      */
     public function countByAlbum(Album $album): int
     {
@@ -98,9 +98,9 @@ class CommentRepository extends ServiceEntityRepository
     /**
      * Get average user rating.
      *
-     * @param Album $album
+     * @param Album $album Album
      *
-     * @return float
+     * @return float Average album rating
      */
     public function getAverageUserRating(Album $album): float
     {
@@ -122,7 +122,7 @@ class CommentRepository extends ServiceEntityRepository
     /**
      * Save comment.
      *
-     * @param Comment $comment
+     * @param Comment $comment Comment
      */
     public function save(Comment $comment): void
     {

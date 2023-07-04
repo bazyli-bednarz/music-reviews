@@ -27,7 +27,7 @@ class AlbumType extends AbstractType
     /**
      * Tags data transformer.
      *
-     * @var TagsDataTransformer
+     * @var TagsDataTransformer Data transformer
      */
     private TagsDataTransformer $tagsDataTransformer;
 
@@ -49,8 +49,6 @@ class AlbumType extends AbstractType
      *
      * @param FormBuilderInterface $builder The form builder
      * @param array<string, mixed> $options Form options
-     *
-     * @see FormTypeExtensionInterface::buildForm()
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {

@@ -19,29 +19,28 @@ class UserVoter extends Voter
     /**
      * Edit user password.
      *
-     * @const string
+     * @const string Edit
      */
     public const EDIT = 'EDIT';
-
 
     /**
      * Block user.
      *
-     * @const string
+     * @const string Block
      */
     public const BLOCK = 'BLOCK';
 
     /**
      * Edit user roles.
      *
-     * @const string
+     * @const string Roles
      */
     public const EDIT_ROLE = 'EDIT_ROLE';
 
     /**
      * Security helper.
      *
-     * @var Security
+     * @var Security Security
      */
     private Security $security;
 

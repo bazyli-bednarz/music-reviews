@@ -36,9 +36,9 @@ class ArtistService implements ArtistServiceInterface
     /**
      * Constructor.
      *
-     * @param ArtistRepository   $artistRepository
-     * @param AlbumRepository    $albumRepository
-     * @param PaginatorInterface $paginator
+     * @param ArtistRepository   $artistRepository Artist repository
+     * @param AlbumRepository    $albumRepository  Album repository
+     * @param PaginatorInterface $paginator        Paginator
      */
     public function __construct(ArtistRepository $artistRepository, AlbumRepository $albumRepository, PaginatorInterface $paginator)
     {
@@ -76,22 +76,19 @@ class ArtistService implements ArtistServiceInterface
     /**
      * Delete artist.
      *
-     * @param Artist $artist
-     *
-     * @return void
+     * @param Artist $artist Artist
      */
     public function delete(Artist $artist): void
     {
         $this->artistRepository->delete($artist);
     }
 
-
     /**
      * Can artist be deleted?
      *
-     * @param Artist $artist
+     * @param Artist $artist Artist
      *
-     * @return bool
+     * @return bool Can be deleted
      */
     public function canBeDeleted(Artist $artist): bool
     {

@@ -16,12 +16,11 @@ interface CategoryServiceInterface
     /**
      * Get paginated list of categories.
      *
-     * @param int $page
+     * @param int $page Page number
      *
-     * @return PaginationInterface
+     * @return PaginationInterface Paginator
      */
     public function getPaginatedList(int $page): PaginationInterface;
-
 
     /**
      * Save entity.
@@ -33,18 +32,16 @@ interface CategoryServiceInterface
     /**
      * Delete category.
      *
-     * @param Category $category
-     *
-     * @return void
+     * @param Category $category Category
      */
     public function delete(Category $category): void;
 
     /**
      * Can category be deleted?
      *
-     * @param Category $category
+     * @param Category $category Category
      *
-     * @return bool
+     * @return bool Can be deleted
      */
     public function canBeDeleted(Category $category): bool;
 }

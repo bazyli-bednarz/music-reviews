@@ -20,41 +20,41 @@ interface AlbumServiceInterface
     /**
      * Get paginated list of albums.
      *
-     * @param int $page
+     * @param int $page Page number
      *
-     * @return PaginationInterface
+     * @return PaginationInterface Paginator
      */
     public function getPaginatedList(int $page): PaginationInterface;
 
     /**
      * Get paginated list of albums by category.
      *
-     * @param Category $category
-     * @param int      $page
+     * @param Category $category Category
+     * @param int      $page     Page number
      *
-     * @return PaginationInterface
+     * @return PaginationInterface Paginator
      */
     public function getPaginatedListByCategory(Category $category, int $page): PaginationInterface;
 
     /**
      * Get paginated list of albums by artist.
      *
-     * @param Artist $artist
-     * @param int    $page
+     * @param Artist $artist Artist
+     * @param int    $page   Page number
      *
-     * @return PaginationInterface
+     * @return PaginationInterface Paginator
      */
     public function getPaginatedListByArtist(Artist $artist, int $page): PaginationInterface;
 
     /**
      * Count comments by album.
      *
-     * @param Album $album
+     * @param Album $album Album
      *
-     * @return int
+     * @return int Albums
      *
-     * @throws NoResultException
-     * @throws NonUniqueResultException
+     * @throws NoResultException        NoResultException
+     * @throws NonUniqueResultException NonUniqueResultException
      */
     public function countComments(Album $album): int;
 

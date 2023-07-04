@@ -23,7 +23,7 @@ class Tag
     /**
      * Id.
      *
-     * @var int|null
+     * @var int|null Id
      */
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -33,7 +33,7 @@ class Tag
     /**
      * Tag title.
      *
-     * @var string|null
+     * @var string|null Title
      */
     #[ORM\Column(length: 64)]
     #[Assert\Type('string')]
@@ -43,7 +43,7 @@ class Tag
     /**
      * Created at.
      *
-     * @var \DateTimeImmutable|null
+     * @var \DateTimeImmutable|null Date
      */
     #[ORM\Column(type: 'date_immutable')]
     #[Assert\Type(\DateTimeImmutable::class)]
@@ -53,7 +53,7 @@ class Tag
     /**
      * Updated at.
      *
-     * @var \DateTimeImmutable|null
+     * @var \DateTimeImmutable|null Date
      */
     #[ORM\Column(type: 'date_immutable')]
     #[Assert\Type(\DateTimeImmutable::class)]
@@ -62,7 +62,8 @@ class Tag
 
     /**
      * Slug.
-     * @var string|null
+     *
+     * @var string|null Slug
      */
     #[ORM\Column(type: 'string', length: 64)]
     #[Assert\Type('string')]
@@ -73,7 +74,7 @@ class Tag
     /**
      * Get tag id.
      *
-     * @return int|null
+     * @return int|null Id
      */
     public function getId(): ?int
     {
@@ -83,7 +84,7 @@ class Tag
     /**
      * Get tag title.
      *
-     * @return string|null
+     * @return string|null Title
      */
     public function getTitle(): ?string
     {
@@ -93,7 +94,7 @@ class Tag
     /**
      * Tag title.
      *
-     * @param string $title
+     * @param string $title Title
      */
     public function setTitle(string $title): void
     {
@@ -103,7 +104,7 @@ class Tag
     /**
      * Get created at.
      *
-     * @return \DateTimeImmutable|null
+     * @return \DateTimeImmutable|null Date
      */
     public function getCreatedAt(): ?\DateTimeImmutable
     {
@@ -113,7 +114,7 @@ class Tag
     /**
      * Set created at.
      *
-     * @param \DateTimeImmutable $createdAt
+     * @param \DateTimeImmutable $createdAt Date
      */
     public function setCreatedAt(\DateTimeImmutable $createdAt): void
     {
@@ -123,7 +124,7 @@ class Tag
     /**
      * Get updated at.
      *
-     * @return \DateTimeImmutable|null
+     * @return \DateTimeImmutable|null Date
      */
     public function getUpdatedAt(): ?\DateTimeImmutable
     {
@@ -133,7 +134,7 @@ class Tag
     /**
      * Set updated at.
      *
-     * @param \DateTimeImmutable $updatedAt
+     * @param \DateTimeImmutable $updatedAt Date
      */
     public function setUpdatedAt(\DateTimeImmutable $updatedAt): void
     {
@@ -143,7 +144,7 @@ class Tag
     /**
      * Getter for slug.
      *
-     * @return string|null
+     * @return string|null Slug
      */
     public function getSlug(): ?string
     {
@@ -153,7 +154,7 @@ class Tag
     /**
      * Setter for slug.
      *
-     * @param string $slug
+     * @param string $slug Slug
      */
     public function setSlug(string $slug): void
     {

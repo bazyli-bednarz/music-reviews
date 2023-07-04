@@ -18,7 +18,6 @@ use Faker\Factory;
  */
 class CommentFixtures extends AbstractBaseFixtures implements DependentFixtureInterface
 {
-
     /**
      * Get dependencies.
      *

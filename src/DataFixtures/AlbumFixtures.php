@@ -21,7 +21,6 @@ use Faker\Factory;
  */
 class AlbumFixtures extends AbstractBaseFixtures implements DependentFixtureInterface
 {
-
     /**
      * Get dependencies.
      *

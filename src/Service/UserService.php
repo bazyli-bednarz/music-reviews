@@ -66,9 +66,7 @@ class UserService implements UserServiceInterface
     /**
      * Delete user.
      *
-     * @param User $user
-     *
-     * @return void
+     * @param User $user User entity
      */
     public function delete(User $user): void
     {
@@ -78,21 +76,20 @@ class UserService implements UserServiceInterface
     /**
      * Upgrade password.
      *
-     * @param User   $user
-     * @param string $password
+     * @param User   $user     User
+     * @param string $password Password
      */
     public function upgradePassword(User $user, string $password): void
     {
         $this->userRepository->upgradePassword($user, $password);
     }
 
-
     /**
      * Can user be deleted?
      *
-     * @param User $user
+     * @param User $user User
      *
-     * @return bool
+     * @return bool Can be deleted
      */
     public function canBeDeleted(User $user): bool
     {

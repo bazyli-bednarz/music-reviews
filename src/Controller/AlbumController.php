@@ -36,38 +36,38 @@ class AlbumController extends AbstractController
     /**
      * Album service.
      *
-     * @var AlbumService
+     * @var AlbumService Album service
      */
     private AlbumService $albumService;
 
     /**
      * Comment service.
      *
-     * @var CommentService
+     * @var CommentService Comment service
      */
     private CommentService $commentService;
 
     /**
      * Translator.
      *
-     * @var TranslatorInterface
+     * @var TranslatorInterface Translator
      */
     private TranslatorInterface $translator;
 
     /**
      * Cover service.
      *
-     * @var CoverService
+     * @var CoverService Cover service
      */
     private CoverService $coverService;
 
     /**
      * Constructor.
      *
-     * @param AlbumServiceInterface   $albumService
-     * @param CommentServiceInterface $commentService
-     * @param TranslatorInterface     $translator
-     * @param CoverServiceInterface   $coverService
+     * @param AlbumServiceInterface   $albumService   Album service
+     * @param CommentServiceInterface $commentService Comment service
+     * @param TranslatorInterface     $translator     Translator
+     * @param CoverServiceInterface   $coverService   Cover service
      */
     public function __construct(AlbumServiceInterface $albumService, CommentServiceInterface $commentService, TranslatorInterface $translator, CoverServiceInterface $coverService)
     {
@@ -77,15 +77,14 @@ class AlbumController extends AbstractController
         $this->coverService = $coverService;
     }
 
-
     /**
      * Index action.
      *
-     * @param Request $request
+     * @param Request $request Request
      *
-     * @return Response
+     * @return Response Response
      *
-     * @throws NonUniqueResultException
+     * @throws NonUniqueResultException NonUniqueResultException
      */
     #[Route(
         name: 'album_index',
@@ -104,7 +103,6 @@ class AlbumController extends AbstractController
             ['pagination' => $pagination]
         );
     }
-
 
     /**
      * Create action.
@@ -156,10 +154,10 @@ class AlbumController extends AbstractController
     /**
      * Show action.
      *
-     * @param Album   $album
-     * @param Request $request
+     * @param Album   $album   Album
+     * @param Request $request Request
      *
-     * @return Response
+     * @return Response Response
      */
     #[Route(
         '/{slug}',
@@ -182,10 +180,7 @@ class AlbumController extends AbstractController
             // @codeCoverageIgnoreEnd
         }
 
-
-        $averageRating = 0;
         $averageRating = $this->commentService->getAverageUserRating($album);
-
 
         /* Add comment */
         if ($this->getUser()) {
@@ -245,7 +240,6 @@ class AlbumController extends AbstractController
         );
     }
 
-
     /**
      * Edit action.
      *
@@ -270,13 +264,11 @@ class AlbumController extends AbstractController
         if (!$cover) {
             $cover = new Cover();
         }
-
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var UploadedFile $file */
             $file = $form->get('file')->getData();
-
 
             $this->coverService->update(
                 $file,
@@ -323,10 +315,8 @@ class AlbumController extends AbstractController
             ]
         );
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $this->albumService->delete($album);
-
             $this->addFlash(
                 'success',
                 $this->translator->trans('message.deleted_successfully')

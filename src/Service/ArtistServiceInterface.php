@@ -16,12 +16,11 @@ interface ArtistServiceInterface
     /**
      * Get paginated list of artists.
      *
-     * @param int $page
+     * @param int $page Page number
      *
-     * @return PaginationInterface
+     * @return PaginationInterface Paginator
      */
     public function getPaginatedList(int $page): PaginationInterface;
-
 
     /**
      * Save entity.
@@ -33,18 +32,16 @@ interface ArtistServiceInterface
     /**
      * Delete artist.
      *
-     * @param Artist $artist
-     *
-     * @return void
+     * @param Artist $artist Artist
      */
     public function delete(Artist $artist): void;
 
     /**
      * Can artist be deleted?
      *
-     * @param Artist $artist
+     * @param Artist $artist Artist
      *
-     * @return bool
+     * @return bool Can be deleted
      */
     public function canBeDeleted(Artist $artist): bool;
 }

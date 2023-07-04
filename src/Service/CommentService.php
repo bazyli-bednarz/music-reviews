@@ -59,10 +59,10 @@ class CommentService implements CommentServiceInterface
     /**
      * Get paginated list of comments by album.
      *
-     * @param Album $album
-     * @param int   $page
+     * @param Album $album Album
+     * @param int   $page  Page number
      *
-     * @return PaginationInterface
+     * @return PaginationInterface Paginator
      */
     public function getPaginatedListByAlbum(Album $album, int $page): PaginationInterface
     {
@@ -76,12 +76,12 @@ class CommentService implements CommentServiceInterface
     /**
      * Count comments in album.
      *
-     * @param Album $album
+     * @param Album $album Album
      *
-     * @return int
+     * @return int Comments
      *
-     * @throws NoResultException
-     * @throws NonUniqueResultException
+     * @throws NoResultException        NoResultException
+     * @throws NonUniqueResultException NonUniqueResultException
      */
     public function countByAlbum(Album $album): int
     {
@@ -91,9 +91,9 @@ class CommentService implements CommentServiceInterface
     /**
      * Average album user rating.
      *
-     * @param Album $album
+     * @param Album $album Album
      *
-     * @return float
+     * @return float Average rating
      */
     public function getAverageUserRating(Album $album): float
     {

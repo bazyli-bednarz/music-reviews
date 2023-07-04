@@ -2,6 +2,7 @@
 /**
  * User Repository.
  */
+
 namespace App\Repository;
 
 use App\Entity\User;
@@ -32,7 +33,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     /**
      * Constructor.
      *
-     * @param ManagerRegistry $registry
+     * @param ManagerRegistry $registry Registry
      */
     public function __construct(ManagerRegistry $registry)
     {
@@ -56,7 +57,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     /**
      * Save user.
      *
-     * @param User $user
+     * @param User $user User
      */
     public function save(User $user): void
     {
@@ -80,8 +81,6 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
      *
      * @param PasswordAuthenticatedUserInterface $user              User
      * @param string                             $newHashedPassword Password
-     *
-     * @return void
      */
     public function upgradePassword(PasswordAuthenticatedUserInterface $user, string $newHashedPassword): void
     {
@@ -97,9 +96,9 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     /**
      * Create query builder.
      *
-     * @param QueryBuilder|null $queryBuilder
+     * @param QueryBuilder|null $queryBuilder QueryBuilder
      *
-     * @return QueryBuilder
+     * @return QueryBuilder QueryBuilder
      */
     private function getOrCreateQueryBuilder(QueryBuilder $queryBuilder = null): QueryBuilder
     {

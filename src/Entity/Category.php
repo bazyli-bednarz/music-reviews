@@ -6,7 +6,6 @@
 namespace App\Entity;
 
 use App\Repository\CategoryRepository;
-use DateTimeImmutable;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -25,7 +24,7 @@ class Category
     /**
      * Primary key.
      *
-     * @var int|null
+     * @var int|null Id
      */
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -35,7 +34,7 @@ class Category
     /**
      * Category title.
      *
-     * @var string|null
+     * @var string|null Title
      */
     #[ORM\Column(length: 255)]
     #[Assert\Type('string')]
@@ -46,7 +45,7 @@ class Category
     /**
      * Category description.
      *
-     * @var string|null
+     * @var string|null Description
      */
     #[ORM\Column(type: Types::TEXT)]
     #[Assert\Type('string')]
@@ -57,7 +56,7 @@ class Category
     /**
      * Created at.
      *
-     * @var DateTimeImmutable|null
+     * @var \DateTimeImmutable|null Date
      */
     #[ORM\Column(type: 'date_immutable')]
     #[Assert\Type(\DateTimeImmutable::class)]
@@ -67,7 +66,7 @@ class Category
     /**
      * Updated at.
      *
-     * @var \DateTimeImmutable|null
+     * @var \DateTimeImmutable|null Date
      */
     #[ORM\Column(type: 'date_immutable')]
     #[Assert\Type(\DateTimeImmutable::class)]
@@ -76,7 +75,8 @@ class Category
 
     /**
      * Slug.
-     * @var string|null
+     *
+     * @var string|null Slug
      */
     #[ORM\Column(type: 'string', length: 255)]
     #[Assert\Type('string')]
@@ -87,7 +87,7 @@ class Category
     /**
      * Getter for ID.
      *
-     * @return int|null
+     * @return int|null Id
      */
     public function getId(): ?int
     {
@@ -97,7 +97,7 @@ class Category
     /**
      * Getter for title.
      *
-     * @return string|null
+     * @return string|null Title
      */
     public function getTitle(): ?string
     {
@@ -107,7 +107,7 @@ class Category
     /**
      * Setter for title.
      *
-     * @param string $title
+     * @param string $title Title
      */
     public function setTitle(string $title): void
     {
@@ -117,7 +117,7 @@ class Category
     /**
      * Getter for description.
      *
-     * @return string|null
+     * @return string|null Description
      */
     public function getDescription(): ?string
     {
@@ -127,7 +127,7 @@ class Category
     /**
      * Setter for description.
      *
-     * @param string $description
+     * @param string $description Description
      */
     public function setDescription(string $description): void
     {
@@ -137,7 +137,7 @@ class Category
     /**
      * Getter for created at.
      *
-     * @return \DateTimeImmutable|null
+     * @return \DateTimeImmutable|null Date
      */
     public function getCreatedAt(): ?\DateTimeImmutable
     {
@@ -147,7 +147,7 @@ class Category
     /**
      * Setter for created at.
      *
-     * @param \DateTimeImmutable $createdAt
+     * @param \DateTimeImmutable $createdAt Date
      */
     public function setCreatedAt(\DateTimeImmutable $createdAt): void
     {
@@ -157,7 +157,7 @@ class Category
     /**
      * Getter for updated at.
      *
-     * @return \DateTimeImmutable|null
+     * @return \DateTimeImmutable|null Date
      */
     public function getUpdatedAt(): ?\DateTimeImmutable
     {
@@ -167,7 +167,7 @@ class Category
     /**
      * Setter for updated at.
      *
-     * @param \DateTimeImmutable $updatedAt
+     * @param \DateTimeImmutable $updatedAt Date
      */
     public function setUpdatedAt(\DateTimeImmutable $updatedAt): void
     {
@@ -177,7 +177,7 @@ class Category
     /**
      * Getter for slug.
      *
-     * @return string|null
+     * @return string|null Slug
      */
     public function getSlug(): ?string
     {
@@ -187,7 +187,7 @@ class Category
     /**
      * Setter for slug.
      *
-     * @param string $slug
+     * @param string $slug Slug
      */
     public function setSlug(string $slug): void
     {

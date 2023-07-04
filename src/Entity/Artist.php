@@ -2,6 +2,7 @@
 /**
  * Artist entity.
  */
+
 namespace App\Entity;
 
 use App\Repository\ArtistRepository;
@@ -21,7 +22,7 @@ class Artist
     /**
      * Primary key.
      *
-     * @var int|null
+     * @var int|null Id
      */
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -31,7 +32,7 @@ class Artist
     /**
      * Artist name.
      *
-     * @var string|null
+     * @var string|null Name
      */
     #[ORM\Column(length: 255)]
     #[Assert\Type('string')]
@@ -42,7 +43,7 @@ class Artist
     /**
      * Created at.
      *
-     * @var DateTimeImmutable|null
+     * @var \DateTimeImmutable|null Date
      */
     #[ORM\Column(type: 'date_immutable')]
     #[Assert\Type(\DateTimeImmutable::class)]
@@ -52,7 +53,7 @@ class Artist
     /**
      * Updated at.
      *
-     * @var DateTimeImmutable|null
+     * @var \DateTimeImmutable|null Date
      */
     #[ORM\Column(type: 'date_immutable')]
     #[Assert\Type(\DateTimeImmutable::class)]
@@ -62,7 +63,7 @@ class Artist
     /**
      * Artist description.
      *
-     * @var string|null
+     * @var string|null Description
      */
     #[ORM\Column(type: Types::TEXT)]
     #[Assert\Type('string')]
@@ -72,7 +73,8 @@ class Artist
 
     /**
      * Slug.
-     * @var string|null
+     *
+     * @var string|null Slug
      */
     #[ORM\Column(type: 'string', length: 255)]
     #[Assert\Type('string')]
@@ -83,7 +85,7 @@ class Artist
     /**
      * Getter for id.
      *
-     * @return int|null
+     * @return int|null Id
      */
     public function getId(): ?int
     {
@@ -93,18 +95,17 @@ class Artist
     /**
      * Getter for artist name.
      *
-     * @return string|null
+     * @return string|null Name
      */
     public function getName(): ?string
     {
         return $this->name;
     }
 
-
     /**
      * Setter for artist name.
      *
-     * @param string $name
+     * @param string $name Name
      */
     public function setName(string $name): void
     {
@@ -114,7 +115,7 @@ class Artist
     /**
      * Getter for created at.
      *
-     * @return DateTimeImmutable|null
+     * @return \DateTimeImmutable|null Date
      */
     public function getCreatedAt(): ?\DateTimeImmutable
     {
@@ -124,7 +125,7 @@ class Artist
     /**
      * Setter for created at.
      *
-     * @param DateTimeImmutable $createdAt
+     * @param \DateTimeImmutable $createdAt Date
      */
     public function setCreatedAt(\DateTimeImmutable $createdAt): void
     {
@@ -134,7 +135,7 @@ class Artist
     /**
      * Getter for updated at.
      *
-     * @return DateTimeImmutable|null
+     * @return \DateTimeImmutable|null Date
      */
     public function getUpdatedAt(): ?\DateTimeImmutable
     {
@@ -144,7 +145,7 @@ class Artist
     /**
      * Setter for updated at.
      *
-     * @param DateTimeImmutable $updatedAt
+     * @param \DateTimeImmutable $updatedAt Date
      */
     public function setUpdatedAt(\DateTimeImmutable $updatedAt): void
     {
@@ -154,7 +155,7 @@ class Artist
     /**
      * Getter for description.
      *
-     * @return string|null
+     * @return string|null Description
      */
     public function getDescription(): ?string
     {
@@ -164,7 +165,7 @@ class Artist
     /**
      * Setter for description.
      *
-     * @param string $description
+     * @param string $description Description
      */
     public function setDescription(string $description): void
     {
@@ -174,7 +175,7 @@ class Artist
     /**
      * Getter for slug.
      *
-     * @return string|null
+     * @return string|null Slug
      */
     public function getSlug(): ?string
     {
@@ -184,7 +185,7 @@ class Artist
     /**
      * Setter for slug.
      *
-     * @param string $slug
+     * @param string $slug Slug
      */
     public function setSlug(string $slug): void
     {

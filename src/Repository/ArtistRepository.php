@@ -30,7 +30,7 @@ class ArtistRepository extends ServiceEntityRepository
     /**
      * Constructor.
      *
-     * @param ManagerRegistry $registry
+     * @param ManagerRegistry $registry Registry
      */
     public function __construct(ManagerRegistry $registry)
     {
@@ -52,14 +52,13 @@ class ArtistRepository extends ServiceEntityRepository
     /**
      * Save entity.
      *
-     * @param Artist $artist
+     * @param Artist $artist Artist entity
      */
     public function save(Artist $artist): void
     {
         $this->_em->persist($artist);
         $this->_em->flush();
     }
-
 
     /**
      * Delete entity.

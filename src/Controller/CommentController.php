@@ -7,7 +7,6 @@ namespace App\Controller;
 
 use App\Entity\Comment;
 use App\Form\Type\CommentType;
-use App\Service\CommentService;
 use App\Service\CommentServiceInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -25,21 +24,23 @@ class CommentController extends AbstractController
 {
     /**
      * Comment service.
+     *
+     * @var CommentServiceInterface Comment Service
      */
-    private CommentService $commentService;
+    private CommentServiceInterface $commentService;
 
     /**
      * Translator interface.
      *
-     * @var TranslatorInterface
+     * @var TranslatorInterface Translator
      */
     private TranslatorInterface $translator;
 
     /**
      * Constructor.
      *
-     * @param CommentServiceInterface $commentService
-     * @param TranslatorInterface     $translator
+     * @param CommentServiceInterface $commentService Comment service
+     * @param TranslatorInterface     $translator     Translator
      */
     public function __construct(CommentServiceInterface $commentService, TranslatorInterface $translator)
     {

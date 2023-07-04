@@ -7,7 +7,6 @@ namespace App\Form\Type;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -19,20 +18,17 @@ class BlockUserType extends AbstractType
     /**
      * Form builder.
      *
-     * @param FormBuilderInterface $builder
-     * @param array                $options
-     *
-     * @return void
+     * @param FormBuilderInterface $builder Builder
+     * @param array                $options Options
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
     }
 
-
     /**
      * Configure options.
      *
-     * @param OptionsResolver $resolver
+     * @param OptionsResolver $resolver Resolver
      */
     public function configureOptions(OptionsResolver $resolver): void
     {

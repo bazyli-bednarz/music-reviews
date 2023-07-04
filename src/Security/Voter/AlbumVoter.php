@@ -2,6 +2,7 @@
 /**
  * Album Voter.
  */
+
 namespace App\Security\Voter;
 
 use App\Entity\Album;
@@ -19,21 +20,21 @@ class AlbumVoter extends Voter
     /**
      * Edit permission.
      *
-     * @const string
+     * @const string Edit
      */
     public const EDIT = 'EDIT';
 
     /**
      * Delete permission.
      *
-     * @const string
+     * @const string Delete
      */
     public const DELETE = 'DELETE';
 
     /**
      * Security helper.
      *
-     * @var Security
+     * @var Security Security
      */
     private Security $security;
 

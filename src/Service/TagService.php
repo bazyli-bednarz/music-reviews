@@ -1,17 +1,13 @@
 <?php
 /**
- * Album service.
+ * Tag service.
  */
 
 namespace App\Service;
 
 use App\Entity\Tag;
-use App\Repository\AlbumRepository;
 use App\Repository\TagRepository;
 use Doctrine\ORM\NonUniqueResultException;
-use Doctrine\ORM\NoResultException;
-use Knp\Component\Pager\Pagination\PaginationInterface;
-use Knp\Component\Pager\PaginatorInterface;
 
 /**
  * Class TagService.
@@ -33,7 +29,6 @@ class TagService implements TagServiceInterface
         $this->tagRepository = $tagRepository;
     }
 
-
     /**
      * Save entity.
      *
@@ -47,9 +42,7 @@ class TagService implements TagServiceInterface
     /**
      * Delete tag.
      *
-     * @param Tag $tag
-     *
-     * @return void
+     * @param Tag $tag Tag
      */
     public function delete(Tag $tag): void
     {
@@ -75,7 +68,7 @@ class TagService implements TagServiceInterface
      *
      * @return Tag|null Tag entity
      *
-     * @throws NonUniqueResultException
+     * @throws NonUniqueResultException NonUniqueResultException
      */
     public function findOneById(int $id): ?Tag
     {
@@ -85,9 +78,9 @@ class TagService implements TagServiceInterface
     /**
      * Find by slug.
      *
-     * @param string $slug
+     * @param string $slug Slug
      *
-     * @return Tag|null
+     * @return Tag|null Tag
      */
     public function findOneBySlug(string $slug): ?Tag
     {

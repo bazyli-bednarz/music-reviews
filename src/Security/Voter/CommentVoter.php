@@ -20,28 +20,28 @@ class CommentVoter extends Voter
     /**
      * Edit permission.
      *
-     * @const string
+     * @const string Edit
      */
     public const EDIT = 'EDIT';
 
     /**
      * Delete permission.
      *
-     * @const string
+     * @const string Delete
      */
     public const DELETE = 'DELETE';
 
     /**
      * Security.
      *
-     * @var Security
+     * @var Security Security
      */
     private Security $security;
 
     /**
-     * Contructor.
+     * Constructor.
      *
-     * @param Security $security
+     * @param Security $security Security
      */
     public function __construct(Security $security)
     {
@@ -51,10 +51,10 @@ class CommentVoter extends Voter
     /**
      * Determines if the attribute and subject are supported by this voter.
      *
-     * @param string $attribute
-     * @param mixed  $subject
+     * @param string $attribute Attribute
+     * @param mixed  $subject   Subject
      *
-     * @return bool
+     * @return bool Supports
      */
     protected function supports(string $attribute, mixed $subject): bool
     {
@@ -67,11 +67,11 @@ class CommentVoter extends Voter
     /**
      * Vote on attribute.
      *
-     * @param string         $attribute
-     * @param mixed          $subject
-     * @param TokenInterface $token
+     * @param string         $attribute Attribute
+     * @param mixed          $subject   Subject
+     * @param TokenInterface $token     Token
      *
-     * @return bool
+     * @return bool Vote
      */
     protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token): bool
     {

@@ -23,9 +23,7 @@ interface TagServiceInterface
     /**
      * Delete tag.
      *
-     * @param Tag $tag
-     *
-     * @return void
+     * @param Tag $tag Tag
      */
     public function delete(Tag $tag): void;
 
@@ -41,11 +39,11 @@ interface TagServiceInterface
     /**
      * Find by id.
      *
-     * @param string $slug
+     * @param string $slug Slug
      *
      * @return Tag|null Tag entity
      *
-     * @throws NonUniqueResultException
+     * @throws NonUniqueResultException NonUniqueResultException
      */
     public function findOneBySlug(string $slug): ?Tag;
 }

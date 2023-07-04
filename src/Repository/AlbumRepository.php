@@ -37,7 +37,7 @@ class AlbumRepository extends ServiceEntityRepository
     /**
      * Constructor.
      *
-     * @param ManagerRegistry $registry
+     * @param ManagerRegistry $registry Registry
      */
     public function __construct(ManagerRegistry $registry)
     {
@@ -47,9 +47,9 @@ class AlbumRepository extends ServiceEntityRepository
     /**
      * Query all records.
      *
-     * @param array $filters
+     * @param array $filters Filters
      *
-     * @return QueryBuilder
+     * @return QueryBuilder QueryBuilder
      */
     public function queryAll(array $filters = []): QueryBuilder
     {
@@ -73,9 +73,9 @@ class AlbumRepository extends ServiceEntityRepository
     /**
      * Query albums by category.
      *
-     * @param Category $category
+     * @param Category $category Category
      *
-     * @return QueryBuilder
+     * @return QueryBuilder QueryBuilder
      */
     public function queryByCategory(Category $category): QueryBuilder
     {
@@ -89,12 +89,12 @@ class AlbumRepository extends ServiceEntityRepository
     /**
      * Count albums by category.
      *
-     * @param Category $category
+     * @param Category $category Category
      *
-     * @return int
+     * @return int Albums
      *
-     * @throws NoResultException
-     * @throws NonUniqueResultException
+     * @throws NoResultException        NoResultException
+     * @throws NonUniqueResultException NonUniqueResultException
      */
     public function countByCategory(Category $category): int
     {
@@ -110,9 +110,9 @@ class AlbumRepository extends ServiceEntityRepository
     /**
      * Query albums by artist.
      *
-     * @param Artist $artist
+     * @param Artist $artist Artist
      *
-     * @return QueryBuilder
+     * @return QueryBuilder QueryBuilder
      */
     public function queryByArtist(Artist $artist): QueryBuilder
     {
@@ -124,14 +124,14 @@ class AlbumRepository extends ServiceEntityRepository
     }
 
     /**
-     * Count albums by category.
+     * Count albums by artist.
      *
-     * @param Artist $artist
+     * @param Artist $artist Artist
      *
-     * @return int
+     * @return int Albums
      *
-     * @throws NoResultException
-     * @throws NonUniqueResultException
+     * @throws NoResultException        NoResultException
+     * @throws NonUniqueResultException NonUniqueResultException
      */
     public function countByArtist(Artist $artist): int
     {
@@ -147,7 +147,7 @@ class AlbumRepository extends ServiceEntityRepository
     /**
      * Save album.
      *
-     * @param Album $album
+     * @param Album $album Album entity
      */
     public function save(Album $album): void
     {

@@ -8,7 +8,6 @@ namespace App\Service;
 use App\Entity\Album;
 use App\Entity\Cover;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Class Cover service.

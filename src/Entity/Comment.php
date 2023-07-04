@@ -20,6 +20,8 @@ class Comment
 {
     /**
      * Primary key.
+     *
+     * @var int|null Id
      */
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -28,6 +30,8 @@ class Comment
 
     /**
      * Comment.
+     *
+     * @var string|null Comment
      */
     #[ORM\Column(type: Types::TEXT)]
     #[Assert\Type('string')]
@@ -37,6 +41,8 @@ class Comment
 
     /**
      * Album rating.
+     *
+     * @var int|null Album rating
      */
     #[ORM\Column]
     #[Assert\Range(min: 1, max: 5)]
@@ -44,15 +50,18 @@ class Comment
 
     /**
      * Created at.
+     *
+     * @var \DateTimeImmutable|null Created at
      */
     #[ORM\Column(type: 'date_immutable')]
     #[Assert\Type(\DateTimeImmutable::class)]
     #[Gedmo\Timestampable(on: 'create')]
     private ?\DateTimeImmutable $createdAt = null;
 
-
     /**
      * Updated at.
+     *
+     * @var \DateTimeImmutable|null Updated at
      */
     #[ORM\Column(type: 'date_immutable')]
     #[Assert\Type(\DateTimeImmutable::class)]
@@ -62,7 +71,7 @@ class Comment
     /**
      * Album related to comment.
      *
-     * @var Album|null
+     * @var Album|null Album
      */
     #[ORM\ManyToOne(targetEntity: Album::class)]
     #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
@@ -71,7 +80,7 @@ class Comment
     /**
      * Comment author.
      *
-     * @var User|null
+     * @var User|null Author
      */
     #[ORM\ManyToOne(targetEntity: User::class, fetch: 'EXTRA_LAZY')]
     #[ORM\JoinColumn(nullable: false)]
@@ -82,7 +91,7 @@ class Comment
     /**
      * Getter for id.
      *
-     * @return int|null
+     * @return int|null Id
      */
     public function getId(): ?int
     {
@@ -92,7 +101,7 @@ class Comment
     /**
      * Getter for comment content.
      *
-     * @return string|null
+     * @return string|null Description
      */
     public function getDescription(): ?string
     {
@@ -102,7 +111,7 @@ class Comment
     /**
      * Setter for comment content.
      *
-     * @param string $description
+     * @param string $description Description
      */
     public function setDescription(string $description): void
     {
@@ -112,7 +121,7 @@ class Comment
     /**
      * Getter for comment rating.
      *
-     * @return int|null
+     * @return int|null Rating
      */
     public function getRating(): ?int
     {
@@ -122,7 +131,7 @@ class Comment
     /**
      * Setter for rating.
      *
-     * @param int $rating
+     * @param int $rating Rating
      */
     public function setRating(int $rating): void
     {
@@ -132,7 +141,7 @@ class Comment
     /**
      * Getter for created at.
      *
-     * @return \DateTimeImmutable|null
+     * @return \DateTimeImmutable|null Date
      */
     public function getCreatedAt(): ?\DateTimeImmutable
     {
@@ -142,7 +151,7 @@ class Comment
     /**
      * Setter for created at.
      *
-     * @param \DateTimeImmutable $createdAt
+     * @param \DateTimeImmutable $createdAt Date
      */
     public function setCreatedAt(\DateTimeImmutable $createdAt): void
     {
@@ -152,7 +161,7 @@ class Comment
     /**
      * Getter for updated at.
      *
-     * @return \DateTimeImmutable|null
+     * @return \DateTimeImmutable|null Date
      */
     public function getUpdatedAt(): ?\DateTimeImmutable
     {
@@ -162,7 +171,7 @@ class Comment
     /**
      * Setter for updated at.
      *
-     * @param \DateTimeImmutable $updatedAt
+     * @param \DateTimeImmutable $updatedAt Date
      */
     public function setUpdatedAt(\DateTimeImmutable $updatedAt): void
     {
@@ -172,7 +181,7 @@ class Comment
     /**
      * Getter for album.
      *
-     * @return Album|null
+     * @return Album|null Album
      */
     public function getAlbum(): ?Album
     {
@@ -182,7 +191,7 @@ class Comment
     /**
      * Setter for album.
      *
-     * @param Album|null $album
+     * @param Album|null $album Album
      */
     public function setAlbum(?Album $album): void
     {
@@ -192,7 +201,7 @@ class Comment
     /**
      * Get comment author.
      *
-     * @return User|null
+     * @return User|null Author
      */
     public function getAuthor(): ?User
     {
@@ -202,7 +211,7 @@ class Comment
     /**
      * Set comment author.
      *
-     * @param User|null $author
+     * @param User|null $author Author
      */
     public function setAuthor(?User $author): void
     {

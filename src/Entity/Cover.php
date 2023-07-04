@@ -20,7 +20,7 @@ class Cover
     /**
      * Primary key.
      *
-     * @var int|null
+     * @var int|null Id
      */
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -30,7 +30,7 @@ class Cover
     /**
      * Album.
      *
-     * @var Album|null
+     * @var Album|null Album
      */
     #[ORM\OneToOne(inversedBy: 'cover', targetEntity: Album::class, cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY')]
     #[ORM\JoinColumn(nullable: false)]
@@ -40,7 +40,7 @@ class Cover
     /**
      * Filename.
      *
-     * @var string|null
+     * @var string|null Filename
      */
     #[ORM\Column(type: 'string', length: 191)]
     #[Assert\Type('string')]
@@ -85,7 +85,6 @@ class Cover
     {
         return $this->filename;
     }
-
 
     /**
      * Setter for filename.

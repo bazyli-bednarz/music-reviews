@@ -24,7 +24,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Primary key.
      *
-     * @var int|null
+     * @var int|null Id
      */
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -34,7 +34,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Email.
      *
-     * @var string|null
+     * @var string|null Email
      */
     #[ORM\Column(type: 'string', length: 180, unique: true)]
     #[Assert\NotBlank]
@@ -44,7 +44,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Roles.
      *
-     * @var array<int, string>
+     * @var array<int, string> Roles
      */
     #[ORM\Column(type: 'json')]
     private array $roles = [];
@@ -52,7 +52,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Hashed password.
      *
-     * @var string|null
+     * @var string|null Password
      */
     #[ORM\Column(type: 'string')]
     #[Assert\NotBlank]
@@ -61,7 +61,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Username.
      *
-     * @var string|null
+     * @var string|null Username
      */
     #[ORM\Column(length: 50)]
     #[Assert\NotBlank]
@@ -74,7 +74,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Username.
      *
-     * @var string|null
+     * @var string|null Username
      */
     #[ORM\Column(length: 50)]
     #[Assert\Type('string')]
@@ -88,7 +88,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Is user blocked.
      *
-     * @var bool|null
+     * @var bool|null Blocked
      */
     #[ORM\Column(nullable: true)]
     private ?bool $blocked = false;
@@ -102,7 +102,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return $this->id;
     }
-
 
     /**
      * Getter for email.
@@ -127,7 +126,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * A visual identifier that represents this user.
      *
-     * @see UserInterface
+     * @see UserInterface User interface
      *
      * @return string User identifier
      */
@@ -136,20 +135,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return (string) $this->email;
     }
 
-//    /**
-//     * @deprecated since Symfony 5.3, use getUserIdentifier instead
-//     */
-//    public function getUsername(): string
-//    {
-//        return (string) $this->email;
-//    }
-
     /**
      * Getter for roles.
      *
      * @return array<int, string> Roles
      *
-     * @see UserInterface
+     * @see UserInterface UserInterface
      */
     public function getRoles(): array
     {
@@ -159,7 +150,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return array_unique($roles);
     }
-
 
     /**
      * Setter for roles.
@@ -176,7 +166,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      *
      * @return string|null Password
      *
-     * @see PasswordAuthenticatedUserInterface
+     * @see PasswordAuthenticatedUserInterface PasswordAuthenticatedUserInterface
      */
     public function getPassword(): ?string
     {
@@ -197,7 +187,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * Returning a salt is only needed, if you are not using a modern
      * hashing algorithm (e.g. bcrypt or sodium) in your security.yaml.
      *
-     * @return string|null
+     * @return string|null Salt
      */
     public function getSalt(): ?string
     {
@@ -207,7 +197,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Removes sensitive information from the token.
      *
-     * @see UserInterface
+     * @see UserInterface UserInterface
      */
     public function eraseCredentials()
     {
@@ -218,7 +208,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Setter for username.
      *
-     * @param string $username
+     * @param string $username Username
      */
     public function setUsername(string $username): void
     {
@@ -228,18 +218,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Getter for username.
      *
-     * @return string|null
+     * @return string|null Username
      */
     public function getUsername(): ?string
     {
         return $this->username;
     }
 
-
     /**
      * Getter for slug.
      *
-     * @return string|null
+     * @return string|null Slug
      */
     public function getSlug(): ?string
     {
@@ -249,7 +238,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Setter for slug.
      *
-     * @param string $slug
+     * @param string $slug Slug
      */
     public function setSlug(string $slug): void
     {
@@ -259,7 +248,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Is user blocked?
      *
-     * @return bool|null
+     * @return bool|null Blocked
      */
     public function isBlocked(): ?bool
     {
@@ -269,14 +258,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Set user blocked status.
      *
-     * @param bool|null $blocked
-     *
-     * @return $this
+     * @param bool|null $blocked Blocked
      */
-    public function setBlocked(?bool $blocked): self
+    public function setBlocked(?bool $blocked): void
     {
         $this->blocked = $blocked;
-
-        return $this;
     }
 }

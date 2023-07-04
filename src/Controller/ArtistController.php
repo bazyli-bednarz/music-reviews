@@ -8,7 +8,6 @@ namespace App\Controller;
 use App\Entity\Artist;
 use App\Form\Type\ArtistType;
 use App\Service\AlbumServiceInterface;
-use App\Service\ArtistService;
 use App\Service\ArtistServiceInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -26,29 +25,31 @@ class ArtistController extends AbstractController
 {
     /**
      * Artist service.
+     *
+     * @var ArtistServiceInterface Artist service
      */
-    private ArtistService $artistService;
+    private ArtistServiceInterface $artistService;
 
     /**
      * Translator interface.
      *
-     * @var TranslatorInterface
+     * @var TranslatorInterface Translator
      */
     private TranslatorInterface $translator;
 
     /**
      * Album service.
      *
-     * @var AlbumServiceInterface
+     * @var AlbumServiceInterface Album service
      */
     private AlbumServiceInterface $albumService;
 
     /**
      * Constructor.
      *
-     * @param ArtistServiceInterface $artistService
-     * @param TranslatorInterface    $translator
-     * @param AlbumServiceInterface  $albumService
+     * @param ArtistServiceInterface $artistService Artist service
+     * @param TranslatorInterface    $translator    Translator
+     * @param AlbumServiceInterface  $albumService  Album service
      */
     public function __construct(ArtistServiceInterface $artistService, TranslatorInterface $translator, AlbumServiceInterface $albumService)
     {
@@ -60,9 +61,9 @@ class ArtistController extends AbstractController
     /**
      * Index action.
      *
-     * @param Request $request
+     * @param Request $request Request
      *
-     * @return Response
+     * @return Response Response
      */
     #[Route(
         name: 'artist_index',
@@ -116,14 +117,13 @@ class ArtistController extends AbstractController
         );
     }
 
-
     /**
      * Show action.
      *
-     * @param Request $request
-     * @param Artist  $artist
+     * @param Request $request Request
+     * @param Artist  $artist  Artist
      *
-     * @return Response
+     * @return Response Response
      */
     #[Route(
         '/{slug}',

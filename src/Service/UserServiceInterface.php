@@ -16,12 +16,11 @@ interface UserServiceInterface
     /**
      * Get paginated list of users.
      *
-     * @param int $page
+     * @param int $page Page number
      *
-     * @return PaginationInterface
+     * @return PaginationInterface Paginator
      */
     public function getPaginatedList(int $page): PaginationInterface;
-
 
     /**
      * Save entity.
@@ -33,28 +32,24 @@ interface UserServiceInterface
     /**
      * Delete user.
      *
-     * @param User $user
-     *
-     * @return void
+     * @param User $user User
      */
     public function delete(User $user): void;
 
     /**
      * Can user be deleted?
      *
-     * @param User $user
+     * @param User $user User
      *
-     * @return bool
+     * @return bool Can be deleted
      */
     public function canBeDeleted(User $user): bool;
 
     /**
      * Upgrade password.
      *
-     * @param User   $user
-     * @param string $password
-     *
-     * @return void
+     * @param User   $user     User
+     * @param string $password Password
      */
     public function upgradePassword(User $user, string $password): void;
 }

@@ -22,7 +22,7 @@ class CoverRepository extends ServiceEntityRepository
     /**
      * Constructor.
      *
-     * @param ManagerRegistry $registry
+     * @param ManagerRegistry $registry Registry
      */
     public function __construct(ManagerRegistry $registry)
     {
@@ -32,7 +32,7 @@ class CoverRepository extends ServiceEntityRepository
     /**
      * Save cover.
      *
-     * @param Cover $cover
+     * @param Cover $cover Cover
      */
     public function save(Cover $cover): void
     {

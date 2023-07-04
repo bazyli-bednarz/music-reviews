@@ -2,6 +2,7 @@
 /**
  * Change password type.
  */
+
 namespace App\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
@@ -18,10 +19,8 @@ class ChangePasswordType extends AbstractType
     /**
      * Build form.
      *
-     * @param FormBuilderInterface $builder
-     * @param array                $options
-     *
-     * @return void
+     * @param FormBuilderInterface $builder Builder
+     * @param array                $options Options
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -51,9 +50,7 @@ class ChangePasswordType extends AbstractType
     /**
      * Configure options.
      *
-     * @param OptionsResolver $resolver
-     *
-     * @return void
+     * @param OptionsResolver $resolver Resolver
      */
     public function configureOptions(OptionsResolver $resolver): void
     {

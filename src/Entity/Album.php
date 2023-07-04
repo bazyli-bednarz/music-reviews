@@ -22,6 +22,8 @@ class Album
 {
     /**
      * Primary key.
+     *
+     * @var int|null Id
      */
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -30,6 +32,8 @@ class Album
 
     /**
      * Album title.
+     *
+     * @var string|null Album title
      */
     #[ORM\Column(length: 255)]
     #[Assert\Type('string')]
@@ -39,6 +43,8 @@ class Album
 
     /**
      * Album year of creation.
+     *
+     * @var int|null Album year of creation
      */
     #[ORM\Column]
     #[Assert\Positive]
@@ -46,6 +52,8 @@ class Album
 
     /**
      * Album review.
+     *
+     * @var string|null Album review
      */
     #[ORM\Column(type: Types::TEXT)]
     #[Assert\Type('string')]
@@ -55,6 +63,8 @@ class Album
 
     /**
      * Album mark.
+     *
+     * @var int|null Album mark
      */
     #[ORM\Column]
     #[Assert\Range(min: 1, max: 5)]
@@ -62,6 +72,8 @@ class Album
 
     /**
      * Created at.
+     *
+     * @var \DateTimeImmutable|null Created at
      */
     #[ORM\Column(type: 'date_immutable')]
     #[Assert\Type(\DateTimeImmutable::class)]
@@ -70,6 +82,8 @@ class Album
 
     /**
      * Updated at.
+     *
+     * @var \DateTimeImmutable|null Updated at
      */
     #[ORM\Column(type: 'date_immutable')]
     #[Assert\Type(\DateTimeImmutable::class)]
@@ -79,7 +93,7 @@ class Album
     /**
      * Album category.
      *
-     * @var Category|null
+     * @var Category|null Categories
      */
     #[ORM\ManyToOne(targetEntity: Category::class)]
     #[ORM\JoinColumn(nullable: false)]
@@ -87,7 +101,8 @@ class Album
 
     /**
      * Slug.
-     * @var string|null
+     *
+     * @var string|null Slug
      */
     #[ORM\Column(type: 'string', length: 255)]
     #[Assert\Type('string')]
@@ -98,18 +113,17 @@ class Album
     /**
      * Tags.
      *
-     * @var Collection<int, Tag>
+     * @var Collection<int, Tag> Tags
      */
     #[Assert\Valid]
     #[ORM\ManyToMany(targetEntity: Tag::class, fetch: 'EXTRA_LAZY', orphanRemoval: true)]
     #[ORM\JoinTable(name: 'albums_tags')]
     private Collection $tags;
 
-
     /**
      * Artists.
      *
-     * @var Collection<int, Artist>
+     * @var Collection<int, Artist> Artists
      */
     #[Assert\Valid]
     #[ORM\ManyToMany(targetEntity: Artist::class, fetch: 'EXTRA_LAZY')]
@@ -119,7 +133,7 @@ class Album
     /**
      * Album review author.
      *
-     * @var User|null
+     * @var User|null User
      */
     #[ORM\ManyToOne(targetEntity: User::class)]
     #[ORM\JoinColumn(nullable: false)]
@@ -142,7 +156,7 @@ class Album
     /**
      * Getter for id.
      *
-     * @return int|null
+     * @return int|null Id
      */
     public function getId(): ?int
     {
@@ -152,7 +166,7 @@ class Album
     /**
      * Getter for title.
      *
-     * @return string|null
+     * @return string|null Title
      */
     public function getTitle(): ?string
     {
@@ -162,7 +176,7 @@ class Album
     /**
      * Setter for title.
      *
-     * @param string $title
+     * @param string $title Title
      */
     public function setTitle(string $title): void
     {
@@ -172,7 +186,7 @@ class Album
     /**
      * Getter for year.
      *
-     * @return int|null
+     * @return int|null Year
      */
     public function getYear(): ?int
     {
@@ -182,7 +196,7 @@ class Album
     /**
      * Setter for year.
      *
-     * @param int $year
+     * @param int $year Year
      */
     public function setYear(int $year): void
     {
@@ -192,7 +206,7 @@ class Album
     /**
      * Getter for review.
      *
-     * @return string|null
+     * @return string|null Description
      */
     public function getDescription(): ?string
     {
@@ -202,7 +216,7 @@ class Album
     /**
      * Setter for review.
      *
-     * @param string $description
+     * @param string $description Description
      */
     public function setDescription(string $description): void
     {
@@ -212,7 +226,7 @@ class Album
     /**
      * Getter for mark.
      *
-     * @return int|null
+     * @return int|null Reviewer's mark
      */
     public function getMark(): ?int
     {
@@ -222,7 +236,7 @@ class Album
     /**
      * Setter for mark.
      *
-     * @param int $mark
+     * @param int $mark Reviewer's mark
      */
     public function setMark(int $mark): void
     {
@@ -232,7 +246,7 @@ class Album
     /**
      * Getter for created at.
      *
-     * @return \DateTimeImmutable|null
+     * @return \DateTimeImmutable|null Date
      */
     public function getCreatedAt(): ?\DateTimeImmutable
     {
@@ -242,7 +256,7 @@ class Album
     /**
      * Setter for created at.
      *
-     * @param \DateTimeImmutable $createdAt
+     * @param \DateTimeImmutable $createdAt Date
      */
     public function setCreatedAt(\DateTimeImmutable $createdAt): void
     {
@@ -252,7 +266,7 @@ class Album
     /**
      * Getter for updated at.
      *
-     * @return \DateTimeImmutable|null
+     * @return \DateTimeImmutable|null Date
      */
     public function getUpdatedAt(): ?\DateTimeImmutable
     {
@@ -262,7 +276,7 @@ class Album
     /**
      * Setter for updated at.
      *
-     * @param \DateTimeImmutable $updatedAt
+     * @param \DateTimeImmutable $updatedAt Date
      */
     public function setUpdatedAt(\DateTimeImmutable $updatedAt): void
     {
@@ -272,18 +286,17 @@ class Album
     /**
      * Getter for category.
      *
-     * @return Category|null
+     * @return Category|null Category
      */
     public function getCategory(): ?Category
     {
         return $this->category;
     }
 
-
     /**
      * Setter for category.
      *
-     * @param Category|null $category
+     * @param Category|null $category Category
      */
     public function setCategory(?Category $category): void
     {
@@ -293,7 +306,7 @@ class Album
     /**
      * Getter for slug.
      *
-     * @return string|null
+     * @return string|null Slug
      */
     public function getSlug(): ?string
     {
@@ -303,7 +316,7 @@ class Album
     /**
      * Setter for slug.
      *
-     * @param string $slug
+     * @param string $slug Slug
      */
     public function setSlug(string $slug): void
     {
@@ -313,7 +326,7 @@ class Album
     /**
      * Get tags.
      *
-     * @return Collection<int, Tag>
+     * @return Collection<int, Tag> Tags
      */
     public function getTags(): Collection
     {
@@ -323,7 +336,7 @@ class Album
     /**
      * Add tag.
      *
-     * @param Tag $tag
+     * @param Tag $tag Tag
      */
     public function addTag(Tag $tag): void
     {
@@ -345,7 +358,7 @@ class Album
     /**
      * Get artists.
      *
-     * @return Collection<int, Artist>
+     * @return Collection<int, Artist> Artists
      */
     public function getArtists(): Collection
     {
@@ -355,7 +368,7 @@ class Album
     /**
      * Add artist.
      *
-     * @param Artist $artist
+     * @param Artist $artist Artist
      */
     public function addArtist(Artist $artist): void
     {
@@ -367,7 +380,7 @@ class Album
     /**
      * Remove artist.
      *
-     * @param Artist $artist
+     * @param Artist $artist Artist
      */
     public function removeArtist(Artist $artist): void
     {
@@ -377,7 +390,7 @@ class Album
     /**
      * Getter for author.
      *
-     * @return User|null
+     * @return User|null Author
      */
     public function getAuthor(): ?User
     {
@@ -387,9 +400,7 @@ class Album
     /**
      * Setter for author.
      *
-     * @param User|null $author
-     *
-     * @return void
+     * @param User|null $author Author
      */
     public function setAuthor(?User $author): void
     {
@@ -399,7 +410,7 @@ class Album
     /**
      * Getter for album cover.
      *
-     * @return Cover|null
+     * @return Cover|null Cover
      */
     public function getCover(): ?Cover
     {
@@ -409,7 +420,7 @@ class Album
     /**
      * Setter for album cover.
      *
-     * @param Cover $cover
+     * @param Cover $cover Cover
      */
     public function setCover(Cover $cover): void
     {

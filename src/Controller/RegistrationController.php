@@ -25,14 +25,14 @@ class RegistrationController extends AbstractController
     /**
      * Translator.
      *
-     * @var TranslatorInterface
+     * @var TranslatorInterface Translator
      */
     private TranslatorInterface $translator;
 
     /**
      * Constructor.
      *
-     * @param TranslatorInterface $translator
+     * @param TranslatorInterface $translator Translator
      */
     public function __construct(TranslatorInterface $translator)
     {
@@ -42,13 +42,13 @@ class RegistrationController extends AbstractController
     /**
      * Register action.
      *
-     * @param Request                     $request
-     * @param UserPasswordHasherInterface $userPasswordHasher
-     * @param UserAuthenticatorInterface  $userAuthenticator
-     * @param LoginFormAuthenticator      $authenticator
-     * @param EntityManagerInterface      $entityManager
+     * @param Request                     $request            Request
+     * @param UserPasswordHasherInterface $userPasswordHasher Hasher
+     * @param UserAuthenticatorInterface  $userAuthenticator  Authenticator
+     * @param LoginFormAuthenticator      $authenticator      Authenticator
+     * @param EntityManagerInterface      $entityManager      Entity manager
      *
-     * @return Response
+     * @return Response Response
      */
     #[Route(
         '/register',

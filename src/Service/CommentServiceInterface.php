@@ -7,8 +7,6 @@ namespace App\Service;
 
 use App\Entity\Album;
 use App\Entity\Comment;
-use App\Entity\Artist;
-use App\Entity\Category;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
 use Knp\Component\Pager\Pagination\PaginationInterface;
@@ -21,40 +19,40 @@ interface CommentServiceInterface
     /**
      * Get paginated list of comments.
      *
-     * @param int $page
+     * @param int $page Page number
      *
-     * @return PaginationInterface
+     * @return PaginationInterface Paginator
      */
     public function getPaginatedList(int $page): PaginationInterface;
 
     /**
      * Get paginated list of comments by album.
      *
-     * @param Album $album
-     * @param int   $page
+     * @param Album $album Album
+     * @param int   $page  Page number
      *
-     * @return PaginationInterface
+     * @return PaginationInterface Paginator
      */
     public function getPaginatedListByAlbum(Album $album, int $page): PaginationInterface;
 
     /**
      * Count comments in album.
      *
-     * @param Album $album
+     * @param Album $album Album
      *
-     * @return int
+     * @return int Number of albums
      *
-     * @throws NoResultException
-     * @throws NonUniqueResultException
+     * @throws NoResultException        NoResultException
+     * @throws NonUniqueResultException NonUniqueResultException
      */
     public function countByAlbum(Album $album): int;
 
     /**
      * Average album user rating.
      *
-     * @param Album $album
+     * @param Album $album Albun
      *
-     * @return float
+     * @return float Album rating
      */
     public function getAverageUserRating(Album $album): float;
 

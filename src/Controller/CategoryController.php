@@ -8,7 +8,6 @@ namespace App\Controller;
 use App\Entity\Category;
 use App\Form\Type\CategoryType;
 use App\Service\AlbumServiceInterface;
-use App\Service\CategoryService;
 use App\Service\CategoryServiceInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -26,29 +25,31 @@ class CategoryController extends AbstractController
 {
     /**
      * Category service.
+     *
+     * @var CategoryServiceInterface Category service
      */
-    private CategoryService $categoryService;
+    private CategoryServiceInterface $categoryService;
 
     /**
      * Translator interface.
      *
-     * @var TranslatorInterface
+     * @var TranslatorInterface Translator
      */
     private TranslatorInterface $translator;
 
     /**
      * Album service.
      *
-     * @var AlbumServiceInterface
+     * @var AlbumServiceInterface Album service
      */
     private AlbumServiceInterface $albumService;
 
     /**
      * Constructor.
      *
-     * @param CategoryServiceInterface $categoryService
-     * @param TranslatorInterface      $translator
-     * @param AlbumServiceInterface    $albumService
+     * @param CategoryServiceInterface $categoryService Category service
+     * @param TranslatorInterface      $translator      Translator
+     * @param AlbumServiceInterface    $albumService    Album service
      */
     public function __construct(CategoryServiceInterface $categoryService, TranslatorInterface $translator, AlbumServiceInterface $albumService)
     {
@@ -60,9 +61,9 @@ class CategoryController extends AbstractController
     /**
      * Index action.
      *
-     * @param Request $request
+     * @param Request $request Request
      *
-     * @return Response
+     * @return Response Response
      */
     #[Route(
         name: 'category_index',
@@ -119,10 +120,10 @@ class CategoryController extends AbstractController
     /**
      * Show action.
      *
-     * @param Request  $request
-     * @param Category $category
+     * @param Request  $request  Request
+     * @param Category $category Category
      *
-     * @return Response
+     * @return Response Response
      */
     #[Route(
         '/{slug}',
@@ -145,7 +146,6 @@ class CategoryController extends AbstractController
             ['category' => $category, 'pagination' => $pagination]
         );
     }
-
 
     /**
      * Edit action.

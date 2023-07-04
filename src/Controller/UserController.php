@@ -26,22 +26,22 @@ class UserController extends AbstractController
     /**
      * User service.
      *
-     * @var UserServiceInterface
+     * @var UserServiceInterface User service
      */
     private UserServiceInterface $userService;
 
     /**
      * Translator interface.
      *
-     * @var TranslatorInterface
+     * @var TranslatorInterface Translator
      */
     private TranslatorInterface $translator;
 
     /**
      * Constructor.
      *
-     * @param UserServiceInterface $userService
-     * @param TranslatorInterface  $translator
+     * @param UserServiceInterface $userService User service
+     * @param TranslatorInterface  $translator  Translator
      */
     public function __construct(UserServiceInterface $userService, TranslatorInterface $translator)
     {
@@ -52,9 +52,9 @@ class UserController extends AbstractController
     /**
      * Index action.
      *
-     * @param Request $request
+     * @param Request $request Request
      *
-     * @return Response
+     * @return Response Response
      */
     #[Route(
         name: 'user_index',
@@ -75,10 +75,10 @@ class UserController extends AbstractController
     /**
      * Show action.
      *
-     * @param Request $request
-     * @param User    $user
+     * @param Request $request Request
+     * @param User    $user    User
      *
-     * @return Response
+     * @return Response Response
      */
     #[Route(
         '/{slug}',
@@ -97,12 +97,12 @@ class UserController extends AbstractController
     /**
      * Change password action.
      *
-     * @param Request                     $request
-     * @param UserPasswordHasherInterface $userPasswordHasher
-     * @param TranslatorInterface         $translator
-     * @param User                        $user
+     * @param Request                     $request            Request
+     * @param UserPasswordHasherInterface $userPasswordHasher Hasher
+     * @param TranslatorInterface         $translator         Translator
+     * @param User                        $user               User
      *
-     * @return Response
+     * @return Response Response
      */
     #[Route(
         '/{slug}/change-password',
@@ -140,7 +140,6 @@ class UserController extends AbstractController
 
             return $this->redirectToRoute('user_index');
         }
-
 
         return $this->render(
             'user/change-password.html.twig',
